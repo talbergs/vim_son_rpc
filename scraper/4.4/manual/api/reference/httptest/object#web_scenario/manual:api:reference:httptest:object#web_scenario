@@ -1,0 +1,58 @@
+===== > Web scenario object =====
+
+The following objects are directly related to the ''webcheck'' API.
+
+==== Web scenario ====
+
+The web scenario object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| httptestid  | string  | //(readonly)// ID of the web scenario.  |
+| **hostid** \\ (required) | string | ID of the host that the web scenario belongs to. |
+| **name** \\ (required) | string | Name of the web scenario. |
+| agent | string | User agent string that will be used by the web scenario.\\ \\ Default: Zabbix |
+| applicationid | string | ID of the application that the web scenario belongs to. |
+| authentication | integer | Authentication method that will be used by the web scenario. \\ \\ Possible values: \\ 0 - //(default)// none; \\ 1 - basic HTTP authentication; \\ 2 - NTLM authentication. |
+| delay | string | Execution interval of the web scenario. Accepts seconds, time unit with suffix and user macro. \\ \\ Default: 1m. |
+| headers | array of [[manual:api:reference:httptest:object#HTTP field|HTTP fields]] | HTTP headers that will be sent when performing a request. |
+| http_password | string | Password used for basic HTTP or NTLM authentication. |
+| http_proxy | string | Proxy that will be used by the web scenario given as //%%http://[username[:password]@]proxy.example.com[:port]%%//. |
+| http_user | string | User name used for basic HTTP or NTLM authentication. |
+| nextcheck | timestamp | //(readonly)// Time of the next web scenario execution. |
+| retries | integer | Number of times a web scenario will try to execute each step before failing. \\ \\ Default: 1. |
+| ssl_cert_file | string | Name of the SSL certificate file used for client authentication (must be in PEM format). |
+| ssl_key_file | string | Name of the SSL private key file used for client authentication (must be in PEM format). |
+| ssl_key_password | string | SSL private key password. |
+| status | integer | Whether the web scenario is enabled. \\ \\ Possible values are: \\ 0 - //(default)// enabled; \\ 1 - disabled. |
+| templateid | string | //(readonly)// ID of the parent template web scenario. |
+| variables | array of [[manual:api:reference:httptest:object#HTTP field|HTTP fields]] | Web scenario variables. |
+| verify_host | integer | Whether to verify that the host name specified in the SSL certificate matches the one used in the scenario. \\ \\ Possible values are: \\ 0 - //(default)// skip host verification; \\ 1 - verify host. |
+| verify_peer | integer | Whether to verify the SSL certificate of the web server. \\ \\ Possible values are: \\ 0 - //(default)// skip peer verification; \\ 1 - verify peer. |
+
+==== Scenario step ====
+
+The scenario step object defines a specific web scenario check. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| httpstepid  | string  | //(readonly)// ID of the scenario step.  |
+| **name** \\ (required) | string | Name of the scenario step. |
+| **no** \\ (required) | integer | Sequence number of the step in a web scenario. |
+| **url** \\ (required) | string | URL to be checked. |
+| follow_redirects | integer | Whether to follow HTTP redirects. \\ \\ Possible values are: \\ 0 - don't follow redirects; \\ 1 - //(default)// follow redirects. |
+| headers | array of [[manual:api:reference:httptest:object#HTTP field|HTTP fields]] | HTTP headers that will be sent when performing a request. Scenario step headers will overwrite headers specified for the web scenario. |
+| httptestid | string | //(readonly)// ID of the web scenario that the step belongs to. |
+| posts | string \\ array of [[manual:api:reference:httptest:object#HTTP field|HTTP fields]] | HTTP POST variables as a string (raw post data) or as an array of [[manual:api:reference:httptest:object#HTTP field|HTTP fields]] (form field data). |
+| required | string | Text that must be present in the response. |
+| retrieve_mode | integer | Part of the HTTP response that the scenario step must retrieve. \\ \\ Possible values are: \\ 0 - //(default)// only body; \\ 1 - only headers; \\ 2 - headers and body. |
+| status_codes | string | Ranges of required HTTP status codes separated by commas. |
+| timeout | string | Request timeout in seconds. Accepts seconds, time unit with suffix and user macro. \\ \\ Default: 15s. |
+| variables | array of [[manual:api:reference:httptest:object#HTTP field|HTTP fields]] | Scenario step variables. |
+| query_fields | array of [[manual:api:reference:httptest:object#HTTP field|HTTP fields]] | Query fields - array of [[manual:api:reference:httptest:object#HTTP field|HTTP fields]] that will be added to URL when performing a request |
+
+==== HTTP field ====
+
+The HTTP field object defines a name and value that is used to specify variable, HTTP header, POST form field data of query field data. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| **name** \\ (required) | string | Name of header / variable / POST or GET field. |
+| **value** \\ (required) | string | Value of header / variable / POST or GET field. |

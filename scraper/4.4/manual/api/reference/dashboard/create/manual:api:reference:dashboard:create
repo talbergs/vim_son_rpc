@@ -1,0 +1,104 @@
+===== dashboard.create =====
+
+==== Description ====
+
+''object dashboard.create(object/array **dashboards**)''
+
+This method allows to create new dashboards.
+
+==== Parameters ====
+
+''(object/array)'' Dashboards to create.
+
+Additionally to the [[object#dashboard|standard dashboard properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| widgets | array | [[object#dashboard_widget|Dashboard widgets]] to be created for the dashboard. |
+| users | array | [[object#dashboard_user|Dashboard user]] shares to be created on the dashboard. |
+| userGroups | array | [[object#dashboard_user_group|Dashboard user group]] shares to be created on the dashboard. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created dashboards under the ''dashboardids'' property. The order of the returned IDs matches the order of the passed dashboards.
+
+==== Examples ====
+
+=== Creating a dashboard ===
+
+Create a dashboard named "My dashboard" with one Problems widget with tags and using two types of sharing (user group and user).
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "dashboard.create",
+    "params": {
+        "name": "My dashboard",
+        "widgets": [
+            {
+                "type": "problems",
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 5,
+                "view_mode": 0,
+                "fields": [
+                    {
+                        "type": 1,
+                        "name": "tags.tag.0",
+                        "value": "service"
+                    },
+                    {
+                        "type": 0,
+                        "name": "tags.operator.0",
+                        "value": 1
+                    },
+                    {
+                        "type": 1,
+                        "name": "tags.value.0",
+                        "value": "zabbix_server"
+                    }
+                ]
+            }
+        ],
+        "userGroups": [
+            {
+                "usrgrpid": "7",
+                "permission": "2"
+            }
+        ],
+        "users": [
+            {
+                "userid": "4",
+                "permission": "3"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "dashboardids": [
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#dashboard_widget|Dashboard widget]]
+  * [[object#dashboard_widget_field|Dashboard widget field]]
+  * [[object#dashboard_user|Dashboard user]]
+  * [[object#dashboard_user_group|Dashboatd user group]]
+
+==== Source ====
+
+CDashboard::create() in //frontends/php/include/classes/api/services/CDashboard.php//.

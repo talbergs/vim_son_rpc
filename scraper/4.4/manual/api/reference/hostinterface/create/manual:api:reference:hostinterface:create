@@ -1,0 +1,61 @@
+===== hostinterface.create =====
+
+==== Description ====
+
+''object hostinterface.create(object/array **hostInterfaces**)''
+
+This method allows to create new host interfaces.
+
+==== Parameters ====
+
+''(object/array)'' Host interfaces to create. The method accepts host interfaces with the [[object#host_interface|standard host interface properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created host interfaces under the ''interfaceids'' property. The order of the returned IDs matches the order of the passed host interfaces.
+
+==== Examples ====
+
+=== Create a new interface ===
+
+Create a secondary IP agent interface on host "30052."
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostinterface.create",
+    "params": {
+        "hostid": "30052",
+        "dns": "",
+        "ip": "127.0.0.1",
+        "main": 0,
+        "port": "10050",
+        "type": 1,
+        "useip": 1
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "interfaceids": [
+            "30062"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[massadd|hostinterface.massadd]]
+  * [[manual:api:reference:host:massadd|host.massadd]]
+==== Source ====
+
+CHostInterface::create() in //frontends/php/include/classes/api/services/CHostInterface.php//.

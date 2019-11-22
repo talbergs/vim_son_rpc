@@ -1,0 +1,16 @@
+===== Template =====
+
+This class is designed to work with templates. 
+
+Object references: \\
+  * [[manual:api:reference:template:object#template|Template]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:template:create|template.create]]'' - creating new templates
+  * ''[[manual:api:reference:template:delete|template.delete]]'' - deleting templates
+  * ''[[manual:api:reference:template:get|template.get]]'' - retrieving templates
+  * ''[[manual:api:reference:template:massadd|template.massadd]]'' - adding related objects to templates
+  * ''[[manual:api:reference:template:massremove|template.massremove]]'' - removing related objects from templates
+  * ''[[manual:api:reference:template:massupdate|template.massupdate]]'' - replacing or removing related objects from templates
+  * ''[[manual:api:reference:template:update|template.update]]'' - updating templates

@@ -1,0 +1,53 @@
+===== screen.delete =====
+
+==== Description ====
+
+''object screen.delete(array **screenIds**)''
+
+This method allows to delete screens.
+
+==== Parameters ====
+
+''(array)'' IDs of the screens to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted screens under the ''screenids'' property.
+
+==== Examples ====
+
+=== Deleting multiple screens ===
+
+Delete two screens.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screen.delete",
+    "params": [
+        "25",
+        "26"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenids": [
+            "25",
+            "26"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CScreen::delete() in //frontends/php/include/classes/api/services/CScreen.php//.

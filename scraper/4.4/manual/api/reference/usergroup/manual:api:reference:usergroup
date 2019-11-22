@@ -1,0 +1,13 @@
+===== User group =====
+
+This class is designed to work with user groups. 
+
+Object references: \\
+  * [[manual:api:reference:usergroup:object#user_group|User group]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:usergroup:create|usergroup.create]]'' - creating new user groups
+  * ''[[manual:api:reference:usergroup:delete|usergroup.delete]]'' - deleting user groups
+  * ''[[manual:api:reference:usergroup:get|usergroup.get]]'' - retrieving user groups
+  * ''[[manual:api:reference:usergroup:update|usergroup.update]]'' - updating user groups

@@ -1,0 +1,80 @@
+===== user.create =====
+
+==== Description ====
+
+''object user.create(object/array **users**)''
+
+This method allows to create new users.
+
+==== Parameters ====
+
+''(object/array)'' Users to create.
+
+Additionally to the [[object#user|standard user properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **passwd** \\ //(required)// | string | User's password. \\ \\ Can be omitted if user is added only to groups that have LDAP access. |
+| **usrgrps** \\ (required) | array | User groups to add the user to.\\ \\ The user groups must have the ''usrgrpid'' property defined. |
+| user_medias | array | Medias to create for the user. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created users under the ''userids'' property. The order of the returned IDs matches the order of the passed users.
+
+==== Examples ====
+
+=== Creating a user ===
+
+Create a new user, add him to a user group and create a new media for him.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "user.create",
+    "params": {
+        "alias": "John",
+        "passwd": "Doe123",
+        "usrgrps": [
+            {
+                "usrgrpid": "7"
+            }
+        ],
+        "user_medias": [
+            {
+                "mediatypeid": "1",
+                "sendto": [
+                    "support@company.com"
+                ],
+                "active": 0,
+                "severity": 63,
+                "period": "1-7,00:00-24:00"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "userids": [
+            "12"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:user:object#media|Media]]
+  * [[manual:api:reference:usergroup:object#user_group|User group]]
+
+
+==== Source ====
+
+CUser::create() in //frontends/php/include/classes/api/services/CUser.php//.

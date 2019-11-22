@@ -1,0 +1,53 @@
+===== usermacro.deleteglobal =====
+
+==== Description ====
+
+''object usermacro.deleteglobal(array **globalMacroIds**)''
+
+This method allows to delete global macros.
+
+==== Parameters ====
+
+''(array)'' IDs of the global macros to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted global macros under the ''globalmacroids'' property.
+
+==== Examples ====
+
+=== Deleting multiple global macros ===
+
+Delete two global macros.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usermacro.deleteglobal",
+    "params": [
+        "32",
+        "11"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "globalmacroids": [
+            "32",
+            "11"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CUserMacro::deleteGlobal() in //frontends/php/include/classes/api/services/CUserMacro.php//.

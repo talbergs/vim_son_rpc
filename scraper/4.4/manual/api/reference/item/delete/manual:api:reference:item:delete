@@ -1,0 +1,54 @@
+===== item.delete =====
+
+==== Description ====
+
+''object item.delete(array **itemIds**)''
+
+This method allows to delete items.
+
+<note>Web items cannot be deleted via the Zabbix API.</note>
+==== Parameters ====
+
+''(array)'' IDs of the items to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted items under the ''itemids'' property.
+
+==== Examples ====
+
+=== Deleting multiple items ===
+
+Delete two items. \\ Dependent items and item prototypes are removed automatically if master item is deleted.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.delete",
+    "params": [
+        "22982",
+        "22986"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "22982",
+            "22986"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CItem::delete() in //frontends/php/include/classes/api/services/CItem.php//.

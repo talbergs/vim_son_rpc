@@ -1,0 +1,14 @@
+===== Icon map =====
+
+This class is designed to work with icon maps. 
+
+Object references: \\
+  * [[manual:api:reference:iconmap:object#icon_map|Icon map]]
+  * [[manual:api:reference:iconmap:object#icon_mapping|Icon mapping]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:iconmap:create|iconmap.create]]'' - create new icon maps
+  * ''[[manual:api:reference:iconmap:delete|iconmap.delete]]'' - delete icon maps
+  * ''[[manual:api:reference:iconmap:get|iconmap.get]]'' - retrieve icon maps
+  * ''[[manual:api:reference:iconmap:update|iconmap.update]]'' - update icon maps

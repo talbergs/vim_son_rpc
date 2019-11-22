@@ -1,0 +1,13 @@
+===== Image =====
+
+This class is designed to work with images. 
+
+Object references: \\
+  * [[manual:api:reference:image:object#image|Image]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:image:create|image.create]]'' - create new images
+  * ''[[manual:api:reference:image:delete|image.delete]]'' - delete images
+  * ''[[manual:api:reference:image:get|image.get]]'' - retrieve images
+  * ''[[manual:api:reference:image:update|image.update]]'' - update images

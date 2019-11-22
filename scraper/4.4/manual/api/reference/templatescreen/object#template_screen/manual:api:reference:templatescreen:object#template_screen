@@ -1,0 +1,14 @@
+===== > Template screen object =====
+
+The following objects are directly related to the ''templatescreen'' API.
+
+==== Template screen ====
+
+The template screen object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| screenid  | string  | //(readonly)// ID of the template screen.  |
+| **name** \\ (required) | string | Name of the template screen. |
+| **templateid** \\ (required) | string | ID of the template that the screen belongs to. |
+| hsize | integer | Width of the template screen. \\ \\ Default: 1 |
+| vsize | integer | Height of the template screen. \\ \\ Default: 1 |

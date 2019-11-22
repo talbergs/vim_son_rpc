@@ -1,0 +1,57 @@
+===== discoveryrule.copy =====
+
+==== Description ====
+
+''object discoveryrule.copy(object **parameters**)''
+
+This method allows to copy LLD rules with all of the prototypes to the given hosts.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the LLD rules to copy and the target hosts.
+
+^ Parameter ^ Type ^ Description ^
+| discoveryids | array | IDs of the LLD rules to be copied. |
+| hostids | array | IDs of the hosts to copy the LLD rules to. |
+
+==== Return values ====
+
+''(boolean)'' Returns ''true'' if the copying was successful.
+
+==== Examples ====
+
+=== Copy an LLD rule to multiple hosts ===
+
+Copy an LLD rule to two hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.copy",
+    "params": {
+        "discoveryids": [
+            "27426"
+        ],
+        "hostids": [
+            "10196",
+            "10197"
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CDiscoveryrule::copy() in //frontends/php/include/classes/api/services/CDiscoveryRule.php//.

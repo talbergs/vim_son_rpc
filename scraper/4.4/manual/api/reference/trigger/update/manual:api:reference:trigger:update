@@ -1,0 +1,107 @@
+===== trigger.update =====
+
+==== Description ====
+
+''object trigger.update(object/array **triggers**)''
+
+This method allows to update existing triggers.
+
+==== Parameters ====
+
+''(object/array)'' Trigger properties to be updated.
+
+The ''triggerid'' property must be defined for each trigger, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#trigger|standard trigger properties]] the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dependencies | array | Triggers that the trigger is dependent on. \\ \\ The triggers must have the ''triggerid'' property defined. |
+| tags         | array | Trigger tags. |
+
+<note important>The trigger expression has to be given in its expanded form.</note>
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated triggers under the ''triggerids'' property.
+
+==== Examples ====
+
+=== Enabling a trigger ===
+
+Enable a trigger, that is, set its status to 0.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.update",
+    "params": {
+        "triggerid": "13938",
+        "status": 0
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "13938"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Replacing triggers tags ===
+
+Replace tags for trigger.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.update",
+    "params": {
+        "triggerid": "13938",
+        "tags": [
+            {
+                "tag": "service",
+                "value": "{{ITEM.VALUE}.regsub(\"Service (.*) has stopped\", \"\\1\")}"
+            },
+            {
+                "tag": "error",
+                "value": ""
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "13938"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[adddependencies|trigger.adddependencies]]
+  * [[deletedependencies|trigger.deletedependencies]]
+
+==== Source ====
+
+CTrigger::update() in //frontends/php/include/classes/api/services/CTrigger.php//.

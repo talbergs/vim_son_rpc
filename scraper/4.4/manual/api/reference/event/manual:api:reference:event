@@ -1,0 +1,11 @@
+===== Event =====
+
+This class is designed to work with events. 
+
+Object references: \\
+  * [[manual:api:reference:event:object#host|Event]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:event:get|event.get]]'' - retrieving events
+  * ''[[manual:api:reference:event:acknowledge|event.acknowledge]]'' - acknowledging events

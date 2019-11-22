@@ -1,0 +1,112 @@
+===== graphprototype.get =====
+
+==== Description ====
+
+''integer/array graphprototype.get(object **parameters**)''
+
+The method allows to retrieve graph prototypes according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| discoveryids | string/array | Return only graph prototypes that belong to the given discovery rules. |
+| graphids | string/array | Return only graph prototypes with the given IDs. |
+| groupids | string/array | Return only graph prototypes that belong to hosts in the given host groups. |
+| hostids | string/array | Return only graph prototypes that belong to the given hosts. |
+| inherited | boolean | If set to ''true'' return only graph prototypes inherited from a template. |
+| itemids | string/array | Return only graph prototypes that contain the given item prototypes. |
+| templated | boolean | If set to ''true'' return only graph prototypes that belong to templates. |
+| templateids | string/array | Return only graph prototypes that belong to the given templates. |
+^ |||
+| selectDiscoveryRule | query | Return a ''[[:manual/api/reference/drule/object|discoveryRule]]'' property with the LLD rule that the graph prototype belongs to.  |
+| selectGraphItems | query | Return a ''[[:manual/api/reference/graphitem/object|gitems]]'' property with the graph items used in the graph prototype.  |
+| selectGroups | query | Return a ''[[:manual/api/reference/hostgroup/object|groups]]'' property with the host groups that the graph prototype belongs to.  |
+| selectHosts | query | Return a ''[[:manual/api/reference/host/object|hosts]]'' property with the hosts that the graph prototype belongs to.  |
+| selectItems | query | Return an ''[[:manual/api/reference/item/object|items]]'' property with the items and item prototypes used in the graph prototype.  |
+| selectTemplates | query | Return a ''[[:manual/api/reference/template/object|templates]]'' property with the templates that the graph prototype belongs to.  |
+^ |||
+| filter | object | Return only those results that exactly match the given filter.\\ \\ Accepts an array, where the keys are property names, and the values are either a single value or an array of values to match against. \\ \\ Supports additional filters: \\ ''host'' - technical name of the host that the graph prototype belongs to; \\ ''hostid'' - ID of the host that the graph prototype belongs to. |
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''graphid'', ''name'' and ''graphtype''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving graph prototypes from a LLD rule ===
+
+Retrieve all graph prototypes from an LLD rule.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "graphprototype.get",
+    "params": {
+        "output": "extend",
+        "discoveryids": "27426"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "graphid": "1017",
+            "parent_itemid": "27426",
+            "name": "Disk space usage {#FSNAME}",
+            "width": "600",
+            "height": "340",
+            "yaxismin": "0.0000",
+            "yaxismax": "0.0000",
+            "templateid": "442",
+            "show_work_period": "0",
+            "show_triggers": "0",
+            "graphtype": "2",
+            "show_legend": "1",
+            "show_3d": "1",
+            "percent_left": "0.0000",
+            "percent_right": "0.0000",
+            "ymin_type": "0",
+            "ymax_type": "0",
+            "ymin_itemid": "0",
+            "ymax_itemid": "0"
+        }
+    ],
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[manual:api:reference:discoveryrule:object#discovery_rule|Discovery rule]]
+  * [[manual:api:reference:graphitem:object#graph_item|Graph item]]
+  * [[manual:api:reference:item:object#item|Item]]
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[manual:api:reference:template:object#template|Template]]
+
+==== Source ====
+
+CGraphPrototype::get() in //frontends/php/include/classes/api/services/CGraphPrototype.php//.

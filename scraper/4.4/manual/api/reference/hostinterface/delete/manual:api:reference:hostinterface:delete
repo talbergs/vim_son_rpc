@@ -1,0 +1,55 @@
+===== hostinterface.delete =====
+
+==== Description ====
+
+''object hostinterface.delete(array **hostInterfaceIds**)''
+
+This method allows to delete host interfaces.
+
+==== Parameters ====
+
+''(array)'' IDs of the host interfaces to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted host interfaces under the ''interfaceids'' property.
+
+==== Examples ====
+
+=== Delete a host interface ===
+
+Delete the host interface with ID 30062.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostinterface.delete",
+    "params": [
+        "30062"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "interfaceids": [
+            "30062"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[massremove|hostinterface.massremove]]
+  * [[manual:api:reference:host:massremove|host.massremove]]
+==== Source ====
+
+CHostInterface::delete() in //frontends/php/include/classes/api/services/CHostInterface.php//.

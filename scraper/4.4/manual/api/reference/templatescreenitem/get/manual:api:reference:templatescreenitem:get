@@ -1,0 +1,108 @@
+===== templatescreenitem.get =====
+
+==== Description ====
+
+''integer/array templatescreenitem.get(object **parameters**)''
+
+The method allows to retrieve template screen items according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| screenids | string/array | Return only template screen items that belong to the given template screens. |
+| screenitemids | string/array | Return only template screen items with the given IDs. |
+^ |||
+| hostids | string/array | Returns an additional ''real_resourceid'' property for each template screen item, that belongs to a screen from the given hosts or templates. The ''real_resourceid'' property contains the ID of object displayed on the screen. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''screenitemid'' and ''screenid''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api: reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve template screen items for screen ===
+
+Return all template screen items from template screen "15".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "templatescreenitem.get",
+    "params": {
+        "output": "extend",
+        "screenids": "15"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "screenitemid": "42",
+            "screenid": "15",
+            "resourcetype": "0",
+            "resourceid": "454",
+            "width": "500",
+            "height": "200",
+            "x": "0",
+            "y": "0",
+            "colspan": "1",
+            "rowspan": "1",
+            "elements": "0",
+            "valign": "1",
+            "halign": "0",
+            "style": "0",
+            "url": "",
+            "max_columns": "3"
+        },
+        {
+            "screenitemid": "43",
+            "screenid": "15",
+            "resourcetype": "0",
+            "resourceid": "455",
+            "width": "500",
+            "height": "270",
+            "x": "1",
+            "y": "0",
+            "colspan": "1",
+            "rowspan": "1",
+            "elements": "0",
+            "valign": "1",
+            "halign": "0",
+            "style": "0",
+            "url": "",
+            "max_columns": "3"
+        }
+    ],
+    "id": 1
+}
+</code>
+==== Source ====
+
+CTemplateScreenItem::get() in //frontends/php/include/classes/api/services/CTemplateScreenItem.php//.

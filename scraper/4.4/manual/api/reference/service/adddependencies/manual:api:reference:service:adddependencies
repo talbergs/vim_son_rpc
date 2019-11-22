@@ -1,0 +1,64 @@
+===== service.adddependencies =====
+
+==== Description ====
+
+''object service.adddependencies(object/array **serviceDependencies**)''
+
+This method allows to create dependencies between services.
+
+==== Parameters ====
+
+''(object/array)'' Service dependencies to create.
+
+Each service dependency has the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| serviceid | string | ID of the service that depends on a service, that is, the parent service. |
+| dependsOnServiceid | string | ID of the service that a service depends on, that is, the child service. |
+| soft | string | Type of dependency. \\ \\ Refer to the [[object#service_dependency|service dependency object page]] for more information on dependency types. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the affected parent services under the ''serviceids'' property.
+
+==== Examples ====
+
+=== Creating a hard dependency ===
+
+Make service "2" a hard-dependent child of service "3".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "service.adddependencies",
+    "params": {
+        "serviceid": "3",
+        "dependsOnServiceid": "2",
+        "soft": 0
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "serviceids": [
+            "3"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|service.update]]
+
+==== Source ====
+
+CService::addDependencies() in //frontends/php/include/classes/api/services/CService.php//.

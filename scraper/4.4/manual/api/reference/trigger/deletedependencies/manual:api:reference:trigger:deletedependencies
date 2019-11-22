@@ -1,0 +1,61 @@
+===== trigger.deletedependencies =====
+
+==== Description ====
+
+''object trigger.deletedependencies(string/array **triggers**)''
+
+This method allows to delete all trigger dependencies from the given triggers.
+
+==== Parameters ====
+
+''(string/array)'' Triggers to delete the trigger dependencies from.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the affected triggers under the ''triggerids'' property.
+
+==== Examples ====
+
+=== Deleting dependencies from multiple triggers ===
+
+Delete all dependencies from two triggers.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.deleteDependencies",
+    "params": [
+        {
+            "triggerid": "14544"
+        },
+        {
+            "triggerid": "14545"
+        }
+    ],
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "14544",
+            "14545"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|trigger.update]]
+
+==== Source ====
+
+CTrigger::deleteDependencies() in //frontends/php/include/classes/api/services/CTrigger.php//.

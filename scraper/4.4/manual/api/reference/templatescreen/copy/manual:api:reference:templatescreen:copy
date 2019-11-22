@@ -1,0 +1,52 @@
+===== templatescreen.copy =====
+
+==== Description ====
+
+''object templatescreen.copy(object **parameters**)''
+
+This method allows to copy template screens to the given templates.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the template screens to copy and the target templates.
+
+^ Parameter ^ Type ^ Description ^
+| **screenIds** \\ (required) | string/array | IDs of template screens to copy. |
+| **templateIds** \\ (required) | string/array | IDs of templates to copy the screens to. |
+
+==== Return values ====
+
+''(boolean)'' Returns ''true'' if the copying was successful.
+
+==== Examples ====
+
+=== Copy a template screen ===
+
+Copy template screen "25" to template "30085".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "templatescreen.copy",
+    "params": {
+        "screenIds": "25",
+        "templateIds": "30085"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTemplateScreen::copy() in //frontends/php/include/classes/api/services/CTemplateScreen.php//.

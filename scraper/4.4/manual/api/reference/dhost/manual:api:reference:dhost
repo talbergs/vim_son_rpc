@@ -1,0 +1,10 @@
+===== Discovered host =====
+
+This class is designed to work with discovered hosts. 
+
+Object references: \\
+  * [[manual:api:reference:dhost:object#discovered_host|Discovered host]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:dhost:get|dhost.get]]'' - retrieve discovered hosts

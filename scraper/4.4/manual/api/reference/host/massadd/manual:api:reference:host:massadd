@@ -1,0 +1,84 @@
+===== host.massadd =====
+
+==== Description ====
+
+''object host.massadd(object **parameters**)''
+
+This method allows to simultaneously add multiple related objects to all the given hosts.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the hosts to update and the objects to add to all the hosts. 
+
+The method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **hosts** \\ (required) | object/array | Hosts to be updated. \\ \\ The hosts must have the ''hostid'' property defined. |
+| groups | object/array | Host groups to add to the given hosts. \\ \\ The host groups must have the ''groupid'' property defined.  |
+| interfaces | object/array | Host interfaces to be created for the given hosts. |
+| macros | object/array | User macros to be created for the given hosts. |
+| templates | object/array | Templates to link to the given hosts. \\ \\ The templates must have the ''templateid'' property defined. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated hosts under the ''hostids'' property.
+
+==== Examples ====
+
+=== Adding macros ===
+
+Add two new macros to two hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.massadd",
+    "params": {
+        "hosts": [
+            {
+                "hostid": "10160"
+            },
+            {
+                "hostid": "10167"
+            }
+        ],
+        "macros": [
+            {
+                "macro": "{$TEST1}",
+                "value": "MACROTEST1"
+            },
+            {
+                "macro": "{$TEST2}",
+                "value": "MACROTEST2"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10160",
+            "10167"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[update|host.update]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[manual:api:reference:template:object#template|Template]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+
+==== Source ====
+
+CHost::massAdd() in //frontends/php/include/classes/api/services/CHost.php//.

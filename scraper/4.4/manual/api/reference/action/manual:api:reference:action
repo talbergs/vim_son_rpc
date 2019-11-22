@@ -1,0 +1,15 @@
+===== Action =====
+
+This class is designed to work with actions. 
+
+Object references: \\
+  * [[manual:api:reference:action:object#action|Action]]
+  * [[manual:api:reference:action:object#action_condition|Action condition]]
+  * [[manual:api:reference:action:object#action_operation|Action operation]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:action:create|action.create]]'' - create new actions
+  * ''[[manual:api:reference:action:delete|action.delete]]'' - delete actions
+  * ''[[manual:api:reference:action:get|action.get]]'' - retrieve actions
+  * ''[[manual:api:reference:action:update|action.update]]'' - update actions

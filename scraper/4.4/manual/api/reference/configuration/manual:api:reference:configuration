@@ -1,0 +1,7 @@
+===== Configuration =====
+
+This class is designed to export and import Zabbix configuration data. 
+
+Available methods: \\
+  * ''[[manual:api:reference:configuration:export|configuration.export]]'' - exporting the configuration
+  * ''[[manual:api:reference:configuration:import|configuration.import]]'' - importing the configuration

@@ -1,0 +1,67 @@
+===== usergroup.create =====
+
+==== Description ====
+
+''object usergroup.create(object/array **userGroups**)''
+
+This method allows to create new user groups.
+
+==== Parameters ====
+
+''(object/array)'' User groups to create.
+
+Additionally to the [[object#user_group|standard user group properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| rights | object/array | Permissions to assign to the group |
+| tag_filters | array | Tag based permissions to assign to the group |
+| userids | string/array | IDs of users to add to the user group. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created user groups under the ''usrgrpids'' property. The order of the returned IDs matches the order of the passed user groups.
+
+==== Examples ====
+
+=== Creating a user group ===
+
+Create a user group, which denies access to host group "2", and add a user to it.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usergroup.create",
+    "params": {
+        "name": "Operation managers",
+        "rights": {
+            "permission": 0,
+            "id": "2"
+        },
+        "userids": "12"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "usrgrpids": [
+            "20"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#permission|Permission]]
+
+==== Source ====
+
+CUserGroup::create() in //frontends/php/include/classes/api/services/CUserGroup.php//.

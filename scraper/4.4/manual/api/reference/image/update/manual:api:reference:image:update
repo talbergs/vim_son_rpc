@@ -1,0 +1,59 @@
+===== image.update =====
+
+==== Description ====
+
+''object image.update(object/array **images**)''
+
+This method allows to update existing images.
+
+==== Parameters ====
+
+''(object/array)'' Image properties to be updated.
+
+The ''imageid'' property must be defined for each image, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#image|standard image properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| image | string | Base64 encoded image. The maximum size of the encoded image is 1 MB. Maximum size can be adjusted by changing ZBX_MAX_IMAGE_SIZE constant value. \\ Supported image formats are: PNG, JPEG, GIF. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated images under the ''imageids'' property.
+
+==== Examples ====
+
+=== Rename image ===
+
+Rename image to "Cloud icon".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "image.update",
+    "params": {
+        "imageid": "2",
+        "name": "Cloud icon"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "imageids": [
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CImage::update() in //frontends/php/include/classes/api/services/CImage.php//.

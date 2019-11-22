@@ -1,0 +1,22 @@
+===== > User macro object =====
+
+The following objects are directly related to the ''usermacro'' API.
+
+==== Global macro ====
+
+The global macro object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| globalmacroid  | string  | //(readonly)// ID of the global macro.  |
+| **macro** \\ (required) | string | Macro string. |
+| **value** \\ (required) | string | Value of the macro. |
+
+==== Host macro ====
+
+The host macro object defines a macro available on a host or template. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| hostmacroid  | string  | //(readonly)// ID of the host macro.  |
+| **hostid** \\ (required) | string | ID of the host that the macro belongs to. |
+| **macro** \\ (required) | string | Macro string. |
+| **value** \\ (required) | string | Value of the macro. |

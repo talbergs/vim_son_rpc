@@ -1,0 +1,66 @@
+===== hostprototype.update =====
+
+==== Description ====
+
+''object hostprototype.update(object/array **hostPrototypes**)''
+
+This method allows to update existing host prototypes.
+
+==== Parameters ====
+
+''(object/array)'' Host prototype properties to be updated.
+
+The ''hostid'' property must be defined for each host prototype, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#host_prototype|standard host prototype properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| groupLinks | array | Group links to replace the current group links on the host prototype. |
+| groupPrototypes | array | Group prototypes to replace the existing group prototypes on the host prototype. |
+| templates | object/array | Templates to replace the currently linked templates. \\ \\ The templates must have the ''templateid'' property defined. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated host prototypes under the ''hostids'' property.
+
+==== Examples ====
+
+=== Disabling a host prototype ===
+
+Disable a host prototype, that is, set its status to 1.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostprototype.update",
+    "params": {
+        "hostid": "10092",
+        "status": 1
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10092"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#group_link|Group link]]
+  * [[object#group_prototype|Group prototype]]
+
+==== Source ====
+
+CHostPrototype::update() in //frontends/php/include/classes/api/services/CHostPrototype.php//.

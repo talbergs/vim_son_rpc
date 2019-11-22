@@ -1,0 +1,24 @@
+===== > Icon map object =====
+
+The following objects are directly related to the ''iconmap'' API.
+
+==== Icon map ====
+
+The icon map object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| iconmapid  | string  | //(readonly)// ID of the icon map.  |
+| **default_iconid** \\ (reqiured) | string | ID of the default icon. |
+| **name** \\ (required) | string | Name of the icon map. |
+
+==== Icon mapping ====
+
+The icon mapping object defines a specific icon to be used for hosts with a certain inventory field value. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| iconmappingid | string  | //(readonly)// ID of the icon map.  |
+| **iconid** \\ (required) | string | ID of the icon used by the icon mapping. |
+| **expression** \\ (required) | string | Expression to match the inventory field against. |
+| **inventory_link** \\ (required) | integer | ID of the host inventory field. \\ \\ Refer to the [[manual:api:reference:host:object#host_inventory|host inventory object]] for a list of supported inventory fields. |
+| iconmapid | string | //(readonly)// ID of the icon map that the icon mapping belongs to. |
+| sortorder | integer | //(readonly)// Position of the icon mapping in the icon map. |

@@ -1,0 +1,79 @@
+===== hostgroup.massadd =====
+
+==== Description ====
+
+''object hostgroup.massadd(object **parameters**)''
+
+This method allows to simultaneously add multiple related objects to all the given host groups.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the host groups to update and the objects to add to all the host groups. 
+
+The method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **groups** \\ (required) | object/array | Host groups to be updated. \\ \\ The host groups must have the ''groupid'' property defined. |
+| hosts | object/array | Hosts to add to all host groups. \\ \\ The hosts must have the ''hostid'' property defined. |
+| templates | object/array | Templates to add to all host groups. \\ \\ The templates must have the ''templateid'' property defined. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated host groups under the ''groupids'' property.
+
+==== Examples ====
+
+=== Adding hosts to host groups ===
+
+Add two hosts to host groups with IDs 5 and 6.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.massadd",
+    "params": {
+        "groups": [
+            {
+                "groupid": "5"
+            },
+            {
+                "groupid": "6"
+            }
+        ],
+        "hosts": [
+            {
+                "hostid": "30050"
+            },
+            {
+                "hostid": "30001"
+            }
+        ]
+    },
+    "auth": "f223adf833b2bf2ff38574a67bba6372",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "groupids": [
+            "5",
+            "6"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:template:object#template|Template]]
+
+==== Source ====
+
+CHostGroup::massAdd() in //frontends/php/include/classes/api/services/CHostGroup.php//.

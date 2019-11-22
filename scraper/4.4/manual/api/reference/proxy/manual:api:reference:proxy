@@ -1,0 +1,14 @@
+===== Proxy =====
+
+This class is designed to work with proxies. 
+
+Object references: \\
+  * [[manual:api:reference:proxy:object#proxy|Proxy]]
+  * [[manual:api:reference:proxy:object#proxy_interface|Proxy interface]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:proxy:create|proxy.create]]'' - create new proxies
+  * ''[[manual:api:reference:proxy:delete|proxy.delete]]'' - delete proxies
+  * ''[[manual:api:reference:proxy:get|proxy.get]]'' - retrieve proxies
+  * ''[[manual:api:reference:proxy:update|proxy.update]]'' - update proxies

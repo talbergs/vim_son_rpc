@@ -1,0 +1,92 @@
+===== maintenance.create =====
+
+==== Description ====
+
+''object maintenance.create(object/array **maintenances**)''
+
+This method allows to create new maintenances.
+
+==== Parameters ====
+
+''(object/array)'' Maintenances to create.
+
+Additionally to the [[object#maintenance|standard maintenance properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **groupids** \\ (required) | array | IDs of the host groups that will undergo maintenance. |
+| **hostids** \\ (required) | array | IDs of the hosts that will undergo maintenance. |
+| **timeperiods** \\ (required) | array | Maintenance time periods. |
+| tags | array | Problem tags. \\ \\ Define what problems must be suppressed. \\ If no tags are given, all active maintenance host problems will be suppressed. |
+
+<note important>At least one host or host group must be defined for each maintenance.</note>
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created maintenances under the ''maintenanceids'' property. The order of the returned IDs matches the order of the passed maintenances.
+
+==== Examples ====
+
+=== Creating a maintenance ===
+
+Create a maintenance with data collection for host group "2" with problem tags **service:mysqld** and **error**. It must be active from 22.01.2013 till 22.01.2014, come in effect each Sunday at 18:00 and last for one hour. 
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "maintenance.create",
+    "params": {
+        "name": "Sunday maintenance",
+        "active_since": 1358844540,
+        "active_till": 1390466940,
+        "tags_evaltype": 0,
+        "groupids": [
+            "2"
+        ],
+        "timeperiods": [
+            {
+                "timeperiod_type": 3,
+                "every": 1,
+                "dayofweek": 64,
+                "start_time": 64800,
+                "period": 3600
+            }
+        ],
+        "tags": [
+            {
+                "tag": "service",
+                "operator": "0",
+                "value": "mysqld",
+            },
+            {
+                "tag": "error",
+                "operator": "2",
+                "value": ""
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "maintenanceids": [
+            "3"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#time_period|Time period]]
+
+==== Source ====
+
+CMaintenance::create() in //frontends/php/include/classes/api/services/CMaintenance.php//.

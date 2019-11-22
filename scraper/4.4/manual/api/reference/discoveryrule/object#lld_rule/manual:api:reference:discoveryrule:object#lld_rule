@@ -1,0 +1,119 @@
+===== > LLD rule object =====
+
+The following objects are directly related to the ''discoveryrule'' API.
+
+==== LLD rule ====
+
+The low-level discovery rule object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| itemid  | string  | //(readonly)// ID of the LLD rule.  |
+| **delay** \\ (required) | string | Update interval of the LLD rule. Accepts seconds or time unit with suffix and with or without one or more [[manual:config:items:item:custom_intervals|custom intervals]] that consist of either flexible intervals and scheduling intervals as serialized strings. Also accepts user macros. Flexible intervals could be written as two macros separated by a forward slash. Intervals are separated by a semicolon. |
+| **hostid** \\ (required) | string | ID of the host that the LLD rule belongs to. |
+| **interfaceid** \\ (required) | string  | ID of the LLD rule's host interface. Used only for host LLD rules. \\ \\ Optional for Zabbix agent (active), Zabbix internal, Zabbix trapper and database monitor LLD rules. |
+| **key_** \\ (required) | string | LLD rule key. |
+| **name** \\ (required) | string | Name of the LLD rule. |
+| **type** \\ (required) | integer | Type of the LLD rule. \\ \\ Possible values: \\ 0 - Zabbix agent; \\ 1 - SNMPv1 agent; \\ 2 - Zabbix trapper; \\ 3 - simple check; \\ 4 - SNMPv2 agent; \\ 5 - Zabbix internal; \\ 6 - SNMPv3 agent; \\ 7 - Zabbix agent (active); \\ 10 - external check; \\ 11 - database monitor; \\ 12 - IPMI agent; \\ 13 - SSH agent; \\ 14 - TELNET agent; \\ 16 - JMX agent; \\ 18 - Dependent item; \\ 19 - HTTP agent; |
+| **url** \\ (required) | string | URL string, required for HTTP agent LLD rule. Supports user macros, {HOST.IP}, {HOST.CONN}, {HOST.DNS}, {HOST.HOST}, {HOST.NAME}, {ITEM.ID}, {ITEM.KEY}. |
+| allow_traps | integer | HTTP agent LLD rule field. Allow to populate value as in trapper item type also.\\ \\ 0 - //(default)// Do not allow to accept incoming data.  \\ 1 - Allow to accept incoming data.|
+| authtype | integer | Used only by SSH agent or HTTP agent LLD rules. \\ \\ SSH agent authentication method possible values: \\ 0 - //(default)// password; \\ 1 - public key.\\ \\ HTTP agent authentication method possible values:\\ 0 - //(default)// none\\ 1 - basic\\ 2 - NTLM |
+| description | string | Description of the LLD rule. |
+| error | string | //(readonly)// Error text if there are problems updating the LLD rule. |
+| follow_redirects | integer | HTTP agent LLD rule field. Follow respose redirects while pooling data.\\ \\ 0 - Do not follow redirects. \\ 1 - //(default)// Follow redirects. |
+| headers | object | HTTP agent LLD rule field. Object with HTTP(S) request headers, where header name is used as key and header value as value. \\ \\ Example: \\ { "User-Agent": "Zabbix" } |
+| http_proxy | string | HTTP agent LLD rule field. HTTP(S) proxy connection string. |
+| ipmi_sensor | string | IPMI sensor. Used only by IPMI LLD rules. |
+| jmx_endpoint | string | JMX agent custom connection string. \\ \\ Default value: \\ <nowiki>service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi</nowiki> |
+| lifetime | string | Time period after which items that are no longer discovered will be deleted. Accepts seconds, time unit with suffix and user macro. \\ \\ Default: ''30d''. |
+| master_itemid | integer | Master item ID. \\ Recursion up to 3 dependent items and maximum count of dependent items equal to 999 are allowed. \\ Discovery rule cannot be master item for another discovery rule. \\ \\ Required for  Dependent item. |
+| output_format | integer | HTTP agent LLD rule field. Should response converted to JSON.\\ \\ 0 - //(default)// Store raw. \\ 1 - Convert to JSON. |
+| params | string | Additional parameters depending on the type of the LLD rule: \\ - executed script for SSH and Telnet LLD rules; \\ - SQL query for database monitor LLD rules; \\ - formula for calculated LLD rules. |
+| password | string | Password for authentication. Used by simple check, SSH, Telnet, database monitor, JMX and HTTP agent LLD rules. |
+| port | string | Port used by the LLD rule. Used only by SNMP LLD rules. |
+| post_type | integer | HTTP agent LLD rule field. Type of post data body stored in posts property.\\ \\ 0 - //(default)// Raw data. \\ 2 - JSON data. \\ 3 - XML data. |
+| posts | string | HTTP agent LLD rule field. HTTP(S) request body data. Used with post_type. |
+| privatekey | string | Name of the private key file. |
+| publickey | string | Name of the public key file. |
+| query_fields | array | HTTP agent LLD rule field. Query parameters. Array of objects with 'key':'value' pairs, where value can be empty string. |
+| request_method | integer | HTTP agent LLD rule field. Type of request method.\\ \\ 0 - //(default)// GET \\ 1 - POST \\ 2 - PUT \\ 3 - HEAD |
+| retrieve_mode | integer | HTTP agent LLD rule field. What part of response should be stored.\\ \\ 0 - //(default)// Body. \\ 1 - Headers. \\ 2 - Both body and headers will be stored. \\ \\ For request_method HEAD only 1 is allowed value. |
+| snmp_community | string | SNMP community. \\ \\ Required for SNMPv1 and SNMPv2 LLD rules. |
+| snmp_oid | string | SNMP OID. |
+| snmpv3_authpassphrase | string | SNMPv3 auth passphrase. Used only by SNMPv3 LLD rules. |
+| snmpv3_authprotocol | integer | SNMPv3 authentication protocol. Used only by SNMPv3 LLD rules. \\ \\ Possible values: \\ 0 - //(default)// MD5; \\ 1 - SHA. |
+| snmpv3_contextname | string | SNMPv3 context name. Used only by SNMPv3 checks. |
+| snmpv3_privpassphrase | string | SNMPv3 priv passphrase. Used only by SNMPv3 LLD rules.  |
+| snmpv3_privprotocol | integer | SNMPv3 privacy protocol. Used only by SNMPv3 LLD rules. \\ \\ Possible values: \\ 0 - //(default)// DES; \\ 1 - AES. |
+| snmpv3_securitylevel | integer | SNMPv3 security level. Used only by SNMPv3 LLD rules. \\ \\ Possible values: \\ 0 - noAuthNoPriv; \\ 1 - authNoPriv; \\ 2 - authPriv. |
+| snmpv3_securityname | string | SNMPv3 security name. Used only by SNMPv3 LLD rules. |
+| ssl_cert_file | string | HTTP agent LLD rule field. Public SSL Key file path. |
+| ssl_key_file | string | HTTP agent LLD rule field. Private SSL Key file path. |
+| ssl_key_password | string | HTTP agent LLD rule field. Password for SSL Key file. |
+| state | integer | //(readonly)// State of the LLD rule. \\ \\ Possible values: \\ 0 - //(default)// normal; \\ 1 - not supported. |
+| status | integer | Status of the LLD rule. \\ \\ Possible values: \\ 0 - //(default)// enabled LLD rule; \\ 1 - disabled LLD rule. |
+| status_codes | string | HTTP agent LLD rule field. Ranges of required HTTP status codes separated by commas. Also supports user macros as part of comma separated list. \\ \\ Example: 200,200-{$M},{$M},200-400 |
+| templateid | string | (readonly) ID of the parent template LLD rule. |
+| timeout | string | HTTP agent LLD rule field. Item data polling request timeout. Support user macros. \\ \\ default: 3s \\ maximum value: 60s |
+| trapper_hosts | string | Allowed hosts. Used by trapper LLD rules or HTTP agent LLD rules. |
+| username | string | Username for authentication. Used by simple check, SSH, Telnet, database monitor, JMX and HTTP agent LLD rules. \\ \\ Required by SSH and Telnet LLD rules. |
+| verify_host | integer | HTTP agent LLD rule field. Validate host name in URL is in Common Name field or a Subject Alternate Name field of host certificate.\\ \\ 0 - //(default)// Do not validate. \\ 1 - Validate. |
+| verify_peer | integer | HTTP agent LLD rule field. Validate is host certificate authentic.\\ \\ 0 - //(default)// Do not validate. \\ 1 - Validate. |
+==== LLD rule filter ====
+
+The LLD rule filter object defines a set of conditions that can be used to filter discovered objects. It has the following properties: 
+
+^  Property  ^  Type  ^  Description  ^
+| **conditions** \\ (required) | array | Set of filter conditions to use for filtering results. |
+| **evaltype** \\ (required)  | integer | Filter condition evaluation method. \\ \\ Possible values: \\ 0 - and/or; \\ 1 - and; \\ 2 - or; \\ 3 - custom expression. |
+| eval_formula | string | //(readonly)// Generated expression that will be used for evaluating filter conditions. The expression contains IDs that reference specific filter conditions by its ''formulaid''. The value of ''eval_formula'' is equal to the value of ''formula'' for filters with a custom expression.  |
+| formula  | string | User-defined expression to be used for evaluating conditions of filters with a custom expression. The expression must contain IDs that reference specific filter conditions by its ''formulaid''.  The IDs used in the expression must exactly match the ones defined in the filter conditions: no condition can remain unused or omitted.\\ \\ Required for custom expression filters.  |
+
+=== LLD rule filter condition ===
+
+The LLD rule filter condition object defines a separate check to perform on the value of an LLD macro. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| **macro** \\ (required) | string | LLD macro to perform the check on. |
+| **value** \\ (required) | string | Value to compare with. |
+| formulaid | string | Arbitrary unique ID that is used to reference the condition from a custom expression. Can only contain capital-case letters. The ID must be defined by the user when modifying filter conditions, but will be generated anew when requesting them afterward. |
+| operator | integer | Condition operator. \\ \\ Possible values: \\ 8 - //(default)// matches regular expression; \\ 9 - does not match regular expression. |
+
+<note tip>To better understand how to use filters with various types of expressions, see examples on the [[get#retrieving_filter_conditions|discoveryrule.get]] and [[create#using_a_custom_expression_filter|discoveryrule.create]] method pages.</note>
+
+=== LLD macro path ===
+
+The LLD macro path has the following properties:
+^  Property  ^  Type  ^  Description  ^
+| **lld_macro** \\ (required) | string | LLD macro. |
+| **path** \\ (required)  | string | Selector for value which will be assigned to corresponding macro. |
+
+=== LLD rule preprocessing ===
+
+The LLD rule preprocessing object has the following properties.
+
+^ Property                 ^ Type    ^ Description ^
+| **type** \\ (required)   | integer | The preprocessing option type. \\ \\ Possible values: \\ 5 - Regular expression matching; \\ 11 - XML XPath; \\ 12 - JSONPath; \\ 15 - Does not match regular expression; \\ 16 - Check for error in JSON; \\ 17 - Check for error in XML; \\ 20 - Discard unchanged with heartbeat; \\ 23 - Prometheus to JSON. |
+| **params** \\ (required) | string  | Additional parameters used by preprocessing option. Multiple parameters are separated by LF (\n) character. |
+| **error_handler** \\ (required) | integer | Action type used in case of preprocessing step failure. \\ \\ Possible values: \\ 0 - Error message is set by Zabbix server; \\ 1 - Discard value; \\ 2 - Set custom value; \\ 3 - Set custom error message. |
+| **error_handler_params** \\ (required) | string  | Error handler parameters. Used with ''error_handler''. \\ \\ Must be empty, if ''error_handler'' is 0 or 1. \\ Can be empty if, ''error_handler'' is 2. \\ Cannot be empty, if ''error_handler'' is 3. |
+
+The following parameters and error handlers are supported for each preprocessing type.
+
+^ Preprocessing type ^ Name                                  ^ Parameter 1                    ^ Parameter 2        ^ Supported error handlers ^
+| 5                  | Regular expression                    | pattern<sup>1</sup>            | output<sup>2</sup> | 0, 1, 2, 3               |
+| 11                 | XML XPath                             | path<sup>3</sup>               |                    | 0, 1, 2, 3               |
+| 12                 | JSONPath                              | path<sup>3</sup>               |                    | 0, 1, 2, 3               |
+| 15                 | Does not match regular expression     | pattern<sup>1</sup>            |                    | 0, 1, 2, 3               |
+| 16                 | Check for error in JSON               | path<sup>3</sup>               |                    | 0, 1, 2, 3               |
+| 17                 | Check for error in XML                | path<sup>3</sup>               |                    | 0, 1, 2, 3               |
+| 20                 | Discard unchanged with heartbeat      | seconds<sup>4, 5, 6</sup>      |                    |                          |
+| 23                 | Prometheus to JSON                    | pattern<sup>5, 7</sup>         |                    | 0, 1, 2, 3               |
+
+<sup>1</sup> regular expression \\
+<sup>2</sup> string \\
+<sup>3</sup> JSONPath or XML XPath \\
+<sup>4</sup> positive integer (with support of time suffixes, e.g. 30s, 1m, 2h, 1d) \\
+<sup>5</sup> user macro \\
+<sup>6</sup> LLD macro \\
+<sup>7</sup> Prometheus pattern following the syntax: ''<metric name>{<label name>="<label value>", ...} == <value>''. Each Prometheus pattern component (metric, label name, label value and metric value) can be user macro. \\
+<sup>8</sup> Prometheus output following the syntax: ''<label name>''.

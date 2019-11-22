@@ -1,0 +1,53 @@
+===== image.delete =====
+
+==== Description ====
+
+''object image.delete(array **imageIds**)''
+
+This method allows to delete images.
+
+==== Parameters ====
+
+''(array)'' IDs of the images to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted images under the ''imageids'' property.
+
+==== Examples ====
+
+=== Delete multiple images ===
+
+Delete two images.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "image.delete",
+    "params": [
+        "188",
+        "192"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "imageids": [
+            "188",
+            "192"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CImage::delete() in //frontends/php/include/classes/api/services/CImage.php//.

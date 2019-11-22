@@ -1,0 +1,54 @@
+===== usermacro.createglobal =====
+
+==== Description ====
+
+''object usermacro.createglobal(object/array **globalMacros**)''
+
+This method allows to create new global macros.
+
+==== Parameters ====
+
+''(object/array)'' Global macros to create.
+
+The method accepts global macros with the [[object#global_macro|standard global macro properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created global macros under the ''globalmacroids'' property. The order of the returned IDs matches the order of the passed global macros.
+
+==== Examples ====
+
+=== Creating a global macro ===
+
+Create a global macro "{$SNMP_COMMUNITY}" with value "public".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usermacro.createglobal",
+    "params":  {
+        "macro": "{$SNMP_COMMUNITY}",
+        "value": "public"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "globalmacroids": [
+            "6"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CUserMacro::createGlobal() in //frontends/php/include/classes/api/services/CUserMacro.php//.

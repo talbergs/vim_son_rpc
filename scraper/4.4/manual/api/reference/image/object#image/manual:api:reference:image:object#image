@@ -1,0 +1,12 @@
+===== > Image object =====
+
+The following objects are directly related to the ''image'' API.
+
+==== Image ====
+
+The image object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| imageid  | string  | //(readonly)// ID of the image.  |
+| **name** \\ (required) | string | Name of the image. |
+| imagetype | integer | Type of image. \\ \\ Possible values: \\ 1 - //(default)// icon; \\ 2 - background image. |

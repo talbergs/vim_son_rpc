@@ -1,0 +1,54 @@
+===== usermacro.update =====
+
+==== Description ====
+
+''object usermacro.update(object/array **hostMacros**)''
+
+This method allows to update existing host macros.
+
+==== Parameters ====
+
+''(object/array)'' [[object#host_macro|Host macro properties]] to be updated.
+
+The ''hostmacroid'' property must be defined for each host macro, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated host macros under the ''hostmacroids'' property.
+
+==== Examples ====
+
+=== Changing the value of a host macro ===
+
+Change the value of a host macro to "public".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usermacro.update",
+    "params": {
+        "hostmacroid": "1",
+        "value": "public"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostmacroids": [
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CUserMacro::update() in //frontends/php/include/classes/api/services/CUserMacro.php//.

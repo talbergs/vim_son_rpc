@@ -1,0 +1,128 @@
+===== screen.get =====
+
+==== Description ====
+
+''integer/array screen.get(object **parameters**)''
+
+The method allows to retrieve screens according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| screenids | string/array | Return only screens with the given IDs. |
+| userids| string/array | Return only screens that belong to the given user IDs. |
+| screenitemids | string/array | Return only screen that contain the given screen items. |
+^ |||
+| selectScreenItems | query | Return a ''[[:manual/api/reference/screenitem/object#screen_item|screenitems]]'' property with the elements that are used in the screen. |
+| selectUsers| query | Return a ''[[:manual/api/reference/user/object#screen_item|users]]'' property with users that the screen is shared with. |
+| selectUserGroups| query | Return a ''[[:manual/api/reference/usergroup/object#screen_item|userGroups]]'' property with user groups that the screen is shared with. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''screenid'' and ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving a screen by ID ===
+
+Retrieve all data about screen "26" and its screen items.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screen.get",
+    "params": {
+        "output": "extend",
+        "selectScreenItems": "extend",
+        "selectUsers": "extend",
+        "selectUserGroups": "extend",
+        "screenids": "26"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [    
+        {
+            "screenitems": [
+                {
+                    "screenitemid": "67",
+                    "screenid": "26",
+                    "resourcetype": "0",
+                    "resourceid": "612",
+                    "width": "320",
+                    "height": "200",
+                    "x": "0",
+                    "y": "0",
+                    "colspan": "0",
+                    "rowspan": "0",
+                    "elements": "25",
+                    "valign": "0",
+                    "halign": "0",
+                    "style": "0",
+                    "url": "",
+                    "dynamic": "0",
+                    "sort_triggers": "0"
+                }
+            ],
+            "users": [
+                {
+                    "sysmapuserid": "1",
+                    "userid": "2",
+                    "permission": "2"
+                }
+            ],
+            "userGroups": [
+                {
+                    "screenusrgrpid": "1",
+                    "usrgrpid": "7",
+                    "permission": "3"
+                }
+            ],
+            "screenid": "26",
+            "name": "CPU Graphs",
+            "hsize": "3",
+            "vsize": "2",
+            "templateid": "0",
+            "userid": "1",
+            "private": "1"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:screenitem:object#screen_item|Screen item]]
+  * [[object#screen_user|Screen user]]
+  * [[object#screen_user_group|Screen user group]]
+
+==== Source ====
+
+CScreen::get() in //frontends/php/include/classes/api/services/CScreen.php//.

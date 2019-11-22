@@ -1,0 +1,13 @@
+===== > Host group object =====
+
+The following objects are directly related to the ''hostgroup'' API.
+
+==== Host group ====
+
+The host group object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| groupid  | string  | //(readonly)// ID of the host group.  |
+| **name** \\ (required) | string  | Name of the host group. |
+| flags | integer | //(readonly)// Origin of the host group. \\ \\ Possible values: \\ 0 - a plain host group; \\ 4 - a discovered host group. |
+| internal | integer  | //(readonly)// Whether the group is used internally by the system. An internal group cannot be deleted. \\ \\ Possible values: \\ 0 - //(default)// not internal; \\ 1 - internal. |

@@ -1,0 +1,80 @@
+===== image.get =====
+
+==== Description ====
+
+''integer/array image.get(object **parameters**)''
+
+The method allows to retrieve images according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| imageids | string/array | Return only images with the given IDs. |
+| sysmapids | string/array | Return images that are used on the given maps.  |
+^ |||
+| select_image | flag | Return an ''image'' property with the Base64 encoded image. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''imageid'' and ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve an image ===
+
+Retrieve all data for image with ID "2".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "image.get",
+    "params": {
+        "output": "extend",
+        "select_image": true,
+        "imageids": "2"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "imageid": "2",
+            "imagetype": "1",
+            "name": "Cloud_(24)",
+            "image": "iVBORw0KGgoAAAANSUhEUgAAABgAAAANCAYAAACzbK7QAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACmAAAApgBNtNH3wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAIcSURBVDjLrZLbSxRRHMdPKiEiRQ89CD0s+N5j9BIMEf4Hg/jWexD2ZEXQbC9tWUFZimtLhswuZiVujK1UJmYXW9PaCUdtb83enL3P7s6ss5f5dc7EUsmqkPuFH3M4/Ob7+V0OAgC0UyDENFEU03rh1uNOs/lFG75o2i2/rkd9Y3Tgyj3HiaezbukdH9A/rP4E9vWi0u+Y4fuGnMf3DRgYc3Z/84YrQSkD3mgKhFAC+KAEK74Y2Lj3MjPoOokQ3Xyx/1GHeXCifbfO6lRPH/wi+AvZQhGSsgKxdB5CCRkCGPbDgMXBMbukTc4vK5/WRHizsq7fZl2LFuvE4T0BZDTXHtgv4TNUqlUolsqQL2qQwbDEXzBBTIJ7I4y/cfAENmHZF4XrY9Mc+X9HAFmoyXS2ddy1IOg6/KNyBcM0DFP/wFZFCcOy4N9Mw0YkCTOfhdL5AfZQXQBFn2t/ODXHC8FYVcoWjNEQ03qqwTJ5FdI44jg/msoB2Zd5ZKq3q6evA1FUS60bYyyj3AJf3V72HiLZJQxTtRLk1C2IYEg4mTNg63hPd1mOJd7Ict911OMNlWEf0nFxpCt16zcshTuLpGSwDDuPIfv0xzNyQYVGicC0cgUUDLM6Xp02lvvW/V2EBssnxlSGmWsxljw0znV9XfPLjTCW84r+cn7Jc8c2eWrbM6Wbe6/aTJbhJ/TNkWc9/xXW592Xb9iPkKnUfH8BKdLgFy0lDyQAAAAASUVORK5CYII="
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CImage::get() in //frontends/php/include/classes/api/services/CImage.php//.

@@ -1,0 +1,10 @@
+===== Discovered service =====
+
+This class is designed to work with discovered services. 
+
+Object references: \\
+  * [[manual:api:reference:dservice:object#discovered_service|Discovered service]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:dservice:get|dservice.get]]'' - retrieve discovered services

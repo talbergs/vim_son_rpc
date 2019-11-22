@@ -1,0 +1,68 @@
+===== drule.create =====
+
+==== Description ====
+
+''object drule.create(object/array **discroveryRules**)''
+
+This method allows to create new discrovery rules.
+
+==== Parameters ====
+
+''(object/array)'' Discrovery rules to create.
+
+Additionally to the [[object#discrovery_rule|standard discrovery rule properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **dchecks** \\ (required) | array | Discovery checks to create for the discovery rule. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created discrovery rules under the ''druleids'' property. The order of the returned IDs matches the order of the passed discrovery rules.
+
+==== Examples ====
+
+=== Create a discovery rule ===
+
+Create a discovery rule to find machines running the Zabbix agent in the local network. The rule must use a single Zabbix agent check on port 10050.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "drule.create",
+    "params": {
+        "name": "Zabbix agent discovery",
+        "iprange": "192.168.1.1-255",
+        "dchecks": [
+            {
+                "type": "9",
+                "key_": "system.uname",
+                "ports": "10050",
+                "uniq": "0"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "druleids": [
+            "6"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:dcheck:object#discovery_check|Discovery check]]
+
+==== Source ====
+
+CDRule::create() in //frontends/php/include/classes/api/services/CDRule.php//.

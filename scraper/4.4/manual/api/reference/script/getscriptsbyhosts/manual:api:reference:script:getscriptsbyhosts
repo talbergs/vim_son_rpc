@@ -1,0 +1,133 @@
+===== script.getscriptsbyhosts =====
+
+==== Description ====
+
+''object script.getscriptsbyhosts(array **hostIds**)''
+
+This method allows to retrieve scripts available on the given hosts.
+
+==== Parameters ====
+
+''(string/array)'' IDs of hosts to return scripts for.
+
+==== Return values ====
+
+''(object)'' Returns an object with host IDs as properties and arrays of available scripts as values.
+
+<note tip>The method will automatically expand macros in the ''confirmation'' text.</note>
+
+==== Examples ====
+
+=== Retrieve scripts by host IDs ===
+
+Retrieve all scripts available on hosts "30079" and "30073".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "script.getscriptsbyhosts",
+    "params": [
+        "30079",
+        "30073"
+    ],
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "30079": [
+            {
+                "scriptid": "3",
+                "name": "Detect operating system",
+                "command": "sudo /usr/bin/nmap -O {HOST.CONN} 2>&1",
+                "host_access": "2",
+                "usrgrpid": "7",
+                "groupid": "0",
+                "description": "",
+                "confirmation": "",
+                "type": "0",
+                "execute_on": "1",
+                "hostid": "10001"
+            },
+            {
+                "scriptid": "1",
+                "name": "Ping",
+                "command": "/bin/ping -c 3 {HOST.CONN} 2>&1",
+                "host_access": "2",
+                "usrgrpid": "0",
+                "groupid": "0",
+                "description": "",
+                "confirmation": "",
+                "type": "0",
+                "execute_on": "1",
+                "hostid": "10001"
+            },
+            {
+                "scriptid": "2",
+                "name": "Traceroute",
+                "command": "/usr/bin/traceroute {HOST.CONN} 2>&1",
+                "host_access": "2",
+                "usrgrpid": "0",
+                "groupid": "0",
+                "description": "",
+                "confirmation": "",
+                "type": "0",
+                "execute_on": "1",
+                "hostid": "10001"
+            }
+        ],
+        "30073": [
+            {
+                "scriptid": "3",
+                "name": "Detect operating system",
+                "command": "sudo /usr/bin/nmap -O {HOST.CONN} 2>&1",
+                "host_access": "2",
+                "usrgrpid": "7",
+                "groupid": "0",
+                "description": "",
+                "confirmation": "",
+                "type": "0",
+                "execute_on": "1",
+                "hostid": "10001"
+            },
+            {
+                "scriptid": "1",
+                "name": "Ping",
+                "command": "/bin/ping -c 3 {HOST.CONN} 2>&1",
+                "host_access": "2",
+                "usrgrpid": "0",
+                "groupid": "0",
+                "description": "",
+                "confirmation": "",
+                "type": "0",
+                "execute_on": "1",
+                "hostid": "10001"
+            },
+            {
+                "scriptid": "2",
+                "name": "Traceroute",
+                "command": "/usr/bin/traceroute {HOST.CONN} 2>&1",
+                "host_access": "2",
+                "usrgrpid": "0",
+                "groupid": "0",
+                "description": "",
+                "confirmation": "",
+                "type": "0",
+                "execute_on": "1",
+                "hostid": "10001"
+            }
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CScript::getScriptsByHosts() in //frontends/php/include/classes/api/services/CScript.php//.

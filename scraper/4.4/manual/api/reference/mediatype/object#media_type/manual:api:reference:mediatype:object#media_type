@@ -1,0 +1,30 @@
+===== > Media type object =====
+
+The following objects are directly related to the ''mediatype'' API.
+
+==== Media type ====
+
+The media type object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| mediatypeid | string | //(readonly)// ID of the media type. |
+| **description** \\ (required) | string | Name of the media type. |
+| **type** \\ (required) | integer | Transport used by the media type. \\ \\ Possible values: \\ 0 - e-mail; \\ 1 - script; \\ 2 - SMS; \\ 3 - Jabber; \\ 100 - Ez Texting. |
+| exec_path | string | For script media types ''exec_path'' contains the name of the executed script. \\ \\ For Ez Texting ''exec_path'' contains the message text limit. \\ Possible text limit values: \\ 0 - USA (160 characters); \\ 1 - Canada (136 characters). \\ \\ Required for script and Ez Texting media types. |
+| gsm_modem | string | Serial device name of the GSM modem. \\ \\ Required for SMS media types. |
+| passwd | string | Authentication password. \\ \\ Required for Jabber and Ez Texting media types. |
+| smtp_email | string | Email address from which notifications will be sent. \\ \\ Required for email media types. |
+| smtp_helo | string | SMTP HELO. \\ \\ Required for email media types. |
+| smtp_server | string | SMTP server. \\ \\ Required for email media types. |
+| smtp_port | integer | SMTP server port to connect to. |
+| smtp_security | integer | SMTP connection security level to use. \\ \\ Possible values: \\ 0 - None; \\ 1 - STARTTLS; \\ 2 - SSL/TLS.   |
+| smtp_verify_host | integer | SSL verify host for SMTP. \\ \\ Possible values: \\ 0 - No; \\ 1 - Yes. |
+| smtp_verify_peer | integer | SSL verify peer for SMTP. \\ \\ Possible values: \\ 0 - No; \\ 1 - Yes. |
+| smtp_authentication | integer | SMTP authentication method to use. \\ \\ Possible values: \\ 0 - None; \\ 1 - Normal password. |
+| status | integer | Whether the media type is enabled. \\ \\ Possible values: \\ 0 - //(default)// enabled; \\ 1 - disabled. |
+| username | string | Username or Jabber identifier. \\ \\ Required for Jabber and Ez Texting media types. |
+| exec_params | string | Script parameters. \\ \\ Each parameter ends with a new line feed. |
+| maxsessions | integer| The maximum number of alerts that can be processed in parallel. \\ \\ Possible values for SMS: \\ 1 - //(default)// \\ \\ Possible values for other media types: \\ 0-100 |
+| maxattempts | integer | The maximum number of attempts to send an alert. \\ \\ Possible values: \\ 1-10 \\ \\ Default value: \\ 3|
+| attempt_interval | string | The interval between retry attempts. Accepts seconds and time unit with suffix. \\ \\ Possible values: \\ 0-60s \\ \\ Default value: \\ 10s|
+| content_type | integer | Message format. \\ \\ Possible values: \\ 0 - plain text; \\ 1 - //(default)// html. |

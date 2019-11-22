@@ -1,0 +1,76 @@
+===== trend.get =====
+
+==== Description ====
+
+''integer/array trend.get(object **parameters**)''
+
+The method allows to retrieve trend data according to the given parameters.
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| itemids | string/array | Return only trends with the given item IDs. |
+| time_from | timestamp | Return only values that have been collected after or at the given time. |
+| time_till | timestamp | Return only values that have been collected before or at the given time. |
+| countOutput |boolean | Count the number of retrieved objects. |
+| limit |integer| Limit the amount of retrieved objects. |
+| output |query| Set fields to output. |
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving item trend data ===
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trend.get",
+    "params": {
+        "output": [
+            "itemid",
+            "clock",
+            "num",
+            "value_min",
+            "value_avg",
+            "value_max",
+        ],
+        "itemids": [
+            "23715"
+        ],
+        "limit": "1"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "itemid": "23715",
+            "clock": "1446199200",
+            "num": "60",
+            "value_min": "0.1650",
+            "value_avg": "0.2168",
+            "value_max": "0.3500",
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTrend::get() in //frontends/php/include/classes/api/services/CTrend.php//.

@@ -1,0 +1,53 @@
+===== map.delete =====
+
+==== Description ====
+
+''object map.delete(array **mapIds**)''
+
+This method allows to delete maps.
+
+==== Parameters ====
+
+''(array)'' IDs of the maps to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted maps under the ''sysmapids'' property.
+
+==== Examples ====
+
+=== Delete multiple maps ===
+
+Delete two maps.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "map.delete",
+    "params": [
+        "12",
+        "34"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "sysmapids": [
+            "12",
+            "34"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CMap::delete() in //frontends/php/include/classes/api/services/CMap.php//.

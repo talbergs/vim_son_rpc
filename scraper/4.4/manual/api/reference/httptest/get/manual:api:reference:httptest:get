@@ -1,0 +1,150 @@
+===== httptest.get =====
+
+==== Description ====
+
+''integer/array httptest.get(object **parameters**)''
+
+The method allows to retrieve web scenarios according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| applicationids | string/array | Return only web scenarios that belong to the given applications. |
+| groupids | string/array | Return only web scenarios that belong to the given host groups. |
+| hostids | string/array | Return only web scenarios that belong to the given hosts. |
+| httptestids | string/array | Return only web scenarios with the given IDs. |
+| inherited | boolean | If set to ''true'' return only web scenarios inherited from a template. |
+| monitored | boolean | If set to ''true'' return only enabled web scenarios that belong to monitored hosts. |
+| templated | boolean | If set to ''true'' return only web scenarios that belong to templates. |
+| templateids | string/array | Return only web scenarios that belong to the given templates. |
+^ |||
+| expandName | flag | Expand macros in the name of the web scenario. |
+| expandStepName | flag | Expand macros in the names of scenario steps. |
+| selectHosts | query | Return the host that the web scenario belongs to as an array in the ''hosts'' property. |
+| selectSteps | query | Return web scenario steps in the ''steps'' property. \\ \\ Supports ''count''. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''httptestid'' and ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving a web scenario ===
+
+Retrieve all data about web scenario "4".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "httptest.get",
+    "params": {
+        "output": "extend",
+        "selectSteps": "extend",
+        "httptestids": "9"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "httptestid": "9",
+            "name": "Homepage check",
+            "applicationid": "0",
+            "nextcheck": "0",
+            "delay": "1m",
+            "status": "0",
+            "variables": [],
+            "agent": "Zabbix",
+            "authentication": "0",
+            "http_user": "",
+            "http_password": "",
+            "hostid": "10084",
+            "templateid": "0",
+            "http_proxy": "",
+            "retries": "1",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "headers": [],
+            "steps": [
+                {
+                    "httpstepid": "36",
+                    "httptestid": "9",
+                    "name": "Homepage",
+                    "no": "1",
+                    "url": "http://mycompany.com",
+                    "timeout": "15s",
+                    "posts": "",
+                    "required": "",
+                    "status_codes": "200",
+                    "variables": [  
+                        {  
+                            "name":"{var}",
+                            "value":"12"
+                        }
+                    ],
+                    "follow_redirects": "1",
+                    "retrieve_mode": "0",
+                    "headers": [],
+                    "query_fields": []
+                },
+                {
+                    "httpstepid": "37",
+                    "httptestid": "9",
+                    "name": "Homepage / About",
+                    "no": "2",
+                    "url": "http://mycompany.com/about",
+                    "timeout": "15s",
+                    "posts": "",
+                    "required": "",
+                    "status_codes": "200",
+                    "variables": [],
+                    "follow_redirects": "1",
+                    "retrieve_mode": "0",
+                    "headers": [],
+                    "query_fields": []
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[object#scenario_step|Scenario step]]
+
+==== Source ====
+
+CHttpTest::get() in //frontends/php/include/classes/api/services/CHttpTest.php//.

@@ -1,0 +1,54 @@
+===== application.create =====
+
+==== Description ====
+
+''object application.create(object/array **applications**)''
+
+This method allows to create new applications.
+
+==== Parameters ====
+
+''(object/array)'' Applications to create.
+
+The method accepts applications with the [[manual:api:reference:application:object#application|standard application properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created applications under the ''applicationids'' property. The order of the returned IDs matches the order of the passed applications.
+
+==== Examples ====
+
+=== Creating an application ===
+
+Create an application to store SNMP items.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "application.create",
+    "params": {
+        "name": "SNMP Items",
+        "hostid": "10050"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "applicationids": [
+            "356"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CApplication::create() in //frontends/php/include/classes/api/services/CApplication.php//.

@@ -1,0 +1,61 @@
+===== > History object =====
+
+The following objects are directly related to the ''history'' API.
+
+<note>History objects differ depending on the item's type of information. They are created by the Zabbix server and cannot be modified via the API.</note>
+
+==== Float history ====
+
+The float history object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| clock | timestamp | Time when that value was received. |
+| itemid | string | ID of the related item. |
+| ns | integer | Nanoseconds when the value was received. |
+| value | float | Received value. |
+
+==== Integer history ====
+
+The integer history object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| clock | timestamp | Time when that value was received. |
+| itemid | string | ID of the related item. |
+| ns | integer | Nanoseconds when the value was received. |
+| value | integer | Received value. |
+
+==== String history ====
+
+The string history object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| clock | timestamp | Time when that value was received. |
+| itemid | string | ID of the related item. |
+| ns | integer | Nanoseconds when the value was received. |
+| value | string | Received value. |
+
+==== Text history ====
+
+The text history object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| id | string | ID of the history entry. |
+| clock | timestamp | Time when that value was received. |
+| itemid | string | ID of the related item. |
+| ns | integer | Nanoseconds when the value was received. |
+| value | text | Received value. |
+
+==== Log history ====
+
+The log history object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| id | string | ID of the history entry. |
+| clock | timestamp | Time when that value was received. |
+| itemid | string | ID of the related item. |
+| logeventid | integer | Windows event log entry ID. |
+| ns | integer | Nanoseconds when the value was received. |
+| severity | integer | Windows event log entry level. |
+| source | string | Windows event log entry source. |
+| timestamp| timestamp | Windows event log entry time. |
+| value | text | Received value. |

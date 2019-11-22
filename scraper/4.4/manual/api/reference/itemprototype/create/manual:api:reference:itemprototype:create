@@ -1,0 +1,203 @@
+===== itemprototype.create =====
+
+==== Description ====
+
+''object itemprototype.create(object/array **itemPrototypes**)''
+
+This method allows to create new item prototypes.
+
+==== Parameters ====
+
+''(object/array)'' Item prototype to create.
+
+Additionally to the [[object#item_prototype|standard item prototype properties]], the method accepts the following parameters.
+
+^ Parameter                ^ Type   ^ Description                                                           ^
+| **ruleid** \\ (required) | string | ID of the LLD rule that the item belongs to.                          |
+| applications             | array  | IDs of applications to be assigned to the discovered items.           |
+| applicationPrototypes    | array  | Names of application prototypes to be assigned to the item prototype. |
+| preprocessing            | array  | Item prototype preprocessing options.                                 |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created item prototypes under the ''itemids'' property. The order of the returned IDs matches the order of the passed item prototypes.
+
+==== Examples ====
+
+=== Creating an item prototype ===
+
+Create an item prototype to monitor free disc space on a discovered file system. Discovered items should be numeric Zabbix agent items updated every 30 seconds.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "itemprototype.create",
+    "params": {
+        "name": "Free disk space on $1",
+        "key_": "vfs.fs.size[{#FSNAME},free]",
+        "hostid": "10197",
+        "ruleid": "27665",
+        "type": 0,
+        "value_type": 3,
+        "interfaceid": "112",
+        "delay": "30s"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "27666"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Creating an item prototype with preprocessing ===
+
+Create an item using change per second and a custom multiplier as a second step.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "itemprototype.create",
+    "params": {
+        "name": "Incoming network traffic on $1",
+        "key_": "net.if.in[{#IFNAME}]",
+        "hostid": "10001",
+        "ruleid": "27665",
+        "type": 0,
+        "value_type": 3,
+        "delay": "60s",
+        "units": "bps",
+        "interfaceid": "1155",
+        "preprocessing": [
+            {
+                "type": "10",
+                "params": "",
+                "error_handler": "0",
+                "error_handler_params": ""
+            },
+            {
+                "type": "1",
+                "params": "8",
+                "error_handler": "2",
+                "error_handler_params": "10"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "44211"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Creating dependent item prototype ===
+
+Create Dependent item prototype for Master item prototype with ID 44211. Only dependencies on same host (template/discovery rule) are allowed, therefore Master and Dependent item should have same hostid and ruleid.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "itemprototype.create",
+    "params": {
+      "hostid": "10001",
+      "ruleid": "27665",
+      "name": "Dependent test item prototype",
+      "key_": "dependent.prototype",
+      "type": "18",
+      "master_itemid": "44211",
+      "value_type": "3"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "44212"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+
+=== Create HTTP agent item prototype ===
+
+Create item prototype with URL using user macro, query fields and custom headers.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "itemprototype.create",
+    "params": {
+        "type": "19",
+        "hostid": "10254",
+        "ruleid":"28256",
+        "interfaceid":"2",
+        "name": "api item prototype example",
+        "key_": "api_http_item",
+        "value_type": "3",
+        "url": "{$URL_PROTOTYPE}",
+        "query_fields": [
+            {
+                "min": "10"
+            },
+            {
+                "max": "100"
+            }
+        ],
+        "headers": {
+            "X-Source": "api"
+        },
+        "delay":"35"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "28305"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== Source ====
+
+CItemPrototype::create() in //frontends/php/include/classes/api/services/CItemPrototype.php//.

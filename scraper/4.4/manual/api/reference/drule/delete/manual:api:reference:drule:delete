@@ -1,0 +1,53 @@
+===== drule.delete =====
+
+==== Description ====
+
+''object drule.delete(array **discoveryRuleIds**)''
+
+This method allows to delete discovery rules.
+
+==== Parameters ====
+
+''(array)'' IDs of the discovery rules to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted discovery rules under the ''druleids'' property.
+
+==== Examples ====
+
+=== Delete multiple discovery rules ===
+
+Delete two discovery rules.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "drule.delete",
+    "params": [
+        "4",
+        "6"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "druleids": [
+            "4",
+            "6"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CDRule::delete() in //frontends/php/include/classes/api/services/CDRule.php//.

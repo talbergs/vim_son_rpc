@@ -1,0 +1,16 @@
+===== Host interface =====
+
+This class is designed to work with host interfaces. 
+
+Object references: \\
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:hostinterface:create|hostinterface.create]]'' - creating new host interfaces
+  * ''[[manual:api:reference:hostinterface:delete|hostinterface.delete]]'' - deleting host interfaces
+  * ''[[manual:api:reference:hostinterface:get|hostinterface.get]]'' - retrieving host interfaces
+  * ''[[manual:api:reference:hostinterface:massadd|hostinterface.massadd]]'' - adding host interfaces to hosts
+  * ''[[manual:api:reference:hostinterface:massremove|hostinterface.massremove]]'' - removing host interfaces from hosts
+  * ''[[manual:api:reference:hostinterface:replacehostinterfaces|hostinterface.replacehostinterfaces]]'' - replacing host interfaces on a host
+  * ''[[manual:api:reference:hostinterface:update|hostinterface.update]]'' - updating host interfaces

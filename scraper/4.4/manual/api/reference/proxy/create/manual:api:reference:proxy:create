@@ -1,0 +1,112 @@
+===== proxy.create =====
+
+==== Description ====
+
+''object proxy.create(object/array **proxies**)''
+
+This method allows to create new proxies.
+
+==== Parameters ====
+
+''(object/array)'' Proxies to create.
+
+Additionally to the [[object#proxy|standard proxy properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| hosts | array | Hosts to be monitored by the proxy. If a host is already monitored by a different proxy, it will be reassigned to the current proxy. \\ \\ The hosts must have the ''hostid'' property defined. |
+| interface | object | Host interface to be created for the passive proxy. \\ \\ Required for passive proxies. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created proxies under the ''proxyids'' property. The order of the returned IDs matches the order of the passed proxies.
+
+==== Examples ====
+
+=== Create an active proxy ===
+
+Create an action proxy "Active proxy" and assign a host to be monitored by it.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "proxy.create",
+    "params": {
+        "host": "Active proxy",
+        "status": "5",
+        "hosts": [
+            {
+                "hostid": "10279"
+            }
+        ]
+    },
+    "auth": "ab9638041ec6922cb14b07982b268f47",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "proxyids": [
+            "10280"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Create a passive proxy ===
+
+Create a passive proxy "Passive proxy" and assign two hosts to be monitored by it.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "proxy.create",
+    "params": {
+        "host": "Passive proxy",
+        "status": "6",
+        "interface": {
+            "ip": "127.0.0.1",
+            "dns": "",
+            "useip": "1",
+            "port": "10051"
+        },
+        "hosts": [
+            {
+                "hostid": "10192"
+            },
+            {
+                "hostid": "10139"
+            }
+        ]
+    },
+    "auth": "ab9638041ec6922cb14b07982b268f47",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "proxyids": [
+            "10284"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[object#proxy_interface|Proxy interface]]
+==== Source ====
+
+CProxy::create() in //frontends/php/include/classes/api/services/CProxy.php//.

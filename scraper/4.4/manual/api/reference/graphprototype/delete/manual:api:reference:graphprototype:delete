@@ -1,0 +1,53 @@
+===== graphprototype.delete =====
+
+==== Description ====
+
+''object graphprototype.delete(array **graphPrototypeIds**)''
+
+This method allows to delete graph prototypes.
+
+==== Parameters ====
+
+''(array)'' IDs of the graph prototypes to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted graph prototypes under the ''graphids'' property.
+
+==== Examples ====
+
+=== Deleting multiple graph prototypes ===
+
+Delete two graph prototypes.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "graphprototype.delete",
+    "params": [
+        "652",
+        "653"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "graphids": [
+            "652",
+            "653"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CGraphPrototype::delete() in //frontends/php/include/classes/api/services/CGraphPrototype.php//.

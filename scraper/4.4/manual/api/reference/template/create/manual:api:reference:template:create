@@ -1,0 +1,77 @@
+===== template.create =====
+
+==== Description ====
+
+''object template.create(object/array **templates**)''
+
+This method allows to create new templates.
+
+==== Parameters ====
+
+''(object/array)'' Templates to create.
+
+Additionally to the [[object#template|standard template properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **groups** \\ (required) | object/array | Host groups to add the template to. \\ \\ The host groups must have the ''groupid'' property defined. |
+| tags | object/array | Template tags. |
+| templates | object/array | Templates to be linked to the template. \\ \\ The templates must have the ''templateid'' property defined. |
+| macros | object/array | User macros to be created for the template. |
+| hosts | object/array | Hosts to link the template to. \\ \\ The hosts must have the ''hostid'' property defined. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created templates under the ''templateids'' property. The order of the returned IDs matches the order of the passed templates.
+
+==== Examples ====
+
+=== Creating a template ===
+
+Create a template with tags and link it to two hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.create",
+    "params": {
+        "host": "Linux template",
+        "groups": {
+            "groupid": 1
+        },
+        "hosts": [
+            {
+                "hostid": "10084"
+            },
+            {
+                "hostid": "10090"
+            }
+        ],
+        "tags": [
+            {
+                "tag": "Host name",
+                "value": "{HOST.NAME}"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "templateids": [
+            "10086"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTemplate::create() in //frontends/php/include/classes/api/services/CTemplate.php//.

@@ -1,0 +1,16 @@
+===== > Discovery rule object =====
+
+The following objects are directly related to the ''drule'' API.
+
+==== Discovery rule ====
+
+The discovery rule object defines a network discovery rule. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| druleid | string  | //(readonly)// ID of the discovery rule.  |
+| **iprange** \\ (required) | string | One or several IP ranges to check separated by commas. \\ \\ Refer to the [[manual:discovery:network_discovery:rule|network discovery configuration]] section for more information on supported formats of IP ranges. |
+| **name** \\ (required) | string | Name of the discovery rule. |
+| delay | string | Execution interval of the discovery rule. Accepts seconds, time unit with suffix and user macro. \\ \\ Default: 1h. |
+| nextcheck | timestamp | //(readonly)// Time when the discovery rule will be executed next. |
+| proxy_hostid | string | ID of the proxy used for discovery. |
+| status | integer | Whether the discovery rule is enabled. \\ \\ Possible values: \\ 0 - //(default)// enabled; \\ 1 - disabled. |

@@ -1,0 +1,53 @@
+===== application.delete =====
+
+==== Description ====
+
+''object application.delete(array **applicationIds**)''
+
+This method allows to delete applications.
+
+==== Parameters ====
+
+''(array)'' IDs of the applications to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted applications under the ''applicationids'' property.
+
+==== Examples ====
+
+=== Deleting multiple applications ===
+
+Delete two applications.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "application.delete",
+    "params": [
+        "356",
+        "358"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "applicationids": [
+            "356",
+            "358"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CApplication::delete() in //frontends/php/include/classes/api/services/CApplication.php//.

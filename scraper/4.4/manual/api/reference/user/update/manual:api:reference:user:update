@@ -1,0 +1,62 @@
+===== user.update =====
+
+==== Description ====
+
+''object user.update(object/array **users**)''
+
+This method allows to update existing users.
+
+==== Parameters ====
+
+''(object/array)'' User properties to be updated.
+
+The ''userid'' property must be defined for each user, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#user|standard user properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| passwd | string | User's password. \\ \\ Can be empty string if user belongs to or is moved only to groups that have LDAP access. |
+| usrgrps | array | User groups to replace existing user groups.\\ \\ The user groups must have the ''usrgrpid'' property defined. |
+| user_medias | array | Medias to replace existing medias. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated users under the ''userids'' property.
+
+==== Examples ====
+
+=== Renaming a user ===
+
+Rename a user to John Doe.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "user.update",
+    "params": {
+        "userid": "1",
+        "name": "John",
+        "surname": "Doe"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "userids": [
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+
+==== Source ====
+
+CUser::update() in //frontends/php/include/classes/api/services/CUser.php//.

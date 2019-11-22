@@ -1,0 +1,66 @@
+===== action.update =====
+
+==== Description ====
+
+''object action.update(object/array **actions**)''
+
+This method allows to update existing actions.
+
+==== Parameters ====
+
+''(object/array)'' Action properties to be updated.
+
+The ''actionid'' property must be defined for each action, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#action|standard action properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| filter | object | Action filter object to replace the current filter. |
+| operations | array | Action operations to replace existing operations. |
+| recovery_operations | array | Action recovery operations to replace existing recovery operations. |
+| acknowledge_operations | array | Action acknowledge operations to replace existing acknowledge operations. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated actions under the ''actionids'' property.
+
+==== Examples ====
+
+=== Disable action ===
+
+Disable action, that is, set its status to "1".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "action.update",
+    "params": {
+        "actionid": "2",
+        "status": "1"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "actionids": [
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[object#action_filter|Action filter]]
+  * [[object#action_operation|Action operation]]
+
+==== Source ====
+
+CAction::update() in //frontends/php/include/classes/api/services/CAction.php//.

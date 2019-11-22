@@ -1,0 +1,54 @@
+===== hostgroup.update =====
+
+==== Description ====
+
+''object hostgroup.update(object/array **hostGroups**)''
+
+This method allows to update existing hosts groups.
+
+==== Parameters ====
+
+''(object/array)'' [[object#host_group|Host group properties]] to be updated. 
+
+The ''groupid'' property must be defined for each host group, all other properties are optional. Only the given properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated host groups under the ''groupids'' property.
+
+==== Examples ====
+
+=== Renaming a host group ===
+
+Rename a host group to "Linux hosts."
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.update",
+    "params": {
+        "groupid": "7",
+        "name": "Linux hosts"
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "groupids": [
+            "7"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CHostGroup::update() in //frontends/php/include/classes/api/services/CHostGroup.php//.

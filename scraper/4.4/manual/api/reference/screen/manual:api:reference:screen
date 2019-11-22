@@ -1,0 +1,14 @@
+===== Screen =====
+
+This class is designed to work with screen. 
+
+Object references: \\
+  * [[manual:api:reference:screen:object#screen|Screen]]
+  * [[manual:api:reference:screen:object#screen_user|Screen user]]
+  * [[manual:api:reference:screen:object#screen_user_group|Screen user group]]
+
+Available methods: \\
+  * ''[[manual:api:reference:screen:create|screen.create]]'' - creating new screen
+  * ''[[manual:api:reference:screen:delete|screen.delete]]'' - deleting screens
+  * ''[[manual:api:reference:screen:get|screen.get]]'' - retrieving screens
+  * ''[[manual:api:reference:screen:update|screen.update]]'' - updating screens

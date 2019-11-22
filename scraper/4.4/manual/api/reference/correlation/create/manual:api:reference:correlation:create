@@ -1,0 +1,129 @@
+===== correlation.create =====
+
+==== Description ====
+
+''object correlation.create(object/array **correlations**)''
+
+This method allows to create new correlations.
+
+==== Parameters ====
+
+''(object/array)'' Correlations to create.
+
+Additionally to the [[object#correlation|standard correlation properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **operations** \\ (required) | array | Correlation operations to create for the correlation. |
+| **filter** \\ (required) | object | Correlation filter object for the correlation. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created correlations under the ''correlationids'' property. The order of the returned IDs matches the order of the passed correlations.
+
+==== Examples ====
+
+=== Create a new event tag correlation ===
+
+Create a correlation using evaluation method ''AND/OR'' with one condition and one operation. By default the correlation will be enabled.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "correlation.create",
+    "params": {
+        "name": "new event tag correlation",
+        "filter": {
+            "evaltype": 0,
+            "conditions": [
+                {
+                    "type": 1,
+                    "tag": "ok"
+                }
+            ]
+        },
+        "operations": [
+            {
+                "type": 0
+            }
+        ]
+    },
+    "auth": "343baad4f88b4106b9b5961e77437688",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "correlationids": [
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Using a custom expression filter ===
+
+Create a correlation that will use a custom filter condition. The formula IDs "A" or "B" have been chosen arbitrarily. Condition type will be "Host group" with operator "<>".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "correlation.create",
+    "params": {
+        "name": "new host group correlation",
+        "description": "a custom description",
+        "status": 0,
+        "filter": {
+            "evaltype": 3,
+            "formula": "A or B",
+            "conditions": [
+                {
+                    "type": 2,
+                    "operator": 1,
+                    "formulaid": "A"
+                },
+                {
+                    "type": 2,
+                    "operator": 1,
+                    "formulaid": "B"
+                }
+            ]
+        },
+        "operations": [
+            {
+                "type": 1
+            }
+        ]
+    },
+    "auth": "343baad4f88b4106b9b5961e77437688",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "correlationids": [
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#correlation_filter|Correlation filter]]
+  * [[object#correlation_operation|Correlation operation]]
+
+==== Source ====
+
+CCorrelation::create() in //frontends/php/include/classes/api/services/CCorrelation.php//.

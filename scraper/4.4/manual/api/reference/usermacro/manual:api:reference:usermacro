@@ -1,0 +1,16 @@
+===== User macro =====
+
+This class is designed to work with host and global macros. 
+
+Object references: \\
+  * [[manual:api:reference:usermacro:object#global_macro|Global macro]]
+  * [[manual:api:reference:usermacro:object#host_macro|Host macro]]
+
+Available methods: \\
+  * ''[[manual:api:reference:usermacro:create|usermacro.create]]'' - creating new host macros
+  * ''[[manual:api:reference:usermacro:createglobal|usermacro.createglobal]]'' - creating new global macros
+  * ''[[manual:api:reference:usermacro:delete|usermacro.delete]]'' - deleting host macros
+  * ''[[manual:api:reference:usermacro:deleteglobal|usermacro.deleteglobal]]'' - deleting global macros
+  * ''[[manual:api:reference:usermacro:get|usermacro.get]]'' - retrieving host and global macros
+  * ''[[manual:api:reference:usermacro:update|usermacro.update]]'' - updating host macros
+  * ''[[manual:api:reference:usermacro:updateglobal|usermacro.updateglobal]]'' - updating global macros

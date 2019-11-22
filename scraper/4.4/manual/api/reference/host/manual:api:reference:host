@@ -1,0 +1,17 @@
+===== Host =====
+
+This class is designed to work with hosts. 
+
+Object references: \\
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:host:object#host_inventory|Host inventory]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:host:create|host.create]]'' - creating new hosts
+  * ''[[manual:api:reference:host:delete|host.delete]]'' - deleting hosts
+  * ''[[manual:api:reference:host:get|host.get]]'' - retrieving hosts
+  * ''[[manual:api:reference:host:massadd|host.massadd]]'' - adding related objects to hosts
+  * ''[[manual:api:reference:host:massremove|host.massremove]]'' - removing related objects from hosts
+  * ''[[manual:api:reference:host:massupdate|host.massupdate]]'' - replacing or removing related objects from hosts
+  * ''[[manual:api:reference:host:update|host.update]]'' - updating hosts

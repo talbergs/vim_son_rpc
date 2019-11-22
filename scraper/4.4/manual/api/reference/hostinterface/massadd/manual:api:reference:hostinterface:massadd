@@ -1,0 +1,78 @@
+===== hostinterface.massadd =====
+
+==== Description ====
+
+''object hostinterface.massadd(object **parameters**)''
+
+This method allows to simultaneously add host interfaces to multiple hosts.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the host interfaces to be created on the given hosts.
+
+The method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **hosts** \\ (required) | object/array | Hosts to be updated. \\ \\ The hosts must have the ''hostid'' property defined. |
+| **interfaces** \\ (required) | object/array | Host interfaces to create on the given hosts. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created host interfaces under the ''interfaceids'' property.
+
+==== Examples ====
+
+=== Creating interfaces ===
+
+Create an interface on two hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostinterface.massadd",
+    "params": {
+        "hosts": [
+            {
+                "hostid": "30050"
+            },
+            {
+                "hostid": "30052"
+            }
+        ],
+        "interfaces": {
+            "dns": "",
+            "ip": "127.0.0.1",
+            "main": 0,
+            "port": "10050",
+            "type": 1,
+            "useip": 1
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "interfaceids": [
+            "30069",
+            "30070"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[create|hostinterface.create]]
+  * [[manual:api:reference:host:massadd|host.massadd]]
+  * [[manual:api:reference:host:object#host|Host]]
+==== Source ====
+
+CHostInterface::massAdd() in //frontends/php/include/classes/api/services/CHostInterface.php//.

@@ -1,0 +1,171 @@
+===== discoveryrule.update =====
+
+==== Description ====
+
+''object discoveryrule.update(object/array **lldRules**)''
+
+This method allows to update existing LLD rules.
+
+==== Parameters ====
+
+''(object/array)'' LLD rule properties to be updated.
+
+The ''itemid'' property must be defined for each LLD rule, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#lld_rule|standard LLD rule properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| filter | object | LLD rule filter object to replace the current filter. |
+| preprocessing | array | LLD rule preprocessing options to replace the current preprocessing options. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated LLD rules under the ''itemids'' property.
+
+==== Examples ====
+=== Adding a filter to an LLD rule ===
+Add a filter so that the contents of the //{#FSTYPE}// macro would match the //@File systems for discovery// regexp.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.update",
+    "params": {
+        "itemid": "22450",
+        "filter": {
+            "evaltype": 1,
+            "conditions": [
+                {
+                    "macro": "{#FSTYPE}",
+                    "value": "@File systems for discovery"
+                }
+            ]
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "22450"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Adding LLD macro paths ===
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.update",
+    "params": {
+        "itemid": "22450",
+        "lld_macro_paths": [
+            {
+                "lld_macro": "{#MACRO1}",
+                "path": "$.json.path"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "22450"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Disable trapping ===
+
+Disable LLD trapping for discovery rule.
+
+Request:
+
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.update",
+    "params": {
+        "itemid": "28336",
+        "allow_traps": "0"
+    },
+    "id": 36,
+    "auth": "d678e0b85688ce578ff061bd29a20d3b"
+}
+</code>
+
+Response:
+
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "28336"
+        ]
+    },
+    "id": 36
+}
+</code>
+
+=== Updating LLD rule preprocessing options ===
+
+Update an LLD rule with preprocessing rule “JSONPath”.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.update",
+    "params": {
+        "itemid": "44211",
+        "preprocessing": [
+            {
+                "type": "12",
+                "params": "$.path.to.json",
+                "error_handler": "2",
+                "error_handler_params": "5"
+            }
+        ]
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "44211"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CDiscoveryRule::update() in //frontends/php/include/classes/api/services/CDiscoveryRule.php//.

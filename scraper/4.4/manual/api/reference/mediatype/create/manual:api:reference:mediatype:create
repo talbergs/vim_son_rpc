@@ -1,0 +1,93 @@
+===== mediatype.create =====
+
+==== Description ====
+
+''object mediatype.create(object/array **mediaTypes**)''
+
+This method allows to create new media types.
+
+==== Parameters ====
+
+''(object/array)'' Media types to create.
+
+The method accepts media types with the [[object#media_type|standard media type properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created media types under the ''mediatypeids'' property. The order of the returned IDs matches the order of the passed media types.
+
+==== Examples ====
+
+=== Creating a media type ===
+
+Create a new e-mail media type.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "mediatype.create",
+    "params": {
+        "description": "E-mail",
+        "type": 0,
+        "smtp_server": "rootmail@company.com",
+        "smtp_helo": "company.com",
+        "smtp_email": "zabbix@company.com",
+        "content_type": 1
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "mediatypeids": [
+            "7"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Creating a media type with custom options ===
+
+Create a new script media type with custom value for number of attempts and interval between them.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "mediatype.create",
+    "params": {
+        "type": 1,
+        "description": "Push notifications",
+        "exec_path": "push-notification.sh",
+        "exec_params": "{ALERT.SENDTO}\n{ALERT.SUBJECT}\n{ALERT.MESSAGE}\n",
+        "maxattempts": "5",
+        "attempt_interval": "11s"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "mediatypeids": [
+            "8"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CMediaType::create() in //frontends/php/include/classes/api/services/CMediaType.php//.

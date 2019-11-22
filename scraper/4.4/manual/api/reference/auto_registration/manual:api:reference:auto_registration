@@ -1,0 +1,11 @@
+===== Auto registration =====
+
+This class is designed to work with autoregistration. 
+
+Object references: \\
+  * [[manual:api:reference:auto_registration:object#autoregistration|Auto registration]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:auto_registration:autoregistration.get|autoregistration.get]]'' - retrieve autoregistration
+  * ''[[manual:api:reference:auto_registration:autoregistration.update|autoregistration.update]]'' - update autoregistration

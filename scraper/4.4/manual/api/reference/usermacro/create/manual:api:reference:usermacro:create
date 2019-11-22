@@ -1,0 +1,55 @@
+===== usermacro.create =====
+
+==== Description ====
+
+''object usermacro.create(object/array **hostMacros**)''
+
+This method allows to create new host macros.
+
+==== Parameters ====
+
+''(object/array)'' Host macros to create.
+
+The method accepts host macros with the [[object#host_macro|standard host macro properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created host macros under the ''hostmacroids'' property. The order of the returned IDs matches the order of the passed host macros.
+
+==== Examples ====
+
+=== Creating a host macro ===
+
+Creat a host macro "{$SNMP_COMMUNITY}" with the value "public" on host "10198".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usermacro.create",
+    "params": {
+        "hostid": "10198",
+        "macro": "{$SNMP_COMMUNITY}",
+        "value": "public"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostmacroids": [
+            "11"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CUserMacro::create() in //frontends/php/include/classes/api/services/CUserMacro.php//.

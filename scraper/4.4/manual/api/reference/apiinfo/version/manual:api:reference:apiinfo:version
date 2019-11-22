@@ -1,0 +1,48 @@
+===== apiinfo.version =====
+
+==== Description ====
+
+''string apiinfo.version(array)''
+
+This method allows to retrieve the version of the Zabbix API.
+
+==== Parameters ====
+
+<note important>This method is available to unauthenticated users and must be called without the ''auth'' parameter in the JSON-RPC request.</note>
+
+''(array)'' The method accepts an empty array.
+
+==== Return values ====
+
+''(string)'' Returns the version of the Zabbix API. 
+
+<note tip>Starting from Zabbix 2.0.4 the version of the API matches the version of Zabbix.</note>
+
+==== Examples ====
+
+=== Retrieving the version of the API ===
+
+Retrieve the version of the Zabbix API.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "apiinfo.version",
+    "params": [],
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": "4.0.0",
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CAPIInfo::version() in //frontends/php/include/classes/api/services/CAPIInfo.php//.

@@ -1,0 +1,10 @@
+===== Alert =====
+
+This class is designed to work with alerts. 
+
+Object references: \\
+  * [[manual:api:reference:alert:object#alert|Alert]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:alert:get|alert.get]]'' - retrieve alerts

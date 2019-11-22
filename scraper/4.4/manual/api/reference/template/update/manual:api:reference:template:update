@@ -1,0 +1,99 @@
+===== template.update =====
+
+==== Description ====
+
+''object template.update(object/array **templates**)''
+
+This method allows to update existing templates.
+
+==== Parameters ====
+
+''(object/array)'' Template properties to be updated.
+
+The ''templateid'' property must be defined for each template, all other properties are optional. Only the given properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#template|standard template properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| groups | object/array | Host groups to replace the current host groups the templates belong to. \\ \\ The host groups must have the ''groupid'' property defined.  |
+| tags | object/array | Template tags to replace the current template tags. |
+| hosts | object/array | Hosts and templates to replace the ones the templates are currently linked to. \\ \\ Both hosts and templates must use the ''hostid'' property to pass an ID. |
+| macros | object/array | User macros to replace the current user macros on the given templates. |
+| templates | object/array | Templates to replace the currently linked templates. Templates that are not passed are only unlinked. \\ \\ The templates must have the ''templateid'' property defined. |
+| templates_clear | object/array | Templates to unlink and clear from the given templates. \\ \\ The templates must have the ''templateid'' property defined. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated templates under the ''templateids'' property.
+
+==== Examples ====
+
+=== Renaming a template ===
+
+Rename the template to "Template OS Linux".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.update",
+    "params": {
+        "templateid": "10086",
+        "name": "Template OS Linux"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "templateids": [
+            "10086"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Updating template tags ===
+
+Replace all template tags with a new one.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.update",
+    "params": {
+        "templateid": "10086",
+        "tags": [
+            {
+                "tag": "Host name",
+                "value": "{HOST.NAME}"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10086"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTemplate::update() in //frontends/php/include/classes/api/services/CTemplate.php//.

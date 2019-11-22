@@ -1,0 +1,13 @@
+===== LLD rule =====
+
+This class is designed to work with low level discovery rules. 
+
+Object references: \\
+  * [[manual:api:reference:discoveryrule:object#lld_rule|LLD rule]]
+
+Available methods: \\
+  * ''[[manual:api:reference:discoveryrule:copy|discoveryrule.copy]]'' - copying LLD rules
+  * ''[[manual:api:reference:discoveryrule:create|discoveryrule.create]]'' - creating new LLD rules
+  * ''[[manual:api:reference:discoveryrule:delete|discoveryrule.delete]]'' - deleting LLD rules
+  * ''[[manual:api:reference:discoveryrule:get|discoveryrule.get]]'' - retrieving LLD rules
+  * ''[[manual:api:reference:discoveryrule:update|discoveryrule.update]]'' - updating LLD rules

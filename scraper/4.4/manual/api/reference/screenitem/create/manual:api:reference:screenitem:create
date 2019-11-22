@@ -1,0 +1,61 @@
+===== screenitem.create =====
+
+==== Description ====
+
+''object screenitem.create(object/array **screenItems**)''
+
+This method allows to create new screen items.
+
+==== Parameters ====
+
+''(object/array)'' Screen items to create.
+
+The method accepts screen items with the [[object#screen_item|standard screen item properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created screen items under the ''screenitemids'' property. The order of the returned IDs matches the order of the passed screen items.
+
+==== Examples ====
+
+=== Creating a screen item ===
+
+Create a screen item displaying a graph in the left-upper cell of the screen.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screenitem.create",
+    "params": {
+        "screenid": 16,
+        "resourcetype": 0,
+        "resourceid": 612,
+        "x": 0,
+        "y": 0
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenitemids": [
+            "65"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:screen:update|screen.update]]
+
+==== Source ====
+
+CScreenItem::create() in //frontends/php/include/classes/api/services/CScreenItem.php//.

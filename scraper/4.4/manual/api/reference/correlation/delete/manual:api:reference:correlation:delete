@@ -1,0 +1,52 @@
+===== correlation.delete =====
+
+==== Description ====
+
+''object correlation.delete(array **correlationids**)''
+
+This method allows to delete correlations.
+
+==== Parameters ====
+
+''(array)'' IDs of the correlations to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted correlations under the ''correlationids'' property.
+
+==== Example ====
+
+=== Delete multiple correlations ===
+
+Delete two correlations.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "correlation.delete",
+    "params": [
+        "1",
+        "2"
+    ],
+    "auth": "343baad4f88b4106b9b5961e77437688",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "correlaionids": [
+            "1",
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== Source ====
+
+CCorrelation::delete() in //frontends/php/include/classes/api/services/CCorrelation.php//.

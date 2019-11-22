@@ -1,0 +1,12 @@
+===== Media type =====
+
+This class is designed to work with media types. 
+
+Object references: \\
+  * [[manual:api:reference:mediatype:object#media_type|Media type]]
+
+Available methods: \\
+  * ''[[manual:api:reference:mediatype:create|mediatype.create]]'' - creating new media types
+  * ''[[manual:api:reference:mediatype:delete|mediatype.delete]]'' - deleting media types
+  * ''[[manual:api:reference:mediatype:get|mediatype.get]]'' - retrieving media types
+  * ''[[manual:api:reference:mediatype:update|mediatype.update]]'' - updating media types

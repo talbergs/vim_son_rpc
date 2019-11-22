@@ -1,0 +1,9 @@
+===== Problem =====
+
+This class is designed to work with problems.
+
+Object references: \\
+  * [[manual:api:reference:problem:object#problem|Problem]]
+
+Available methods: \\
+  * ''[[manual:api:reference:problem:get|problem.get]]'' - retrieving problems

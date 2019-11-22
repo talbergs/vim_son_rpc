@@ -1,0 +1,100 @@
+===== proxy.update =====
+
+==== Description ====
+
+''object proxy.update(object/array **proxies**)''
+
+This method allows to update existing proxies.
+
+==== Parameters ====
+
+''(object/array)'' Proxy properties to be updated.
+
+The ''proxyid'' property must be defined for each proxy, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#proxy|standard proxy properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| hosts | array | Hosts to be monitored by the proxy. If a host is already monitored by a different proxy, it will be reassigned to the current proxy. \\ \\ The hosts must have the ''hostid'' property defined. |
+| interface | object | Host interface to replace the existing interface for the passive proxy. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated proxies under the ''proxyids'' property.
+
+==== Examples ====
+
+=== Change hosts monitored by a proxy ===
+
+Update the proxy to monitor the two given hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "proxy.update",
+    "params": {
+        "proxyid": "10293",
+        "hosts": [
+            "10294",
+            "10295"
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "proxyids": [
+            "10293"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Change proxy status ===
+
+Change the proxy to an active proxy and rename it to "Active proxy".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "proxy.update",
+    "params": {
+        "proxyid": "10293",
+        "host": "Active proxy",
+        "status": "5"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "proxyids": [
+            "10293"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[object#proxy_interface|Proxy interface]]
+
+==== Source ====
+
+CProxy::update() in //frontends/php/include/classes/api/services/CProxy.php//.

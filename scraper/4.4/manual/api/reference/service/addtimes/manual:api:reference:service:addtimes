@@ -1,0 +1,60 @@
+===== service.addtimes =====
+
+==== Description ====
+
+''object service.addtimes(object/array **serviceTimes**)''
+
+This method allows to create new service times.
+
+==== Parameters ====
+
+''(object/array)'' Service times to create.
+
+The method accepts service times with the [[object#service_time|standard service time properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the affected services under the ''serviceids'' property.
+
+==== Examples ====
+
+=== Adding a scheduled downtime ===
+
+Add a downtime for service with ID "4" scheduled weekly from Monday 22:00 till Tuesday 10:00.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "service.addtimes",
+    "params": {
+        "serviceid": "4",
+        "type": 1,
+        "ts_from": 165600,
+        "ts_to": 201600
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "serviceids": [
+            "4"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|service.update]]
+
+==== Source ====
+
+CService::addTimes() in //frontends/php/include/classes/api/services/CService.php//.

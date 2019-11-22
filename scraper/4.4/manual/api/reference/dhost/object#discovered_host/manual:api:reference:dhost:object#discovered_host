@@ -1,0 +1,16 @@
+===== > Discovered host object =====
+
+The following objects are directly related to the ''dhost'' API.
+
+==== Discovered host ====
+
+<note>Discovered host are created by the Zabbix server and cannot be modified via the API.</note>
+
+The discovered host object contains information about a host discovered by a network discovery rule. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| dhostid  | string  | ID of the discovered host.  |
+| druleid | string | ID of the discovery rule that detected the host. |
+| lastdown | timestamp | Time when the discovered host last went down. |
+| lastup | timestamp | Time when the discovered host last went up. |
+| status | integer | Whether the discovered host is up or down. A host is up if it has at least one active discovered service. \\ \\ Possible values: \\ 0 - host up; \\ 1 - host down. |

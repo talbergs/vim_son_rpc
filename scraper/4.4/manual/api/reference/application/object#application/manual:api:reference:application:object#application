@@ -1,0 +1,14 @@
+===== > Application object =====
+
+The following objects are directly related to the ''application'' API.
+
+==== Application ====
+
+The application object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| applicationid  | string  | //(readonly)// ID of the application.  |
+| **hostid** \\ (required) | string | ID of the host that the application belongs to. \\ \\ Cannot be updated. |
+| **name** \\ (required) | string | Name of the application |
+| flags | integer | //(readonly)// Origin of the application. \\ \\ Possible values: \\ 0 - a plain application; \\ 4 - a discovered application.  |
+| templateids | array | //(readonly)// IDs of the parent template applications. |

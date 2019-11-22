@@ -1,0 +1,52 @@
+===== trigger.delete =====
+
+==== Description ====
+
+''object trigger.delete(array **triggerIds**)''
+
+This method allows to delete triggers.
+
+==== Parameters ====
+
+''(array)'' IDs of the triggers to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted triggers under the ''triggerids'' property.
+
+==== Examples ====
+
+=== Delete multiple triggers ===
+
+Delete two triggers.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.delete",
+    "params": [
+        "12002",
+        "12003"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "12002",
+            "12003"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== Source ====
+
+CTrigger::delete() in //frontends/php/include/classes/api/services/CTrigger.php//.

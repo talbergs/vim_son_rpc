@@ -1,0 +1,86 @@
+===== trigger.create =====
+
+==== Description ====
+
+''object trigger.create(object/array **triggers**)''
+
+This method allows to create new triggers.
+
+==== Parameters ====
+
+''(object/array)'' Triggers to create.
+
+Additionally to the [[object#trigger|standard trigger properties]] the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dependencies | array | Triggers that the trigger is dependent on. \\ \\ The triggers must have the ''triggerid'' property defined. |
+| tags         | array | Trigger tags. |
+
+<note important>The trigger expression has to be given in its expanded form.</note>
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created triggers under the ''triggerids'' property. The order of the returned IDs matches the order of the passed triggers.
+
+==== Examples ====
+
+=== Creating a trigger ===
+
+Create a trigger with a single trigger dependency.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.create",
+    "params": [
+        {
+            "description": "Processor load is too high on {HOST.NAME}",
+            "expression": "{Linux server:system.cpu.load[percpu,avg1].last()}>5",
+            "dependencies": [
+                {
+                    "triggerid": "17367"
+                }
+            ]
+        },
+        {
+            "description": "Service status",
+            "expression": "{Linux server:log[/var/log/system,Service .* has stopped].strlen()}<>0",
+            "dependencies": [
+                {
+                    "triggerid": "17368"
+                }
+            ],
+            "tags": [
+                {
+                    "tag": "service",
+                    "value": "{{ITEM.VALUE}.regsub(\"Service (.*) has stopped\", \"\\1\")}"
+                },
+                {
+                    "tag": "error",
+                    "value": ""
+                }
+            ]
+        }
+    ],
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "17369",
+            "17370"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTrigger::create() in //frontends/php/include/classes/api/services/CTrigger.php//.

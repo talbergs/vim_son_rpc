@@ -1,0 +1,64 @@
+===== host.massremove =====
+
+==== Description ====
+
+''object host.massremove(object **parameters**)''
+
+This method allows to remove related objects from multiple hosts.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the hosts to update and the objects that should be removed.
+
+^ Parameter ^ Type ^ Description ^
+| **hostids** \\ (required) | string/array | IDs of the hosts to be updated. |
+| groupids | string/array | Host groups to remove the given hosts from. |
+| interfaces | object/array | Host interfaces to remove from the given hosts. \\ \\ The host interface object must have the ''ip'', ''dns'' and ''port'' properties defined. |
+| macros | string/array | User macros to delete from the given hosts. |
+| templateids | string/array | Templates to unlink from the given hosts. |
+| templateids_clear | string/array | Templates to unlink and clear from the given hosts. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated hosts under the ''hostids'' property.
+
+==== Examples ====
+
+=== Unlinking templates ===
+
+Unlink a template from two hosts and delete all of the templated entities.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.massremove",
+    "params": {
+        "hostids": ["69665", "69666"],
+        "templateids_clear": "325"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "69665",
+            "69666"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[update|host.update]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+==== Source ====
+
+CHost::massRemove() in //frontends/php/include/classes/api/services/CHost.php//.

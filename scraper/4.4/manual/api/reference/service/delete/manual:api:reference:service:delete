@@ -1,0 +1,54 @@
+===== service.delete =====
+
+==== Description ====
+
+''object service.delete(array **serviceIds**)''
+
+This method allows to delete services.
+
+Services with hard-dependent child services cannot be deleted.
+==== Parameters ====
+
+''(array)'' IDs of the services to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted services under the ''serviceids'' property.
+
+==== Examples ====
+
+=== Deleting multiple services ===
+
+Delete two services.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "service.delete",
+    "params": [
+        "4",
+        "5"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "serviceids": [
+            "4",
+            "5"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CService::delete() in //frontends/php/include/classes/api/services/CService.php//.

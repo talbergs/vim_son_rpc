@@ -1,0 +1,53 @@
+===== dashboard.delete =====
+
+==== Description ====
+
+''object dashboard.delete(array **dashboardids**)''
+
+This method allows to delete dashboards.
+
+==== Parameters ====
+
+''(array)'' IDs of the dashboards to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted dashboards under the ''dashboardids'' property.
+
+==== Examples ====
+
+=== Deleting multiple dashboards ===
+
+Delete two dashboards.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "dashboard.delete",
+    "params": [
+        "2",
+        "3"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "dashboardids": [
+            "2",
+            "3"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CDashboard::delete() in //frontends/php/include/classes/api/services/CDashboard.php//.

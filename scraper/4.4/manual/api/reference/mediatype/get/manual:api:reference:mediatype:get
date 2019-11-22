@@ -1,0 +1,127 @@
+===== mediatype.get =====
+
+==== Description ====
+
+''integer/array mediatype.get(object **parameters**)''
+
+The method allows to retrieve media types according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| mediatypeids | string/array | Return only media types with the given IDs. |
+| mediaids | string/array | Return only media types used by the given media. |
+| userids | string/array | Return only media types used by the given users. |
+^ |||
+| selectUsers | query | Return a ''[[:/manual/api/reference/user/object|users]]'' property with the users that use the media type. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''mediatypeid''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving media types ===
+
+Retrieve all configured media types.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "mediatype.get",
+    "params": {
+        "output": "extend"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "mediatypeid": "1",
+            "type": "0",
+            "description": "Email",
+            "smtp_server": "mail.company.com",
+            "smtp_helo": "company.com",
+            "smtp_email": "zabbix@company.com",
+            "exec_path": "",
+            "gsm_modem": "",
+            "username": "",
+            "passwd": "",
+            "status": "0",
+            "maxsessions": "1",
+            "maxattempts": "7",
+            "attempt_interval": "10s",
+            "content_type": "1"
+        },
+        {
+            "mediatypeid": "2",
+            "type": "3",
+            "description": "Jabber",
+            "smtp_server": "",
+            "smtp_helo": "",
+            "smtp_email": "",
+            "exec_path": "",
+            "gsm_modem": "",
+            "username": "jabber@company.com",
+            "passwd": "zabbix",
+            "status": "0",
+            "maxsessions": "1",
+            "maxattempts": "7",
+            "attempt_interval": "10s",
+            "content_type": "0"
+        },
+        {
+            "mediatypeid": "3",
+            "type": "2",
+            "description": "SMS",
+            "smtp_server": "",
+            "smtp_helo": "",
+            "smtp_email": "",
+            "exec_path": "",
+            "gsm_modem": "/dev/ttyS0",
+            "username": "",
+            "passwd": "",
+            "status": "0",
+            "maxsessions": "1",
+            "maxattempts": "7",
+            "attempt_interval": "10s",
+            "content_type": "0"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:user:object#user|User]]
+
+==== Source ====
+
+CMediaType::get() in //frontends/php/include/classes/api/services/CMediaType.php//.

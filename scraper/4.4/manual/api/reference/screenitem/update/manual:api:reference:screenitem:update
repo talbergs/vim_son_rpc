@@ -1,0 +1,59 @@
+===== screenitem.update =====
+
+==== Description ====
+
+''object screenitem.update(object/array **screenItems**)''
+
+This method allows to update existing screen items.
+
+==== Parameters ====
+
+''(object/array)'' [[object#screen_item|Screen item properties]] to be updated.
+
+The ''screenitemid'' property must be defined for each screen item, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated screen items under the ''screenitemids'' property.
+
+==== Examples ====
+
+=== Setting the size of the screen item ===
+
+Set the width of the screen item to 500px and height to 300px.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screenitem.update",
+    "params": {
+        "screenitemid": "20",
+        "width": 500,
+        "height": 300
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenitemids": [
+            "20"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[updatebyposition|screenitem.updatebyposition]]
+
+==== Source ====
+
+CScreenItem::update() in //frontends/php/include/classes/api/services/CScreenItem.php//.

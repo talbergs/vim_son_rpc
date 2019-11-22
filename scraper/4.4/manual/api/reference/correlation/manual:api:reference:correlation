@@ -1,0 +1,12 @@
+===== Correlation =====
+
+This class is designed to work with correlations. 
+
+Object references: \\
+  * [[manual:api:reference:correlation:object#correlation|Correlation]]
+
+Available methods: \\
+  * ''[[manual:api:reference:correlation:create|correlation.create]]'' - creating new correlations
+  * ''[[manual:api:reference:correlation:delete|correlation.delete]]'' - deleting correlations
+  * ''[[manual:api:reference:correlation:get|correlation.get]]'' - retrieving correlations
+  * ''[[manual:api:reference:correlation:update|correlation.update]]'' - updating correlations

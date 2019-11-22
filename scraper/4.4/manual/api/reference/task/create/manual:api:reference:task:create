@@ -1,0 +1,75 @@
+===== task.create =====
+
+==== Description ====
+
+''object task.create(object **task**)''
+
+This method allows to create new task.
+
+==== Parameters ====
+
+''(object)'' A task to create.
+
+The method accepts the following parameters.
+
+^ Parameter                 ^ Type         ^ Description ^
+| **type** \\ (required)    | integer      | Task type. \\ \\ Possible values: \\ 6 - Check now.  |
+| **itemids** \\ (required) | string/array | IDs of items and low-level discovery rules.  |
+
+//Note// that tasks can be created for the following types of items/discovery rules:
+
+  * Zabbix agent
+  * SNMPv1/v2/v3 agent
+  * Simple check
+  * Internal check
+  * Aggregate check
+  * External check
+  * Database monitor
+  * HTTP agent
+  * IPMI agent
+  * SSH agent
+  * TELNET agent
+  * Calculated check
+  * JMX agent
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created tasks under the ''taskids'' property. One task is created for each item and low-level discovery rule. The order of the returned IDs matches the order of the passed ''itemids''.
+
+==== Examples ====
+
+=== Creating a task ===
+
+Create a task ''check now'' for two items. One is an item, the other is a low-level discovery rule. 
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "task.create",
+    "params": {
+        "type": "6",
+        "itemids": ["10092", "10093"],
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "taskids": [
+            "1",
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTask::create() in //frontends/php/include/classes/api/services/CTask.php//.

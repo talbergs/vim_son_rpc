@@ -1,0 +1,110 @@
+===== application.get =====
+
+==== Description ====
+
+''integer/array application.get(object **parameters**)''
+
+The method allows to retrieve applications according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| applicationids | string/array | Return only applications with the given IDs. |
+| groupids | string/array | Return only applications that belong to hosts from the given host groups. |
+| hostids | string/array | Return only applications that belong to the given hosts. |
+| inherited | boolean | If set to ''true'' return only applications inherited from a template. |
+| itemids | string/array | Return only applications that contain the given items. |
+| templated | boolean | If set to ''true'' return only applications that belong to templates. |
+| templateids | string/array | Return only applications that belong to the given templates. |
+^ |||
+| selectHost | query | Return a ''[[:manual/api/reference/host/object|host]]'' property with the host that the application belongs to.  |
+| selectItems | query | Return an ''[[:manual/api/reference/item/object|items]]'' property with the items contained in the application.  |
+| selectDiscoveryRule | query | Return a ''[[:manual/api/reference/discoveryrule/object|discoveryRule]]'' property with the LLD rule that created the application. |
+| selectApplicationDiscovery | query | Return an ''applicationDiscovery'' property with the application discovery object. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''applicationid'' and ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving applications from a host ===
+
+Retrieve all applications from a host sorted by name.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "application.get",
+    "params": {
+        "output": "extend",
+        "hostids": "10001",
+        "sortfield": "name"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "applicationid": "13",
+            "hostid": "10001",
+            "name": "CPU",
+            "templateids": []
+        },
+        {
+            "applicationid": "5",
+            "hostid": "10001",
+            "name": "Filesystems",
+            "templateids": []
+        },
+        {
+            "applicationid": "21",
+            "hostid": "10001",
+            "name": "General",
+            "templateids": []
+        },
+        {
+            "applicationid": "15",
+            "hostid": "10001",
+            "name": "Memory",
+            "templateids": []
+        },
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[:manual:api:reference:host:object#host|Host]]
+  * [[:manual:api:reference:item:object#item|Item]]
+
+==== Source ====
+
+CApplication::get() in //frontends/php/include/classes/api/services/CApplication.php//.

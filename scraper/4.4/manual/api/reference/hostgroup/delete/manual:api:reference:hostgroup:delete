@@ -1,0 +1,60 @@
+===== hostgroup.delete =====
+
+==== Description ====
+
+''object hostgroup.delete(array **hostGroupIds**)''
+
+This method allows to delete host groups.
+
+A host group can not be deleted if:
+  * it contains hosts that belong to this group only;
+  * it is marked as internal;
+  * it is used by a host prototype;
+  * it is used in a global script;
+  * it is used in a correlation condition.
+
+==== Parameters ====
+
+''(array)'' IDs of the host groups to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted host groups under the ''groupids'' property.
+
+==== Examples ====
+
+=== Deleting multiple host groups ===
+
+Delete two host groups.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.delete",
+    "params": [
+        "107824",
+        "107825"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+  
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "groupids": [
+            "107824",
+            "107825"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CHostGroup::delete() in //frontends/php/include/classes/api/services/CHostGroup.php//.

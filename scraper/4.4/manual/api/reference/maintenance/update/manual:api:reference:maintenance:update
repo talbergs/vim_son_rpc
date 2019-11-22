@@ -1,0 +1,71 @@
+===== maintenance.update =====
+
+==== Description ====
+
+''object maintenance.update(object/array **maintenances**)''
+
+This method allows to update existing maintenances.
+
+==== Parameters ====
+
+''(object/array)'' Maintenance properties to be updated.
+
+The ''maintenanceid'' property must be defined for each maintenance, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#maintenance|standard maintenance properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| groupids | array | IDs of the host groups to replace the current groups. |
+| hostids | array | IDs of the hosts to replace the current hosts. |
+| timeperiods | array | Maintenance time periods to replace the current periods. |
+| tags | array | Problem tags. |
+
+<note important>At least one host or host group must be defined for each maintenance.</note>
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated maintenances under the ''maintenanceids'' property.
+
+==== Examples ====
+
+=== Assigning different hosts ===
+
+Replace the hosts currently assigned to maintenance "3" with two different ones.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "maintenance.update",
+    "params": {
+        "maintenanceid": "3",
+        "hostids": [
+            "10085",
+            "10084"
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "maintenanceids": [
+            "3"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#time_period|Time period]]
+
+==== Source ====
+
+CMaintenance::update() in //frontends/php/include/classes/api/services/CMaintenance.php//.

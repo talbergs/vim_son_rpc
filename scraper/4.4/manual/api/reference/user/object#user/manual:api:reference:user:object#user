@@ -1,0 +1,35 @@
+===== > User object =====
+
+The following objects are directly related to the ''user'' API.
+
+==== User ====
+
+The user object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| userid  | string  | //(readonly)// ID of the user.  |
+| **alias** \\ //(required)// | string | User alias. |
+| attempt_clock | timestamp | //(readonly)// Time of the last unsuccessful login attempt. |
+| attempt_failed | integer | //(readonly)// Recent failed login attempt count. |
+| attempt_ip | string | //(readonly)// IP address from where the last unsuccessful login attempt came from. |
+| autologin | integer | Whether to enable auto-login. \\ \\ Possible values: \\ 0 - //(default)// auto-login disabled; \\ 1 - auto-login enabled. |
+| autologout | string | User session life time. Accepts seconds and time unit with suffix. If set to 0s, the session will never expire. \\ \\ Default: 15m. |
+| lang | string | Language code of the user's language. \\ \\ Default: ''en_GB''. |
+| name | string | Name of the user. |
+| refresh | string | Automatic refresh period. Accepts seconds and time unit with suffix. \\ \\ Default: 30s. |
+| rows_per_page | integer | Amount of object rows to show per page. \\ \\ Default: 50. |
+| surname | string | Surname of the user. |
+| theme | string | User's theme. \\ \\ Possible values: \\ ''default'' - //(default)// system default; \\ ''blue-theme'' - Blue; \\ ''dark-theme'' - Dark. |
+| type | integer | Type of the user. \\ \\ Possible values: \\ 1 - //(default)// Zabbix user; \\ 2 - Zabbix admin; \\ 3 - Zabbix super admin. |
+| url | string | URL of the page to redirect the user to after logging in. |
+
+==== Media ====
+
+The media object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| **mediatypeid** \\ (required) | string | ID of the media type used by the media. |
+| **sendto** \\ (required) | string/array | Address, user name or other identifier of the recipient.\\ \\ If type of [[manual:api:reference:mediatype:object#mediatype|Media type]] is e-mail, values are represented as array. For other types of [[manual:api:reference:mediatype:object#mediatype|Media types]], value is represented as a string.|
+| **active** | integer | Whether the media is enabled. \\ \\ Possible values: \\ 0 - //(default)// enabled; \\ 1 - disabled. |
+| **severity** | integer | Trigger severities to send notifications about. \\ \\ Severities are stored in binary form with each bit representing the corresponding severity. For example, 12 equals 1100 in binary and means, that notifications will be sent from triggers with severities warning and average. \\ \\ Refer to the [[manual:api:reference:trigger:object#trigger|trigger object page]] for a list of supported trigger severities.\\ \\ Default: 63 |
+| **period** | string | Time when the notifications can be sent as a [[manual:appendix:time_period|time period]] or user macros separated by a semicolon.\\ \\ Default: 1-7,00:00-24:00 |

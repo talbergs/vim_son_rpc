@@ -1,0 +1,49 @@
+===== > Service object =====
+
+The following objects are directly related to the ''service'' API.
+
+==== Service ====
+
+The service object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| serviceid  | string  | //(readonly)// ID of the service.  |
+| **algorithm** \\ (required) | integer | Algorithm used to calculate the state of the service. \\ \\ Possible values: \\ 0 - do not calculate; \\ 1 - problem, if at least one child has a problem; \\ 2 - problem, if all children have problems. |
+| **name** \\ (required) | string | Name of the service. |
+| **showsla** \\ (required) | integer | Whether SLA should be calculated. \\ \\ Possible values: \\ 0 - do not calculate; \\ 1 - calculate. |
+| **sortorder** \\ (required) | integer | Position of the service used for sorting. |
+| goodsla | float | Minimum acceptable SLA value. If the SLA drops lower, the service is considered to be in problem state. \\ \\ Default: 99.9. |
+| status | integer | //(readonly)// Whether the service is in OK or problem state. \\ \\ If the service is in problem state, ''status'' is equal either to: \\ - the priority of the linked trigger if it is set to 2, "Warning" or higher (priorities 0, "Not classified" and 1, "Information" are ignored); \\ - the highest status of a child service in problem state. \\ \\ If the service is in OK state, ''status'' is equal to 0. |
+| triggerid | string | Trigger associated with the service. Can only be set for services that don't have children. \\ \\ Default: 0 |
+==== Service time ====
+
+The service time object defines periods, when an service is scheduled to be up or down. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| timeid  | string | //(readonly)// ID of the service time. |
+| **serviceid** \\ (required)  | string | ID of the service. \\ \\ Cannot be updated. |
+| **ts_from** \\ (required) | integer | Time when the service time comes into effect. \\ \\ For onetime downtimes ''ts_from'' must be set as a Unix timestamp, for other types - as a specific time in a week, in seconds, for example, 90000 for Tue, 2:00 AM. |
+| **ts_to** \\ (required) | integer | Time when the service time ends. \\ \\ For onetime uptimes ''ts_to'' must be set as a Unix timestamp, for other types - as a specific time in a week, in seconds, for example, 90000 for Tue, 2:00 AM. |
+| **type** \\ (required) | integer | Service time type. \\ \\ Possible values: \\ 0 - planned uptime, repeated every week; \\ 1 - planned downtime, repeated every week; \\ 2 - one-time downtime. |
+| note | string | Additional information about the service time. |
+==== Service dependency ====
+
+The service dependency object represents a dependency between services. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| linkid | string | //(readonly)// ID of the service dependency. |
+| **servicedownid** \\ (required) | string  | ID of the service, that a service depends on, that is, the child service. An service can have multiple children. |
+| **serviceupid** \\ (required) | string  | ID of the service, that is dependent on a service, that is, the parent service. An service can have multiple parents forming a directed graph. |
+| **soft** \\ (required) | integer | Type of dependency between services. \\ \\ Possible values: \\ 0 - hard dependency; \\ 1 - soft dependency. \\ \\ An service can have only one hard-dependent parent. This attribute has no effect on status or SLA calculation and is only used to create a core service tree. Additional parents can be added as soft dependencies forming a graph. \\ \\ An service can not be deleted if it has hard-dependent children. |
+
+==== Service alarm ====
+
+<note>Service alrams cannot be directly created, updated or deleted via the Zabbix API.</note>
+
+The service alarm objects represents an service's state change. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| servicealarmid | string | ID of the service alarm. |
+| serviceid | string | ID of the service. |
+| clock | timestamp | Time when the service state change has happened. |
+| value | integer | Status of the service. \\ \\ Refer the the [[object#service|service status property]] for a list of possible values. |

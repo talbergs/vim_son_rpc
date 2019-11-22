@@ -1,0 +1,63 @@
+===== drule.update =====
+
+==== Description ====
+
+''object drule.update(object/array **discoveryRules**)''
+
+This method allows to update existing discovery rules.
+
+==== Parameters ====
+
+''(object/array)'' Discovery rule properties to be updated.
+
+The ''druleid'' property must be defined for each discovery rule, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#discovery_rule|standard discovery rule properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dchecks | array | Discovery checks to replace existing checks. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated discovery rules under the ''druleids'' property.
+
+==== Examples ====
+
+=== Change the IP range of a discovery rule ===
+
+Change the IP range of a discovery rule to "192.168.2.1-255".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "drule.update",
+    "params": {
+        "druleid": "6",
+        "iprange": "192.168.2.1-255"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "druleids": [
+            "6"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:dcheck:object#discovery_check|Discovery check]]
+
+==== Source ====
+
+CDRule::update() in //frontends/php/include/classes/api/services/CDRule.php//.

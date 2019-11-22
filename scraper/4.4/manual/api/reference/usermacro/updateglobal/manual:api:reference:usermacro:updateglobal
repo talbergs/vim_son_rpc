@@ -1,0 +1,54 @@
+===== usermacro.updateglobal =====
+
+==== Description ====
+
+''object usermacro.updateglobal(object/array **globalMacros**)''
+
+This method allows to update existing global macros.
+
+==== Parameters ====
+
+''(object/array)'' [[object#global_macro|Global macro properties]] to be updated.
+
+The ''globalmacroid'' property must be defined for each global macro, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated global macros under the ''globalmacroids'' property.
+
+==== Examples ====
+
+=== Changing the value of a global macro ===
+
+Change the value of a global macro to "public".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usermacro.updateglobal",
+    "params": {
+        "globalmacroid": "1",
+        "value": "public"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "globalmacroids": [
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CUserMacro::updateGlobal() in //frontends/php/include/classes/api/services/CUserMacro.php//.

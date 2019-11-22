@@ -1,0 +1,13 @@
+===== Web scenario =====
+
+This class is designed to work with web scenarios. 
+
+Object references: \\
+  * [[manual:api:reference:httptest:object#web_scenario|Web scenario]]
+  * [[manual:api:reference:httptest:object#scenario_step|Scenario step]]
+
+Available methods: \\
+  * ''[[manual:api:reference:httptest:create|httptest.create]]'' - creating new web scenarios
+  * ''[[manual:api:reference:httptest:delete|httptest.delete]]'' - deleting web scenarios
+  * ''[[manual:api:reference:httptest:get|httptest.get]]'' - retrieving web scenarios
+  * ''[[manual:api:reference:httptest:update|httptest.update]]'' - updating web scenarios

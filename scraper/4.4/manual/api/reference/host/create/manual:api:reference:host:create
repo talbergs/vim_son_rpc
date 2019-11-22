@@ -1,0 +1,105 @@
+===== host.create =====
+
+==== Description ====
+
+''object host.create(object/array **hosts**)''
+
+This method allows to create new hosts.
+
+==== Parameters ====
+
+''(object/array)'' Hosts to create.
+
+Additionally to the [[object#host|standard host properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **groups** \\ (required) | object/array | Host groups to add the host to. \\ \\ The host groups must have the ''groupid'' property defined. |
+| **interfaces** \\ (required) | object/array | Interfaces to be created for the host. |
+| tags | object/array | Host tags. |
+| templates | object/array | Templates to be linked to the host. \\ \\ The templates must have the ''templateid'' property defined. |
+| macros | object/array | User macros to be created for the host. |
+| inventory | object | Host inventory properties. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created hosts under the ''hostids'' property. The order of the returned IDs matches the order of the passed hosts.
+
+==== Examples ====
+
+=== Creating a host ===
+
+Create a host called "Linux server" with an IP interface and tags, add it to a group, link a template to it and set the MAC addresses in the host inventory.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.create",
+    "params": {
+        "host": "Linux server",
+        "interfaces": [
+            {
+                "type": 1,
+                "main": 1,
+                "useip": 1,
+                "ip": "192.168.3.1",
+                "dns": "",
+                "port": "10050"
+            }
+        ],
+        "groups": [
+            {
+                "groupid": "50"
+            }
+        ],
+        "tags": [
+            {
+                "tag": "Host name",
+                "value": "Linux server"
+            }
+        ],
+        "templates": [
+            {
+                "templateid": "20045"
+            }
+        ],
+        "macros": [
+            {
+                "macro": "{$USER_ID}",
+                "value": "123321"
+            }
+        ],
+        "inventory_mode": 0,
+        "inventory": {
+            "macaddress_a": "01234",
+            "macaddress_b": "56768"
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "107819"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[manual:api:reference:template:object#template|Template]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+  * [[object#host_inventory|Host inventory]]
+  * [[object#host_tag|Host tag]]
+
+==== Source ====
+
+CHost::create() in //frontends/php/include/classes/api/services/CHost.php//.

@@ -1,0 +1,13 @@
+===== Trigger prototype =====
+
+This class is designed to work with trigger prototypes. 
+
+Object references: \\
+  * [[manual:api:reference:triggerprototype:object#trigger_prototype|Trigger prototype]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:triggerprototype:create|triggerprototype.create]]'' - creating new trigger prototypes
+  * ''[[manual:api:reference:triggerprototype:delete|triggerprototype.delete]]'' - deleting trigger prototypes
+  * ''[[manual:api:reference:triggerprototype:get|triggerprototype.get]]'' - retrieving trigger prototypes
+  * ''[[manual:api:reference:triggerprototype:update|triggerprototype.update]]'' - updating trigger prototypes

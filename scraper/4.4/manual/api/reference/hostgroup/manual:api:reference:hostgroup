@@ -1,0 +1,16 @@
+===== Host group =====
+
+This class is designed to work with host groups. 
+
+Object references: \\
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:hostgroup:create|hostgroup.create]]'' - creating new host groups
+  * ''[[manual:api:reference:hostgroup:delete|hostgroup.delete]]'' - deleting host groups
+  * ''[[manual:api:reference:hostgroup:get|hostgroup.get]]'' - retrieving host groups
+  * ''[[manual:api:reference:hostgroup:massadd|hostgroup.massadd]]'' - adding related objects to host groups
+  * ''[[manual:api:reference:hostgroup:massremove|hostgroup.massremove]]'' - removing related objects from host groups
+  * ''[[manual:api:reference:hostgroup:massupdate|hostgroup.massupdate]]'' - replacing or removing related objects from host groups
+  * ''[[manual:api:reference:hostgroup:update|hostgroup.update]]'' - updating host groups

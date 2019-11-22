@@ -1,0 +1,616 @@
+===== item.get =====
+
+==== Description ====
+
+''integer/array item.get(object **parameters**)''
+
+The method allows to retrieve items according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| itemids | string/array | Return only items with the given IDs. |
+| groupids | string/array | Return only items that belong to the hosts from the given groups. |
+| templateids | string/array | Return only items that belong to the given templates. |
+| hostids | string/array | Return only items that belong to the given hosts. |
+| proxyids | string/array | Return only items that are monitored by the given proxies. |
+| interfaceids | string/array | Return only items that use the given host interfaces. |
+| graphids | string/array | Return only items that are used in the given graphs. |
+| triggerids | string/array | Return only items that are used in the given triggers. |
+| applicationids | string/array | Return only items that belong to the given applications. |
+| webitems | flag | Include web items in the result. |
+| inherited | boolean | If set to ''true'' return only items inherited from a template. |
+| templated | boolean | If set to ''true'' return only items that belong to templates. |
+| monitored | boolean | If set to ''true'' return only enabled items that belong to monitored hosts. |
+| group | string | Return only items that belong to a group with the given name. |
+| host | string | Return only items that belong to a host with the given name. |
+| application | string | Return only items that belong to an application with the given name. |
+| with_triggers | boolean | If set to ''true'' return only items that are used in triggers. |
+^ |||
+| selectHosts | query | Return a ''[[:manual/api/reference/host/object|hosts]]'' property with an array of hosts that the item belongs to.  |
+| selectInterfaces | query | Return an ''[[:manual/api/reference/hostinterface/object|interfaces]]'' property with an array of host interfaces used by the item.  |
+| selectTriggers | query | Return a ''[[:manual/api/reference/trigger/object|triggers]]'' property with the triggers that the item is used in.\\ \\ Supports ''count''.  |
+| selectGraphs | query | Return a ''[[:manual/api/reference/graph/object|graphs]]'' property with the graphs that contain the item.\\ \\ Supports ''count''.  |
+| selectApplications | query | Return an ''[[:manual/api/reference/application/object|applications]]'' property with the applications that the item belongs to.  |
+| selectDiscoveryRule | query | Return a ''[[:manual/api/reference/drule/object|discoveryRule]]'' property with the LLD rule that created the item. |
+| selectItemDiscovery | query | Return an ''itemDiscovery'' property with the item discovery object. The item discovery object links the item to an item prototype from which it was created. \\ \\  It has the following properties: \\ ''itemdiscoveryid'' - ''(string)'' ID of the item discovery; \\ ''itemid'' - ''(string)'' ID of the discovered item; \\ ''parent_itemid'' - ''(string)'' ID of the item prototype from which the item has been created; \\ ''key_'' - ''(string)'' key of the item prototype; \\ ''lastcheck'' - ''(timestamp)'' time when the item was last discovered; \\ ''ts_delete'' - ''(timestamp)'' time when an item that is no longer discovered will be deleted. |
+| selectPreprocessing | query | Return a ''preprocessing'' property with item preprocessing options.\\ \\ It has the following properties: \\ ''type'' - ''(string)'' The preprocessing option type: \\ 1 - Custom multiplier; \\ 2 - Right trim; \\ 3 - Left trim; \\ 4 - Trim; \\ 5 - Regular expression matching; \\ 6 - Boolean to decimal; \\ 7 - Octal to decimal; \\ 8 - Hexadecimal to decimal; \\ 9 - Simple change; \\ 10 - Change per second; \\ 11 - XML XPath; \\ 12 - JSONPath; \\ 13 - In range; \\ 14 - Matches regular expression; \\ 15 - Does not match regular expression; \\ 16 - Check for error in JSON; \\ 17 - Check for error in XML; \\ 18 - Check for error using regular expression; \\ 19 - Discard unchanged; \\ 20 - Discard unchanged with heartbeat; \\ 21 - JavaScript; \\ 22 - Prometheus pattern; \\ 23 - Prometheus to JSON. \\ \\ ''params'' - ''(string)'' Additional parameters used by preprocessing option. Multiple parameters are separated by LF (\n)character. \\ ''error_handler'' - ''(string)'' Action type used in case of preprocessing step failure: \\ 0 - Error message is set by Zabbix server; \\ 1 - Discard value; \\ 2 - Set custom value; \\ 3 - Set custom error message. \\ \\ ''error_handler_params'' - ''(string)'' Error handler parameters. |
+^ |||
+|filter  | object |Return only those results that exactly match the given filter.\\ \\ Accepts an array, where the keys are property names, and the values are either a single value or an array of values to match against. \\ \\ Supports additional filters: \\ ''host'' - technical name of the host that the item belongs to. |
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selectGraphs'' - results will be sorted by ''name''; \\ ''selectTriggers'' - results will be sorted by ''description''. |
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''itemid'', ''name'', ''key_'', ''delay'', ''history'', ''trends'', ''type'' and ''status''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Finding items by key ===
+
+Retrieve all items from host with ID "10084" that have the word "system" in the key and sort them by name.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.get",
+    "params": {
+        "output": "extend",
+        "hostids": "10084",
+        "search": {
+            "key_": "system"
+        },
+        "sortfield": "name"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "itemid": "23298",
+            "type": "0",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10084",
+            "name": "Context switches per second",
+            "key_": "system.cpu.switches",
+            "delay": "1m",
+            "history": "7d",
+            "trends": "365d",
+            "lastvalue": "2552",
+            "lastclock": "1351090998",
+            "prevvalue": "2641",
+            "state": "0",
+            "status": "0",
+            "value_type": "3",
+            "trapper_hosts": "",
+            "units": "sps",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "snmpv3_contextname": "",
+            "error": "",
+            "logtimefmt": "",
+            "templateid": "22680",
+            "valuemapid": "0",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "lastns": "564054253",
+            "flags": "0",
+            "interfaceid": "1",
+            "port": "",
+            "description": "",
+            "inventory_link": "0",
+            "lifetime": "0s",
+            "evaltype": "0",
+            "jmx_endpoint": "",
+            "master_itemid": "0",
+            "timeout": "3s",
+            "url": "",
+            "query_fields": [],
+            "posts": "",
+            "status_codes": "200",
+            "follow_redirects": "1",
+            "post_type": "0",
+            "http_proxy": "",
+            "headers": [],
+            "retrieve_mode": "0",
+            "request_method": "0",
+            "output_format": "0",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0"
+        },
+        {
+            "itemid": "23299",
+            "type": "0",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10084",
+            "name": "CPU $2 time",
+            "key_": "system.cpu.util[,idle]",
+            "delay": "1m",
+            "history": "7d",
+            "trends": "365d",
+            "lastvalue": "86.031879",
+            "lastclock": "1351090999",
+            "prevvalue": "85.306944",
+            "state": "0",
+            "status": "0",
+            "value_type": "0",
+            "trapper_hosts": "",
+            "units": "%",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "snmpv3_contextname": "",
+            "error": "",
+            "logtimefmt": "",
+            "templateid": "17354",
+            "valuemapid": "0",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "lastns": "564256864",
+            "flags": "0",
+            "interfaceid": "1",
+            "port": "",
+            "description": "The time the CPU has spent doing nothing.",
+            "inventory_link": "0",
+            "lifetime": "0s",
+            "evaltype": "0",
+            "jmx_endpoint": "",
+            "master_itemid": "0",
+            "timeout": "3s",
+            "url": "",
+            "query_fields": [],
+            "posts": "",
+            "status_codes": "200",
+            "follow_redirects": "1",
+            "post_type": "0",
+            "http_proxy": "",
+            "headers": [],
+            "retrieve_mode": "0",
+            "request_method": "0",
+            "output_format": "0",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0"
+        },
+        {
+            "itemid": "23300",
+            "type": "0",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10084",
+            "name": "CPU $2 time",
+            "key_": "system.cpu.util[,interrupt]",
+            "history": "7d",
+            "trends": "365d",
+            "lastvalue": "0.008389",
+            "lastclock": "1351091000",
+            "prevvalue": "0.000000",
+            "state": "0",
+            "status": "0",
+            "value_type": "0",
+            "trapper_hosts": "",
+            "units": "%",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "snmpv3_contextname": "",
+            "error": "",
+            "logtimefmt": "",
+            "templateid": "22671",
+            "valuemapid": "0",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "lastns": "564661387",
+            "flags": "0",
+            "interfaceid": "1",
+            "port": "",
+            "description": "The amount of time the CPU has been servicing hardware interrupts.",
+            "inventory_link": "0",
+            "lifetime": "0s",
+            "evaltype": "0",
+            "jmx_endpoint": "",
+            "master_itemid": "0",
+            "timeout": "3s",
+            "url": "",
+            "query_fields": [],
+            "posts": "",
+            "status_codes": "200",
+            "follow_redirects": "1",
+            "post_type": "0",
+            "http_proxy": "",
+            "headers": [],
+            "retrieve_mode": "0",
+            "request_method": "0",
+            "output_format": "0",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Finding dependent items by key ===
+
+Retrieve all dependent items from host with ID "10116" that have the word "apache" in the key.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.get",
+    "params": {
+        "output": "extend",
+        "hostids": "10116",
+        "search": {
+            "key_": "apache"
+        },
+        "filter": {
+            "type": "18"
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "itemid": "25550",
+            "type": "18",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10116",
+            "name": "Days",
+            "key_": "apache.status.uptime.days",
+            "delay": "",
+            "history": "90d",
+            "trends": "365d",
+            "status": "0",
+            "value_type": "3",
+            "trapper_hosts": "",
+            "units": "",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "formula": "",
+            "error": "",
+            "logtimefmt": "",
+            "templateid": "0",
+            "valuemapid": "0",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "flags": "0",
+            "interfaceid": "0",
+            "port": "",
+            "description": "",
+            "inventory_link": "0",
+            "lifetime": "30d",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "state": "0",
+            "snmpv3_contextname": "",
+            "evaltype": "0",
+            "master_itemid": "25545",
+            "jmx_endpoint": "",
+            "timeout": "3s",
+            "url": "",
+            "query_fields": [],
+            "posts": "",
+            "status_codes": "200",
+            "follow_redirects": "1",
+            "post_type": "0",
+            "http_proxy": "",
+            "headers": [],
+            "retrieve_mode": "0",
+            "request_method": "0",
+            "output_format": "0",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0",
+            "lastclock": "0",
+            "lastns": "0",
+            "lastvalue": "0",
+            "prevvalue": "0"
+        },
+        {
+            "itemid": "25555",
+            "type": "18",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10116",
+            "name": "Hours",
+            "key_": "apache.status.uptime.hours",
+            "delay": "0",
+            "history": "90d",
+            "trends": "365d",
+            "status": "0",
+            "value_type": "3",
+            "trapper_hosts": "",
+            "units": "",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "formula": "",
+            "error": "",
+            "logtimefmt": "",
+            "templateid": "0",
+            "valuemapid": "0",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "flags": "0",
+            "interfaceid": "0",
+            "port": "",
+            "description": "",
+            "inventory_link": "0",
+            "lifetime": "30d",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "state": "0",
+            "snmpv3_contextname": "",
+            "evaltype": "0",
+            "master_itemid": "25545",
+            "jmx_endpoint": "",
+            "timeout": "3s",
+            "url": "",
+            "query_fields": [],
+            "posts": "",
+            "status_codes": "200",
+            "follow_redirects": "1",
+            "post_type": "0",
+            "http_proxy": "",
+            "headers": [],
+            "retrieve_mode": "0",
+            "request_method": "0",
+            "output_format": "0",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0",
+            "lastclock": "0",
+            "lastns": "0",
+            "lastvalue": "0",
+            "prevvalue": "0"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Find HTTP agent item ===
+
+Find HTTP agent item with post body type XML for specific host id.
+
+Request:
+
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.get",
+    "params": {
+        "hostids": "10255",
+        "filter": {
+            "type": "19",
+            "post_type": "3"
+        }
+    },
+    "id": 3,
+    "auth": "d678e0b85688ce578ff061bd29a20d3b"
+}
+</code>
+
+Response:
+
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "itemid": "28252",
+            "type": "19",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10255",
+            "name": "template item",
+            "key_": "ti",
+            "delay": "30s",
+            "history": "90d",
+            "trends": "365d",
+            "status": "0",
+            "value_type": "3",
+            "trapper_hosts": "",
+            "units": "",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "formula": "",
+            "error": "",
+            "logtimefmt": "",
+            "templateid": "0",
+            "valuemapid": "0",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "flags": "0",
+            "interfaceid": "0",
+            "port": "",
+            "description": "",
+            "inventory_link": "0",
+            "lifetime": "30d",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "state": "0",
+            "snmpv3_contextname": "",
+            "evaltype": "0",
+            "jmx_endpoint": "",
+            "master_itemid": "0",
+            "timeout": "3s",
+            "url": "localhost",
+            "query_fields": [
+                {
+                    "mode": "xml"
+                }
+            ],
+            "posts": "<body>\r\n<![CDATA[{$MACRO}<foo></bar>]]>\r\n</body>",
+            "status_codes": "200",
+            "follow_redirects": "0",
+            "post_type": "3",
+            "http_proxy": "",
+            "headers": [],
+            "retrieve_mode": "1",
+            "request_method": "3",
+            "output_format": "0",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0",
+            "lastclock": "0",
+            "lastns": "0",
+            "lastvalue": "0",
+            "prevvalue": "0"
+        }
+    ],
+    "id": 3
+}
+</code>
+
+=== Retrieving items with preprocessing rules ===
+Reatrieve all items and their preprocessing rules from host with ID "10254".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.get",
+    "params": {
+        "output": ["itemid", "name", "key_"],
+        "selectPreprocessing": "extend",
+        "hostids": "10254"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemid": "23865",
+        "name": "http agent example JSON",
+        "key_": "json",
+        "preprocessing": [
+            {
+                "type": "12",
+                "params": "$.random",
+                "error_handler": "1",
+                "error_handler_params": ""
+            }
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:application:object#application|Application]]
+  * [[manual:api:reference:discoveryrule:object#discovery_rule|Discovery rule]]
+  * [[manual:api:reference:graph:object#graph|Graph]]
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+  * [[manual:api:reference:trigger:object#trigger|Trigger]]
+
+==== Source ====
+
+CItem::get() in //frontends/php/include/classes/api/services/CItem.php//.

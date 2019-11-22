@@ -1,0 +1,100 @@
+===== screen.update =====
+
+==== Description ====
+
+''object screen.update(object/array **screens**)''
+
+This method allows to update existing screens.
+
+==== Parameters ====
+
+''(object/array)'' Screen properties to be updated.
+
+The ''screenid'' property must be defined for each screen, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#screen|standard screen properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| screenitems | array | Screen items to replace existing screen items. \\ \\ Screen items are updated by coordinates, so each screen item must have the ''x'' and ''y'' properties defined. |
+| users | array | Screen user shares to replace the existing elements. |
+| userGroups | array | Screen user group shares to replace the existing elements. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated screens under the ''screenids'' property.
+
+==== Examples ====
+
+=== Renaming a screen ===
+
+Rename a screen to "CPU Graphs".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screen.update",
+    "params": {
+        "screenid": "26",
+        "name": "CPU Graphs"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenids": [
+            "26"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Change screen owner ===
+
+Available only for admins and super admins.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screen.update",
+    "params": {
+        "screenid": "83",
+        "userid": "1"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 2
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenids": [
+            "83"
+        ]
+    },
+    "id": 2
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:screenitem:object#screen_item|Screen item]]
+  * [[manual:api:reference:screenitem:create|screenitem.create]]
+  * [[manual:api:reference:screenitem:update|screenitem.update]]
+  * [[manual:api:reference:screenitem:updatebyposition|screenitem.updatebyposition]]
+  * [[object#screen_user|Screen user]]
+  * [[object#screen_user_group|Screen user group]]
+==== Source ====
+
+CScreen::update() in //frontends/php/include/classes/api/services/CScreen.php//.

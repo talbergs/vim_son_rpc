@@ -1,0 +1,55 @@
+===== service.deletedependencies =====
+
+==== Description ====
+
+''object service.deletedependencies(string/array **serviceIds**)''
+
+This method allows to delete all dependencies from services.
+
+==== Parameters ====
+
+''(string/array)'' IDs of the services to delete all dependencies from.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the affected services under the ''serviceids'' property.
+
+==== Examples ====
+
+=== Deleting dependencies from an service ===
+
+Delete all dependencies from service "2".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "service.deletedependencies",
+    "params": [
+        "2"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "serviceids": [
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|service.update]]
+
+==== Source ====
+
+CService::delete() in //frontends/php/include/classes/api/services/CService.php//.

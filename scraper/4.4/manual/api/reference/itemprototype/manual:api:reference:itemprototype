@@ -1,0 +1,12 @@
+===== Item prototype =====
+
+This class is designed to work with item prototypes. 
+
+Object references: \\
+  * [[manual:api:reference:itemprototype:object#item_prototype|Item prototype]]
+
+Available methods: \\
+  * ''[[manual:api:reference:itemprototype:create|itemprototype.create]]'' - creating new item prototypes
+  * ''[[manual:api:reference:itemprototype:delete|itemprototype.delete]]'' - deleting item prototypes
+  * ''[[manual:api:reference:itemprototype:get|itemprototype.get]]'' - retrieving item prototypes
+  * ''[[manual:api:reference:itemprototype:update|itemprototype.update]]'' - updating item prototypes

@@ -1,0 +1,234 @@
+===== template.get =====
+
+==== Description ====
+
+''integer/array template.get(object **parameters**)''
+
+The method allows to retrieve templates according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output. 
+
+The method supports the following parameters.
+
+^Parameter^Type^Description^
+| templateids | string/array | Return only templates with the given template IDs. |
+| groupids | string/array | Return only templates that belong to the given host groups. |
+| parentTemplateids | string/array | Return only templates that are children of the given templates. |
+| hostids | string/array | Return only templates that are linked to the given hosts. |
+| graphids | string/array | Return only templates that contain the given graphs. |
+| itemids | string/array | Return only templates that contain the given items. |
+| triggerids | string/array | Return only templates that contain the given triggers. |
+^  |||
+| with_items | flag | Return only templates that have items. |
+| with_triggers | flag | Return only templates that have triggers. |
+| with_graphs | flag | Return only templates that have graphs. |
+| with_httptests | flag | Return only templates that have web scenarios. |
+| evaltype | integer | Rules for tag searching. \\ \\ Possible values: \\ 0 - (default) And/Or; \\ 2 - Or. |
+| tags | array/object | Return only templates with given tags. Exact match by tag and case-sensitive or case-insensitive search by tag value depending on operator value. \\ Format: ''<nowiki>[{"tag": "<tag>", "value": "<value>", "operator": "<operator>"}, ...]</nowiki>''.\\ An empty array returns all templates. \\ \\ Possible operator values: \\ 0 - (default) Contains; \\ 1 - Equals. |
+^  |||
+| selectGroups | query | Return the host groups that the template belongs to in the ''groups'' property. |
+| selectTags |query| Return template tags in the ''tags'' property. |
+| selectHosts | query | Return the hosts that are linked to the template in the ''hosts'' property. \\ \\  Supports ''count''. |
+| selectTemplates  | query | Return the child templates in the ''templates'' property. \\ \\ Supports ''count''. |
+| selectParentTemplates | query | Return the parent templates in the ''parentTemplates'' property. \\ \\ Supports ''count''. |
+| selectHttpTests |query|Return the web scenarios from the template in the ''httpTests'' property. \\ \\ Supports ''count''. |
+| selectItems | query | Return items from the template in the ''items'' property. \\ \\ Supports ''count''. |
+| selectDiscoveries | query | Return low-level discoveries from the template in the ''discoveries'' property. \\ \\ Supports ''count''. |
+| selectTriggers | query | Return triggers from the template in the ''triggers'' property. \\ \\ Supports ''count''. |
+| selectGraphs | query | Return graphs from the template in the ''graphs'' property. \\ \\ Supports ''count''. |
+| selectApplications | query | Return applications from the template in the ''applications'' property. \\ \\ Supports ''count''. |
+| selectMacros | query | Return the macros from the template in the ''macros'' property.. |
+| selectScreens | query | Return screens from the template in the ''screens'' property. \\ \\ Supports ''count''. |
+^  |||
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selectTemplates'' - results will be sorted by ''name''; \\ ''selectHosts'' - sorted by ''host''; \\ ''selectParentTemplates'' - sorted by ''host''; \\ ''selectItems'' - sorted by ''name''; \\ ''selectDiscoveries'' - sorted by ''name''; \\ ''selectTriggers'' - sorted by ''description''; \\ ''selectGraphs'' - sorted by ''name''; \\ ''selectApplications'' - sorted by ''name''; \\ ''selectScreens'' - sorted by ''name''. |
+|sortfield|string/array| Sort the result by the given properties. \\ \\ Possible values are: ''hostid'', ''host'', ''name'', ''status''.  |
+|countOutput|boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving templates by name ===
+
+Retrieve all data about two templates named "Template OS Linux" and "Template OS Windows".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.get",
+    "params": {
+        "output": "extend",
+        "filter": {
+            "host": [
+                "Template OS Linux",
+                "Template OS Windows"
+            ]
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "proxy_hostid": "0",
+            "host": "Template OS Linux",
+            "status": "3",
+            "disable_until": "0",
+            "error": "",
+            "available": "0",
+            "errors_from": "0",
+            "lastaccess": "0",
+            "ipmi_authtype": "0",
+            "ipmi_privilege": "2",
+            "ipmi_username": "",
+            "ipmi_password": "",
+            "ipmi_disable_until": "0",
+            "ipmi_available": "0",
+            "snmp_disable_until": "0",
+            "snmp_available": "0",
+            "maintenanceid": "0",
+            "maintenance_status": "0",
+            "maintenance_type": "0",
+            "maintenance_from": "0",
+            "ipmi_errors_from": "0",
+            "snmp_errors_from": "0",
+            "ipmi_error": "",
+            "snmp_error": "",
+            "jmx_disable_until": "0",
+            "jmx_available": "0",
+            "jmx_errors_from": "0",
+            "jmx_error": "",
+            "name": "Template OS Linux",
+            "flags": "0",
+            "templateid": "10001",
+            "description": "",
+            "tls_connect": "1",
+            "tls_accept": "1",
+            "tls_issuer": "",
+            "tls_subject": "",
+            "tls_psk_identity": "",
+            "tls_psk": ""
+        },
+        {
+            "proxy_hostid": "0",
+            "host": "Template OS Windows",
+            "status": "3",
+            "disable_until": "0",
+            "error": "",
+            "available": "0",
+            "errors_from": "0",
+            "lastaccess": "0",
+            "ipmi_authtype": "0",
+            "ipmi_privilege": "2",
+            "ipmi_username": "",
+            "ipmi_password": "",
+            "ipmi_disable_until": "0",
+            "ipmi_available": "0",
+            "snmp_disable_until": "0",
+            "snmp_available": "0",
+            "maintenanceid": "0",
+            "maintenance_status": "0",
+            "maintenance_type": "0",
+            "maintenance_from": "0",
+            "ipmi_errors_from": "0",
+            "snmp_errors_from": "0",
+            "ipmi_error": "",
+            "snmp_error": "",
+            "jmx_disable_until": "0",
+            "jmx_available": "0",
+            "jmx_errors_from": "0",
+            "jmx_error": "",
+            "name": "Template OS Windows",
+            "flags": "0",
+            "templateid": "10081",
+            "description": "",
+            "tls_connect": "1",
+            "tls_accept": "1",
+            "tls_issuer": "",
+            "tls_subject": "",
+            "tls_psk_identity": "",
+            "tls_psk": ""
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Searching by template tags ===
+
+Retrieve templates that have tag "Host name" equal to "{HOST.NAME}".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.get",
+    "params": {
+        "output": ["hostid"],
+        "selectTags": "extend",
+        "evaltype": 0,
+        "tags": [
+            {
+                "tag": "Host name",
+                "value": "{HOST.NAME}",
+                "operator": 1
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "hostid": "10402",
+            "tags": [
+                {
+                    "tag": "Host name",
+                    "value": "{HOST.NAME}"
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[object#template|Template]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+
+==== Source ====
+
+CTemplate::get() in //frontends/php/include/classes/api/services/CTemplate.php//.

@@ -1,0 +1,234 @@
+===== action.get =====
+
+==== Description ====
+
+''integer/array action.get(object **parameters**)''
+
+The method allows to retrieve actions according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| actionids | string/array | Return only actions with the given IDs. |
+| groupids | string/array | Return only actions that use the given host groups in action conditions. |
+| hostids | string/array | Return only actions that use the given hosts in action conditions. |
+| triggerids | string/array | Return only actions that use the given triggers in action conditions. |
+| mediatypeids | string/array | Return only actions that use the given media types to send messages. |
+| usrgrpids | string/array | Return only actions that are configured to send messages to the given user groups. |
+| userids | string/array | Return only actions that are configured to send messages to the given users. |
+| scriptids | string/array | Return only actions that are configured to run the given scripts. |
+^ |||
+| selectFilter | query | Return a ''filter'' property with the action condition filter. |
+| selectOperations | query | Return an ''operations'' property with action operations. |
+| selectRecoveryOperations | query | Return a ''recoveryOperations'' property with action recovery operations. |
+| selectAcknowledgeOperations | query | Return an ''acknowledgeOperations'' property with action acknowledge operations. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''actionid'', ''name'' and ''status''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve discovery actions ===
+
+Retrieve all configured discovery actions together with action conditions and operations. The filter uses the "and" evaluation type, so the ''formula'' property is empty and ''eval_formula'' is generated automatically.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "action.get",
+    "params": {
+        "output": "extend",
+        "selectOperations": "extend",
+        "selectRecoveryOperations": "extend",
+        "selectFilter": "extend",
+        "filter": {
+            "eventsource": 1
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "actionid": "2",
+            "name": "Auto discovery. Linux servers.",
+            "eventsource": "1",
+            "status": "1",
+            "esc_period": "0s",
+            "def_shortdata": "",
+            "def_longdata": "",
+            "r_shortdata": "",
+            "r_longdata": "",
+            "pause_suppressed": "1",
+            "filter": {
+                "evaltype": "0",
+                "formula": "",
+                "conditions": [
+                    {
+                        "conditiontype": "10",
+                        "operator": "0",
+                        "value": "0",
+                        "value2": "",
+                        "formulaid": "B"
+                    },
+                    {
+                        "conditiontype": "8",
+                        "operator": "0",
+                        "value": "9",
+                        "value2": "",
+                        "formulaid": "C"
+                    },
+                    {
+                        "conditiontype": "12",
+                        "operator": "2",
+                        "value": "Linux",
+                        "value2": "",
+                        "formulaid": "A"
+                    }
+                ],
+                "eval_formula": "A and B and C"
+            },
+            "operations": [
+                {
+                    "operationid": "1",
+                    "actionid": "2",
+                    "operationtype": "6",
+                    "esc_period": "0s",
+                    "esc_step_from": "1",
+                    "esc_step_to": "1",
+                    "evaltype": "0",
+                    "opconditions": [],
+                    "optemplate": [
+                        {
+                            "operationid": "1",
+                            "templateid": "10001"
+                        }
+                    ]
+                },
+                {
+                    "operationid": "2",
+                    "actionid": "2",
+                    "operationtype": "4",
+                    "esc_period": "0s",
+                    "esc_step_from": "1",
+                    "esc_step_to": "1",
+                    "evaltype": "0",
+                    "opconditions": [],
+                    "opgroup": [
+                        {
+                            "operationid": "2",
+                            "groupid": "2"
+                        }
+                    ]
+                }
+            ],
+            "recoveryOperations": [
+                {
+                    "operationid": "585",
+                    "actionid": "2",
+                    "operationtype": "11",
+                    "evaltype": "0",
+                    "opconditions": [],
+                    "opmessage": {
+                        "operationid": "585",
+                        "default_msg": "1",
+                        "subject": "{TRIGGER.STATUS}: {TRIGGER.NAME}",
+                        "message": "Trigger: {TRIGGER.NAME}\r\nTrigger status: {TRIGGER.STATUS}\r\nTrigger severity: {TRIGGER.SEVERITY}\r\nTrigger URL: {TRIGGER.URL}\r\n\r\nItem values:\r\n\r\n1. {ITEM.NAME1} ({HOST.NAME1}:{ITEM.KEY1}): {ITEM.VALUE1}\r\n2. {ITEM.NAME2} ({HOST.NAME2}:{ITEM.KEY2}): {ITEM.VALUE2}\r\n3. {ITEM.NAME3} ({HOST.NAME3}:{ITEM.KEY3}): {ITEM.VALUE3}\r\n\r\nOriginal event ID: {EVENT.ID}",
+                        "mediatypeid": "0"
+                    }
+                }
+            ],
+            "acknowledgeOperations": [
+                {
+                    "operationid": "585",
+                    "operationtype": "12",
+                    "evaltype": "0",
+                    "opmessage": {
+                        "default_msg": "1",
+                        "subject": "Acknowledged: {TRIGGER.NAME}",
+                        "message": "{USER.FULLNAME} acknowledged problem at {ACK.DATE} {ACK.TIME} with the following message:\r\n{ACK.MESSAGE}\r\n\r\nCurrent problem status is {EVENT.STATUS}",
+                        "mediatypeid": "0"
+                    }
+                },
+                {
+                    "operationid": "586",
+                    "operationtype": "0",
+                    "evaltype": "0",
+                    "opmessage": {
+                        "default_msg": "1",
+                        "subject": "Acknowledged: {TRIGGER.NAME}",
+                        "message": "{USER.FULLNAME} acknowledged problem at {ACK.DATE} {ACK.TIME} with the following message:\r\n{ACK.MESSAGE}\r\n\r\nCurrent problem status is {EVENT.STATUS}",
+                        "mediatypeid": "0"
+                    },
+                    "opmessage_grp": [
+                        {
+                            "usrgrpid": "7"
+                        }
+                    ],
+                    "opmessage_usr": []
+                },
+                {
+                    "operationid": "587",
+                    "operationtype": "1",
+                    "evaltype": "0",
+                    "opcommand": {
+                        "type": "0",
+                        "scriptid": "0",
+                        "execute_on": "0",
+                        "port": "",
+                        "authtype": "0",
+                        "username": "",
+                        "password": "",
+                        "publickey": "",
+                        "privatekey": "",
+                        "command": "notify.sh"
+                    },
+                    "opcommand_hst": [
+                        {
+                            "hostid": "0"
+                        }
+                    ],
+                    "opcommand_grp": []
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[object#action_filter|Action filter]]
+  * [[object#action_operation|Action operation]]
+
+
+==== Source ====
+
+CAction::get() in //frontends/php/include/classes/api/services/CAction.php//.

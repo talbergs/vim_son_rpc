@@ -1,0 +1,101 @@
+===== triggerprototype.update =====
+
+==== Description ====
+
+''object triggerprototype.update(object/array **triggerPrototypes**)''
+
+This method allows to update existing trigger prototypes.
+
+==== Parameters ====
+
+''(object/array)'' [[object#trigger_prototype|Trigger prototype properties]] to be updated.
+
+The ''triggerid'' property must be defined for each trigger prototype, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#trigger_prototype|standard trigger prototype properties]] the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dependencies | array | Triggers and trigger prototypes that the trigger prototype is dependent on. \\ \\ The triggers must have the ''triggerid'' property defined. |
+| tags         | array | Trigger prototype tags. |
+
+<note important>The trigger expression has to be given in its expanded form and must contain at least one item prototype.</note>
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated trigger prototypes under the ''triggerids'' property.
+
+==== Examples ====
+
+=== Enabling a trigger prototype ===
+
+Enable a trigger prototype, that is, set its status to 0.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "triggerprototype.update",
+    "params": {
+        "triggerid": "13938",
+        "status": 0
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "13938"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Replacing trigger prototype tags ===
+
+Replace tags for one trigger prototype.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "triggerprototype.update",
+    "params": {
+        "triggerid": "17373",
+        "tags": [
+            {
+                "tag": "volume",
+                "value": "{#FSNAME}"
+            },
+            {
+                "tag": "type",
+                "value": "{#FSTYPE}"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "17373"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTriggerPrototype::update() in //frontends/php/include/classes/api/services/CTriggerPrototype.php//.

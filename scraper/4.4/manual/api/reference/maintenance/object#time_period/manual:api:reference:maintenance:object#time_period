@@ -1,0 +1,39 @@
+===== > Maintenance object =====
+
+The following objects are directly related to the ''maintenance'' API.
+
+==== Maintenance ====
+
+The maintenance object has the following properties.
+
+^ Property                       ^ Type      ^ Description                                                                                                            ^
+| maintenanceid                  | string    | //(readonly)// ID of the maintenance.                                                                                  |
+| **name** \\ (required)         | string    | Name of the maintenance.                                                                                               |
+| **active_since** \\ (required) | timestamp | Time when the maintenance becomes active.                                                                              |
+| **active_till** \\ (required)  | timestamp | Time when the maintenance stops being active.                                                                          |
+| description                    | string    | Description of the maintenance.                                                                                        |
+| maintenance_type               | integer   | Type of maintenance. \\ \\ Possible values: \\ 0 - //(default)// with data collection; \\ 1 - without data collection. |
+| tags_evaltype                  | integer   | Problem tag evaluation method. \\ \\ Possible values: \\ 0 - //(default)// And/Or; \\ 2 - Or.                          |
+==== Time period ====
+
+The time period object is used to define periods when the maintenance must come into effect. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| timeperiodid | string  | //(readonly)// ID of the maintenance.  |
+| day | integer | Day of the month when the maintenance must come into effect. \\ \\ Required only for monthly time periods. |
+| dayofweek | integer | Days of the week when the maintenance must come into effect. \\ \\ Days are stored in binary form with each bit representing the corresponding day. For example, 4 equals 100 in binary and means, that maintenance will be enabled on Wednesday. \\ \\ Used for weekly and monthly time periods. Required only for weekly time periods. |
+| every | integer | For daily and weekly periods ''every'' defines day or week intervals at which the maintenance must come into effect. \\ \\ For monthly periods ''every'' defines the week of the month when the maintenance must come into effect. \\ Possible values: \\ 1 - first week; \\ 2 - second week; \\ 3 - third week; \\ 4 - fourth week; \\ 5 - last week. |
+| month | integer | Months when the maintenance must come into effect. \\ \\ Months are stored in binary form with each bit representing the corresponding month. For example, 5 equals 101 in binary and means, that maintenance will be enabled in January and March. \\ \\ Required only for monthly time periods. |
+| period | integer | Duration of the maintenance period in seconds. \\ \\ Default: 3600. |
+| start_date | timestamp | Date when the maintenance period must come into effect. \\ \\ Required only for one time periods. \\ \\ Default: current date. |
+| start_time | integer | Time of day when the maintenance starts in seconds. \\ \\ Required for daily, weekly and monthly periods. |
+| timeperiod_type | integer | Type of time period. \\ \\ Possible values: \\ 0 - //(default)// one time only; \\ 2 - daily; \\ 3 - weekly; \\ 4 - monthly. |
+
+==== Problem tag ====
+
+The problem tag object is used to define which problems must be suppressed when the maintenance comes into effect. It has the following properties.
+
+^ Property              ^ Type    ^ Description                                                                              ^
+| **tag** \\ (required) | string  | Problem tag name.                                                                        |
+| operator              | integer | Condition operator. \\ \\ Possible values: \\ 0 - Equals; \\ 2 - //(default)// Contains. |
+| value                 | string  | Problem tag value.                                                                       |

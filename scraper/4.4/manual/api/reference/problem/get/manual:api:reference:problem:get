@@ -1,0 +1,150 @@
+===== problem.get =====
+
+==== Description ====
+
+''integer/array problem.get(object **parameters**)''
+
+The method allows to retrieve problems according to the given parameters.
+
+This method is for retrieving unresolved problems. It is also possible, if specified, to additionally retrieve recently resolved problems. The period that determines how old is "recently" is defined in //Administration// -> //[[:manual/web_interface/frontend_sections/administration/general#trigger_displaying_options|General]]//. Problems that were resolved prior to that period are not kept in the problem table. To retrieve problems that were resolved further back in the past, use the [[:manual/api/reference/event/get|event.get]] method.
+
+<note important>This method may return problems of a deleted entity if these problems have not been removed by the housekeeper yet.</note>
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| eventids | string/array | Return only problems with the given IDs. |
+| groupids | string/array | Return only problems created by objects that belong to the given host groups. |
+| hostids | string/array | Return only problems created by objects that belong to the given hosts. |
+| objectids | string/array | Return only problems created by the given objects. |
+| applicationids | string/array | Return only problems created by objects that belong to the given applications. Applies only if object is trigger or item. |
+^ |||
+| source | integer | Return only problems with the given type. \\ \\ Refer to the  [[object#problem|problem event object page]] for a list of supported event types. \\ \\ Default: 0 - problem created by a trigger. |
+| object | integer | Return only problems created by objects of the given type. \\ \\ Refer to the  [[object#problem|problem event object page]] for a list of supported object types. \\ \\ Default: 0 - trigger. |
+| acknowledged | boolean | ''true'' - return acknowledged problems only; \\ ''false'' - unacknowledged only. |
+| suppressed | boolean | ''true'' - return only suppressed problems; \\ ''false'' - return problems in the normal state. |
+| severities | integer/array | Return only problems with given event severities. Applies only if object is trigger. |
+| evaltype   | integer          | Rules for tag searching. \\ \\ Possible values: \\ 0 - (default) And/Or; \\ 2 - Or.        |
+| tags       | array of objects | Return only problems with given tags. Exact match by tag and case-insensitive search by value and operator. \\ Format: ''<nowiki>[{"tag": "<tag>", "value": "<value>", "operator": "<operator>"}, ...]</nowiki>''.\\ An empty array returns all problems. \\ \\ Possible operator types: \\ 0 - (default) Like; \\ 1 - Equal. |
+| recent | boolean | ''true'' - return PROBLEM and recently RESOLVED problems (depends on Display OK triggers for N seconds) \\ Default: ''false'' - UNRESOLVED problems only |
+| eventid_from | string | Return only problems with IDs greater or equal to the given ID. |
+| eventid_till | string | Return only problems with IDs less or equal to the given ID. |
+| time_from | timestamp | Return only problems that have been created after or at the given time. |
+| time_till | timestamp | Return only problems that have been created before or at the given time. |
+^ |||
+| selectAcknowledges | query | Return an ''acknowledges'' property with the problem updates. Problem updates are sorted in reverse chronological order. \\ \\ The problem update object has the following properties: \\ ''acknowledgeid'' - ''(string)'' update's ID; \\ ''userid'' - ''(string)'' ID of the user that updated the event; \\ ''eventid'' - ''(string)'' ID of the updated event; \\ ''clock'' - ''(timestamp)'' time when the event was updated; \\ ''message'' - ''(string)'' text of the message; \\ ''action'' - ''(integer)'' update action that was performed see [[manual:api:reference:event:acknowledge|event.acknowledge]]; \\ ''old_severity'' - ''(integer)'' event severity before this update action; \\ ''new_severity'' - ''(integer)'' event severity after this update action; \\  \\ Supports ''count''. |
+| selectTags | query | Return a ''[[:manual/api/reference/trigger/object#trigger_tag|tags]]'' property with the problem tags. Output format: ''<nowiki>[{"tag": "<tag>", "value": "<value>"}, ...]</nowiki>''. |
+| selectSuppressionData | query | Return a ''suppression_data'' property with the list of maintenances: \\ ''maintenanceid'' - ''(string)'' ID of the maintenance; \\ ''suppress_until'' - ''(integer)'' time until the problem is suppressed. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''eventid''. |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving trigger problem events ===
+
+Retrieve recent events from trigger "15112."
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "problem.get",
+    "params": {
+        "output": "extend",
+        "selectAcknowledges": "extend",
+        "selectTags": "extend",
+        "selectSuppressionData": "extend",
+        "objectids": "15112",
+        "recent": "true",
+        "sortfield": ["eventid"],
+        "sortorder": "DESC"
+    },
+    "auth": "67f45d3eb1173338e1b1647c4bdc1916",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "eventid": "1245463",
+            "source": "0",
+            "object": "0",
+            "objectid": "15112",
+            "clock": "1472457242",
+            "ns": "209442442",
+            "r_eventid": "1245468",
+            "r_clock": "1472457285",
+            "r_ns": "125644870",
+            "correlationid": "0",
+            "userid": "1",
+            "name": "Zabbix agent on localhost is unreachable for 5 minutes",
+            "acknowledged": "1",
+            "severity": "3",
+            "opdata": "",
+            "acknowledges": [
+                {
+                    "acknowledgeid": "14443",
+                    "userid": "1",
+                    "eventid": "1245463",
+                    "clock": "1472457281",
+                    "message": "problem solved",
+                    "action": "6",
+                    "old_severity": "0",
+                    "new_severity": "0"
+                }
+            ],
+            "suppression_data": [
+                {
+                    "maintenanceid": "15",
+                    "suppress_until": "1472511600"
+                }
+            ],
+            "suppressed": "1",
+            "tags": [
+                {
+                    "tag": "test tag",
+                    "value": "test value"
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:alert:object|Alert]]
+  * [[manual:api:reference:item:object|Item]]
+  * [[manual:api:reference:host:object|Host]]
+  * [[manual:api:reference:discoveryrule:object#lld_rule|LLD rule]]
+  * [[manual:api:reference:trigger:object|Trigger]]
+
+==== Source ====
+
+CEvent::get() in //frontends/php/include/classes/api/services/CProblem.php//.

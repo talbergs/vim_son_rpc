@@ -1,0 +1,102 @@
+===== template.massremove =====
+
+==== Description ====
+
+''object template.massremove(object **parameters**)''
+
+This method allows to remove related objects from multiple templates.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the templates to update and the objects that should be removed.
+
+^ Parameter ^ Type ^ Description ^
+| **templateids** \\ (required) | string/array | IDs of the templates to be updated. |
+| groupids | string/array | Host groups to remove the given templates from. |
+| hostids | string/array | Hosts or templates to unlink the given templates from (downstream). |
+| macros | string/array | User macros to delete from the given templates. |
+| templateids_clear | string/array | Templates to unlink and clear from the given templates (upstream). |
+| templateids_link | string/array | Templates to unlink from the given templates (upstream). |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated templates under the ''templateids'' property.
+
+==== Examples ====
+
+=== Removing templates from a group ===
+
+Remove two templates from group "2".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.massremove",
+    "params": {
+        "templateids": [
+            "10085",
+            "10086"
+        ],
+        "groupids": "2"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "templateids": [
+            "10085",
+            "10086"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Unlinking templates from a host ===
+
+Unlink template "10085" from two hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.massremove",
+    "params": {
+        "templateids": "10085",
+        "hostids": [
+            "10106",
+            "10104"
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "templateids": [
+            "10085"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|template.update]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+
+==== Source ====
+
+CTemplate::massRemove() in //frontends/php/include/classes/api/services/CTemplate.php//.

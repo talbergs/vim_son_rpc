@@ -1,0 +1,97 @@
+===== dashboard.update =====
+
+==== Description ====
+
+''object dashboard.update(object/array **dashboards**)''
+
+This method allows to update existing dashboards.
+
+==== Parameters ====
+
+''(object/array)'' Dashboard properties to be updated.
+
+The ''dashboardid'' property must be defined for each dashboard, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#dashboard|standard dashboard properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| widgets | array | [[object#dashboard_widget|Dashboard widgets]] to replace existing dashboard widgets. \\ \\ Dashboard widgets are updated by ''widgetid'' property. Widgets without ''widgetid'' property will be created. |
+| users | array | [[object#dashboard_user|Dashboard user]] shares to replace the existing elements. |
+| userGroups | array | [[object#dashboard_user_group|Dashboard user group]] shares to replace the existing elements. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated dashboards under the ''dashboardids'' property.
+
+==== Examples ====
+
+=== Renaming a dashboard ===
+
+Rename a dashboard to "SQL server status".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "dashboard.update",
+    "params": {
+        "dashboardid": "2",
+        "name": "SQL server status"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "dashboardids": [
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Change dashboard owner ===
+
+Available only for admins and super admins.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "dashboard.update",
+    "params": {
+        "dashboardid": "2",
+        "userid": "1"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 2
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "dashboardids": [
+            "2"
+        ]
+    },
+    "id": 2
+}
+</code>
+
+==== See also ====
+
+  * [[object#dashboard_widget|Dashboard widget]]
+  * [[object#dashboard_widget_field|Dashboard widget field]]
+  * [[object#dashboard_user|Dashboard user]]
+  * [[object#dashboard_user_group|Dashboard user group]]
+==== Source ====
+
+CDashboard::update() in //frontends/php/include/classes/api/services/CDashboard.php//.

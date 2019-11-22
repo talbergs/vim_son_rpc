@@ -1,0 +1,54 @@
+===== hostinterface.update =====
+
+==== Description ====
+
+''object hostinterface.update(object/array **hostInterfaces**)''
+
+This method allows to update existing host interfaces.
+
+==== Parameters ====
+
+''(object/array)'' [[object#host_interface|Host interface properties]] to be updated.
+
+The ''interfaceid'' property must be defined for each host interface, all other properties are optional. Only the given properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated host interfaces under the ''interfaceids'' property.
+
+==== Examples ====
+
+=== Changing a host interface port ===
+
+Change the port of a host interface.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostinterface.update",
+    "params": {
+        "interfaceid": "30048",
+        "port": "30050"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "interfaceids": [
+            "30048"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CHostInterface::update() in //frontends/php/include/classes/api/services/CHostInterface.php//.

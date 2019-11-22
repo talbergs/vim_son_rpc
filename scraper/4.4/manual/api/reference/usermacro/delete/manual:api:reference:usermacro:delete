@@ -1,0 +1,53 @@
+===== usermacro.delete =====
+
+==== Description ====
+
+''object usermacro.delete(array **hostMacroIds**)''
+
+This method allows to delete host macros.
+
+==== Parameters ====
+
+''(array)'' IDs of the host macros to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted host macros under the ''hostmacroids'' property.
+
+==== Examples ====
+
+=== Deleting multiple host macros ===
+
+Delete two host macros.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usermacro.delete",
+    "params": [
+        "32",
+        "11"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostmacroids": [
+            "32",
+            "11"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CUserMacro::delete() in //frontends/php/include/classes/api/services/CUserMacro.php//.

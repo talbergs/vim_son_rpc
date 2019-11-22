@@ -1,0 +1,61 @@
+===== screenitem.updatebyposition =====
+
+==== Description ====
+
+''object screenitem.updatebyposition(array **screenItems**)''
+
+This method allows to update screen items in the given screen cells. If a cell is empty, a new screen item will be created.
+==== Parameters ====
+
+''(array)'' [[object#screen_item|Screen item properties]] to be updated.
+
+The ''x'', ''y'' and ''screenid'' properties must be defined for each screen item, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated and created screen items under the ''screenitemids'' property.
+
+==== Examples ====
+
+=== Changing a screen items resource ID ===
+
+Change the resource ID for the screen element located in the upper-left cell of the screen.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screenitem.updatebyposition",
+    "params": [
+        {
+            "screenid": "16",
+            "x": 0,
+            "y": 0,
+            "resourceid": "644"
+        }
+    ],
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenitemids": [
+            "66"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|screenitem.update]]
+
+==== Source ====
+
+CScreenItem::update() in //frontends/php/include/classes/api/services/CScreenItem.php//.

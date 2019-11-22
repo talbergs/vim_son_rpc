@@ -1,0 +1,123 @@
+===== user.login =====
+
+==== Description ====
+
+''string/object user.login(object **parameters**)''
+
+This method allows to log in to the API and generate an authentication token.
+
+<note warning>When using this method, you also need to do [[:manual/api/reference/user/logout|user.logout]] to prevent the generation of a large number of open session records.</note>
+
+==== Parameters ====
+
+<note important>This method is available to unauthenticated users and must be called without the ''auth'' parameter in the JSON-RPC request.</note>
+
+''(object)'' Parameters containing the user name and password.
+
+The method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **password** \\ (required) | string | User password. |
+| **user** \\ (required) | string | User name. |
+| userData | flag | Return information about the authenticated user. |
+
+
+==== Return values ====
+
+''(string/object)'' If the ''userData'' parameter is used, returns an object containing information about the authenticated user. 
+
+Additionally to the [[object#user|standard user properties]], the following information is returned:
+
+^ Property ^ Type ^ Description ^
+| debug_mode | boolean | Whether debug mode is enabled for the user. |
+| gui_access | integer | User's authentication method to the frontend. \\ \\ Refer to the ''gui_access'' property of the [[manual:api:reference:usergroup:object#user_group|user group object]] for a list of possible values. |
+| sessionid | string | Authentication token, which must be used in the following API requests. |
+| userip | string | IP address of the user. |
+
+<note tip>If a user has been successfully authenticated after one or more failed attempts, the method will return the current values for the ''attempt_clock'', ''attempt_failed'' and ''attempt_ip'' properties and then reset them.</note>
+
+If the ''userData'' parameter is not used, the method returns an authentication token.
+
+<note tip>The generated authentication token should be remembered and used in the ''auth'' parameter of the following JSON-RPC requests. It is also required when using HTTP authentication.</note>
+==== Examples ====
+
+=== Authenticating a user ===
+
+Authenticate a user.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "user.login",
+    "params": {
+        "user": "Admin",
+        "password": "zabbix"
+    },
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": "0424bd59b807674191e7d77572075f33",
+    "id": 1
+}
+</code>
+
+=== Requesting authenticated user's information ===
+
+Authenticate and return additional information about the user.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "user.login",
+    "params": {
+        "user": "Admin",
+        "password": "zabbix",
+        "userData": true
+    },
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "userid": "1",
+        "alias": "Admin",
+        "name": "Zabbix",
+        "surname": "Administrator",
+        "url": "",
+        "autologin": "1",
+        "autologout": "0",
+        "lang": "ru_RU",
+        "refresh": "0",
+        "type": "3",
+        "theme": "default",
+        "attempt_failed": "0",
+        "attempt_ip": "127.0.0.1",
+        "attempt_clock": "1355919038",
+        "rows_per_page": "50",
+        "debug_mode": true,
+        "userip": "127.0.0.1",
+        "sessionid": "5b56eee8be445e98f0bd42b435736e42",
+        "gui_access": "0"
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[logout|user.logout]]
+
+==== Source ====
+
+CUser::login() in //frontends/php/include/classes/api/services/CUser.php//.

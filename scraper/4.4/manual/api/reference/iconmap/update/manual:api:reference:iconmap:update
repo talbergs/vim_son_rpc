@@ -1,0 +1,63 @@
+===== iconmap.update =====
+
+==== Description ====
+
+''object iconmap.update(object/array **iconMaps**)''
+
+This method allows to update existing icon maps.
+
+==== Parameters ====
+
+''(object/array)'' Icon map properties to be updated.
+
+The ''iconmapid'' property must be defined for each icon map, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#icon_map|standard icon map properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| mappings | array | Icon mappings to replace the existing icon mappings. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated icon maps under the ''iconmapids'' property.
+
+==== Examples ====
+
+=== Rename icon map ===
+
+Rename an icon map to "OS icons".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "iconmap.update",
+    "params": {
+        "iconmapid": "1",
+        "name": "OS icons"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "iconmapids": [
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#icon_mapping|Icon mapping]]
+
+==== Source ====
+
+CIconMap::update() in //frontends/php/include/classes/api/services/CIconMap.php//.

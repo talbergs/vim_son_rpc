@@ -1,0 +1,54 @@
+===== script.update =====
+
+==== Description ====
+
+''object script.update(object/array **scripts**)''
+
+This method allows to update existing scripts.
+
+==== Parameters ====
+
+''(object/array)'' [[object#script|Script properties]] to be updated.
+
+The ''scriptid'' property must be defined for each script, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated scripts under the ''scriptids'' property.
+
+==== Examples ====
+
+=== Change script command ===
+
+Change the command of the script to "/bin/ping -c 10 {HOST.CONN} 2>&1".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "script.update",
+    "params": {
+        "scriptid": "1",
+        "command": "/bin/ping -c 10 {HOST.CONN} 2>&1"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "scriptids": [
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CScript::update() in //frontends/php/include/classes/api/services/CScript.php//.

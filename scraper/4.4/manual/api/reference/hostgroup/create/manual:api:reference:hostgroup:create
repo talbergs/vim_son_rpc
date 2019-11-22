@@ -1,0 +1,50 @@
+===== hostgroup.create =====
+
+==== Description ====
+
+''object hostgroup.create(object/array **hostGroups**)''
+
+This method allows to create new host groups.
+
+==== Parameters ====
+
+''(object/array)'' Host groups to create. The method accepts host groups with the [[object#host_group|standard host group properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created host groups under the ''groupids'' property. The order of the returned IDs matches the order of the passed host groups.
+==== Examples ====
+
+=== Creating a host group ===
+
+Create a host group called "Linux servers".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.create",
+    "params": {
+        "name": "Linux servers"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "groupids": [
+            "107819"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CHostGroup::create() in //frontends/php/include/classes/api/services/CHostGroup.php//.

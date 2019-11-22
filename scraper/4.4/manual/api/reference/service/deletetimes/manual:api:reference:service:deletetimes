@@ -1,0 +1,55 @@
+===== service.deletetimes =====
+
+==== Description ====
+
+''object service.deletetimes(string/array **serviceIds**)''
+
+This method allows to delete all service times from services.
+
+==== Parameters ====
+
+''(string/array)'' IDs of the services to delete all service times from.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the affected services under the ''serviceids'' property.
+
+==== Examples ====
+
+=== Deleting service times from an service ===
+
+Delete all service times from service "2".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "service.deletetimes",
+    "params": [
+        "2"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "serviceids": [
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|service.update]]
+
+==== Source ====
+
+CService::delete() in //frontends/php/include/classes/api/services/CService.php//.

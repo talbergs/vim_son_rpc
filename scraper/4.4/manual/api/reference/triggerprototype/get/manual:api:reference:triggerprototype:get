@@ -1,0 +1,202 @@
+===== triggerprototype.get =====
+
+==== Description ====
+
+''integer/array triggerprototype.get(object **parameters**)''
+
+The method allows to retrieve trigger prototypes according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| active | flag | Return only enabled trigger prototypes that belong to monitored hosts. |
+| applicationids | string/array | Return only trigger prototypes that contain items from the given applications. |
+| discoveryids | string/array | Return only trigger prototypes that belong to the given LLD rules. |
+| functions | string/array | Return only triggers that use the given functions. \\ \\ Refer to the [[manual:appendix:triggers:functions|supported trigger functions]] page for a list of supported functions. |
+| group | string | Return only trigger prototypes that belong to hosts from the host groups with the given name.  |
+| groupids | string/array | Return only trigger prototypes that belong to hosts from the given host groups.  |
+| host | string | Return only trigger prototypes that belong to hosts with the given name. |
+| hostids | string/array | Return only trigger prototypes that belong to the given hosts. |
+| inherited | boolean | If set to ''true'' return only trigger prototypes inherited from a template. |
+| maintenance | boolean | If set to ''true'' return only enabled trigger prototypes that belong to hosts in maintenance. |
+| min_severity | integer | Return only trigger prototypes with severity greater or equal than the given severity.  |
+| monitored | flag | Return only enabled trigger prototypes that belong to monitored hosts and contain only enabled items. |
+| templated | boolean | If set to ''true'' return only trigger prototypes that belong to templates. |
+| templateids | string/array | Return only trigger prototypes that belong to the given templates. |
+| triggerids | string/array | Return only trigger prototypes with the given IDs. |
+^ |||
+| expandExpression | flag | Expand functions and macros in the trigger expression. |
+| selectDiscoveryRule | query | Return the LLD rule that the trigger prototype belongs to. |
+| selectFunctions | query | Return functions used in the trigger prototype in the ''functions'' property. \\ \\ The function objects represents the functions used in the trigger expression and has the following properties: \\ ''functionid'' - //(string)// ID of the function; \\ ''itemid'' - //(string)// ID of the item used in the function;\\ ''function'' - //(string)// name of the function;\\ ''parameter'' - //(string)// parameter passed to the function. |
+| selectGroups | query | Return the host groups that the trigger prototype belongs to in the ''groups'' property. |
+| selectHosts | query | Return the hosts that the trigger prototype belongs to in the ''hosts'' property. |
+| selectItems | query | Return items and item prototypes used the trigger prototype in the ''items'' property. |
+| selectDependencies | query | Return trigger prototypes and triggers that the trigger prototype depends on in the ''dependencies'' property. |
+| selectTags | query | Return the trigger prototype tags in ''tags'' property. |
+^ |||
+| filter | object | Return only those results that exactly match the given filter.\\ \\ Accepts an array, where the keys are property names, and the values are either a single value or an array of values to match against. \\ \\ Supports additional filters: \\ ''host'' - technical name of the host that the trigger prototype belongs to; \\ ''hostid'' - ID of the host that the trigger prototype belongs to. |
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selectHosts'' - results will be sorted by ''host''. |
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''triggerid'', ''description'', ''status'' and ''priority''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve trigger prototypes from an LLD rule ===
+
+Retrieve all trigger prototypes and their functions from an LLD rule.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "triggerprototype.get",
+    "params": {
+        "output": "extend",
+        "selectFunctions": "extend",
+        "discoveryids": "22450"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "triggerid": "13272",
+            "expression": "{12598}<20",
+            "description": "Free inodes is less than 20% on volume {#FSNAME}",
+            "url": "",
+            "status": "0",
+            "priority": "2",
+            "comments": "",
+            "templateid": "0",
+            "type": "0",
+            "flags": "2",
+            "recovery_mode": "0",
+            "recovery_expression": "",
+            "correlation_mode": "0",
+            "correlation_tag": "",
+            "manual_close": "0",
+            "opdata": "",
+            "functions": [
+                {
+                    "functionid": "12598",
+                    "itemid": "22454",
+                    "triggerid": "13272",
+                    "parameter": "0",
+                    "function": "last"
+                }
+            ]
+        },
+        {
+            "triggerid": "13266",
+            "expression": "{13500}<201",
+            "description": "Free disk space is less than 20% on volume {#FSNAME}",
+            "url": "",
+            "status": "0",
+            "priority": "2",
+            "comments": "",
+            "templateid": "0",
+            "type": "0",
+            "flags": "2",
+            "recovery_mode": "0",
+            "recovery_expression": "",
+            "correlation_mode": "0",
+            "correlation_tag": "",
+            "manual_close": "0",
+            "opdata": "",
+            "functions": [
+                {
+                    "functionid": "13500",
+                    "itemid": "22686",
+                    "triggerid": "13266",
+                    "parameter": "0",
+                    "function": "last"
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Retrieving a specific trigger prototype with tags ===
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "triggerprototype.get",
+    "params": {
+        "output": [
+            "triggerid",
+            "description"
+        ]
+        "selectTags": "extend",
+        "triggerids": [
+            "17373"
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "triggerid": "17373",
+            "description": "Free disk space is less than 20% on volume {#FSNAME}",
+            "tags": [
+                {
+                    "tag": "volume",
+                    "value": "{#FSNAME}"
+                },
+                {
+                    "tag": "type",
+                    "value": "{#FSTYPE}"
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:discoveryrule:object#discovery_rule|Discovery rule]]
+  * [[manual:api:reference:item:object#item|Item]]
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+
+==== Source ====
+
+CTriggerPrototype::get() in //frontends/php/include/classes/api/services/CTriggerPrototype.php//.

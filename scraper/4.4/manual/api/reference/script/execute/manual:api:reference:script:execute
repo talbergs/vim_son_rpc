@@ -1,0 +1,59 @@
+===== script.execute =====
+
+==== Description ====
+
+''object script.execute(object **parameters**)''
+
+This method allows to run a script on a host.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the ID of the script to run and the ID of the host.
+
+^ Parameter ^ Type ^ Description ^
+| **hostid** \\ (required) | string | ID of the host to run the script on. |
+| **scriptid** \\ (required) | string | ID of the script to run. |
+
+==== Return values ====
+
+''(object)'' Returns the result of script execution.
+
+^ Property ^ Type ^ Description ^
+| response | string | Whether the script was run successfully. \\ \\ Possible values: ''success'' or ''failed''. |
+| value | string | Script output. |
+
+==== Examples ====
+
+=== Run a script ===
+
+Run a "ping" script on a host. 
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "script.execute",
+    "params": {
+        "scriptid": "1",
+        "hostid": "30079"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "response": "success",
+        "value": "PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.\n64 bytes from 127.0.0.1: icmp_req=1 ttl=64 time=0.074 ms\n64 bytes from 127.0.0.1: icmp_req=2 ttl=64 time=0.030 ms\n64 bytes from 127.0.0.1: icmp_req=3 ttl=64 time=0.030 ms\n\n--- 127.0.0.1 ping statistics ---\n3 packets transmitted, 3 received, 0% packet loss, time 1998ms\nrtt min/avg/max/mdev = 0.030/0.044/0.074/0.022 ms\n"
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CScript::execute() in //frontends/php/include/classes/api/services/CScript.php//.

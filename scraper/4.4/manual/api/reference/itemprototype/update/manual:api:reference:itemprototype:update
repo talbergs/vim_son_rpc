@@ -1,0 +1,168 @@
+===== itemprototype.update =====
+
+==== Description ====
+
+''object itemprototype.update(object/array **itemPrototypes**)''
+
+This method allows to update existing item prototypes.
+
+==== Parameters ====
+
+''(object/array)'' Item prototype properties to be updated.
+
+The ''itemid'' property must be defined for each item prototype, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#item_prototype|standard item prototype properties]], the method accepts the following parameters.
+
+^ Parameter             ^ Type  ^ Description                                                                        ^
+| applications          | array | IDs of the applications to replace the current applications.                       |
+| applicationPrototypes | array | Names of the application prototypes to replace the current application prototypes. |
+| preprocessing         | array | Item prototype preprocessing options to replace the current preprocessing options. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated item prototypes under the ''itemids'' property.
+
+==== Examples ====
+
+=== Changing the interface of an item prototype  ===
+
+Change the host interface that will be used by discovered items.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "itemprototype.update",
+    "params": {
+        "itemid": "27428",
+        "interfaceid": "132"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "27428"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Update dependent item prototype ===
+
+Update Dependent item prototype with new Master item prototype ID. Only dependencies on same host (template/discovery rule) are allowed, therefore Master and Dependent item should have same hostid and ruleid.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "itemprototype.update",
+    "params": {
+        "master_itemid": "25570",
+        "itemid": "189030"
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "189030"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Update HTTP agent item prototype ===
+
+Change query fields and remove all custom headers.
+
+Request:
+
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "itemprototype.update",
+    "params": {
+        "itemid":"28305",
+        "query_fields": [
+            {
+                "random": "qwertyuiopasdfghjklzxcvbnm"
+            }
+        ],
+        "headers": []
+    }
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "28305"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Updating item preprocessing options ===
+
+Update an item protototype with item preprocessing rule “Custom multiplier”.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "itemprototype.update",
+    "params": {
+        "itemid": "44211",
+        "preprocessing": [
+            {
+                "type": "1",
+                "params": "4",
+                "error_handler": "2",
+                "error_handler_params": "5"
+            }
+        ]
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "44211"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CItemPrototype::update() in //frontends/php/include/classes/api/services/CItemPrototype.php//.

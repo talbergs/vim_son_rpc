@@ -1,0 +1,396 @@
+===== host.get =====
+
+==== Description ====
+
+''integer/array host.get(object **parameters**)''
+
+The method allows to retrieve hosts according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output. 
+
+The method supports the following parameters.
+
+^Parameter^Type^Description^
+|groupids|string/array| Return only hosts that belong to the given groups. | 
+|applicationids|string/array| Return only hosts that have the given applications. |
+|dserviceids|string/array| Return only hosts that are related to the given discovered services.|
+|graphids|string/array| Return only hosts that have the given graphs. |
+|hostids|string/array| Return only hosts with the given host IDs. |
+|httptestids|string/array| Return only hosts that have the given web checks.|
+|interfaceids|string/array| Return only hosts that use the given interfaces. |
+|itemids|string/array| Return only hosts that have the given items. |
+|maintenanceids|string/array| Return only hosts that are affected by the given maintenances. |
+|monitored_hosts|flag| Return only monitored hosts. |
+|proxy_hosts|flag| Return only proxies. |
+|proxyids|string/array| Return only hosts that are monitored by the given proxies. |
+|templated_hosts|flag| Return both hosts and templates. |
+|templateids|string/array| Return only hosts that are linked to the given templates. |
+|triggerids|string/array| Return only hosts that have the given triggers. |
+^  |||
+|with_items|flag|Return only hosts that have items. \\ \\ Overrides the ''with_monitored_items'' and ''with_simple_graph_items'' parameters. |
+|with_applications|flag|Return only hosts that have applications. |
+|with_graphs|flag|Return only hosts that have graphs. |
+|with_httptests|flag|Return only hosts that have web checks. \\ \\ Overrides the ''with_monitored_httptests'' parameter. |
+|with_monitored_httptests|flag|Return only hosts that have enabled web checks. |
+|with_monitored_items|flag|Return only hosts that have enabled items. \\ \\ Overrides the ''with_simple_graph_items'' parameter. |
+|with_monitored_triggers|flag|Return only hosts that have enabled triggers. All of the items used in the trigger must also be enabled. |
+|with_simple_graph_items|flag|Return only hosts that have items with numeric type of information. |
+|with_triggers|flag|Return only hosts that have triggers. \\ \\ Overrides the ''with_monitored_triggers'' parameter. |
+|evaltype|integer|Rules for tag searching. \\ \\ Possible values: \\ 0 - (default) And/Or; \\ 2 - Or. |
+|tags|array/object|Return only hosts with given tags. Exact match by tag and case-sensitive or case-insensitive search by tag value depending on operator value. \\ Format: ''<nowiki>[{"tag": "<tag>", "value": "<value>", "operator": "<operator>"}, ...]</nowiki>''.\\ An empty array returns all hosts. \\ \\ Possible operator values: \\ 0 - (default) Contains; \\ 1 - Equals. |
+^  |||
+|selectApplications|query|Return an ''[[:manual/api/reference/application/object|applications]]'' property with host applications.\\ \\ Supports ''count''. |
+|selectDiscoveries|query|Return a ''[[:manual/api/reference/discoveryrule/object|discoveries]]'' property with host low-level discovery rules.\\ \\ Supports ''count''. |
+|selectDiscoveryRule |query|Return a ''[[:manual/api/reference/discoveryrule/object|discoveryRule]]'' property with the low-level discovery rule that created the host (from host prototype in VMware monitoring).  |
+|selectGraphs|query|Return a ''[[:manual/api/reference/graph/object|graphs]]'' property with host graphs.\\ \\ Supports ''count''. |
+|selectGroups|query|Return a ''[[:manual/api/reference/hostgroup/object|groups]]'' property with host groups data that the host belongs to.  |
+|selectHostDiscovery |query|Return a ''hostDiscovery'' property with host discovery object data.\\ \\ The host discovery object links a discovered host to a host prototype or a host prototypes to an LLD rule and has the following properties: \\ ''host'' - //(string)// host of the host prototype; \\  ''hostid'' - //(string)// ID of the discovered host or host prototype; \\ ''parent_hostid'' - //(string)// ID of the host prototype from which the host has been created; \\ ''parent_itemid'' - //(string)// ID of the LLD rule that created the discovered host; \\ ''lastcheck'' - //(timestamp)// time when the host was last discovered; \\ ''ts_delete'' - //(timestamp)// time when a host that is no longer discovered will be deleted. |
+|selectHttpTests|query|Return an ''[[:manual/api/reference/httptest/object|httpTests]]'' property with host web scenarios.\\ \\ Supports ''count''. |
+|selectInterfaces|query|Return an ''[[:manual/api/reference/hostinterface/object|interfaces]]'' property with host interfaces.\\ \\ Supports ''count''. |
+|selectInventory|query|Return an ''[[:manual/api/reference/host/object#host_inventory|inventory]]'' property with host inventory data.  |
+|selectItems|query|Return an ''[[:manual/api/reference/item/object|items]]'' property with host items.\\ \\ Supports ''count''. |
+|selectMacros|query|Return a ''[[:manual/api/reference/usermacro/object|macros]]'' property with host macros.  |
+|selectParentTemplates|query|Return a ''[[:manual/api/reference/template/object|parentTemplates]]'' property with templates that the host is linked to.\\ \\ Supports ''count''. |
+|selectScreens|query|Return a ''[[:manual/api/reference/screen/object|screens]]'' property with host screens.\\ \\ Supports ''count''. |
+|selectTags|query|Return a ''[[:manual/api/reference/host/object#host_tag|tags]]'' property with host tags. |
+|selectTriggers|query|Return a ''[[:manual/api/reference/trigger/object|triggers]]'' property with host triggers.\\ \\ Supports ''count''. |
+^  |||
+|filter  | object |Return only those results that exactly match the given filter.\\ \\ Accepts an array, where the keys are property names, and the values are either a single value or an array of values to match against. \\ \\ Allows filtering by interface properties. |
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selectParentTemplates'' - results will be sorted by ''host''; \\ ''selectInterfaces''; \\ ''selectItems'' - sorted by ''name''; \\ ''selectDiscoveries'' - sorted by ''name''; \\ ''selectTriggers'' - sorted by ''description''; \\ ''selectGraphs'' - sorted by ''name''; \\ ''selectApplications'' - sorted by ''name''; \\ ''selectScreens'' - sorted by ''name''. |
+|search  | object |Return results that match the given wildcard search.\\ \\ Accepts an array, where the keys are property names, and the values are strings to search for. If no additional options are given, this will perform a ''LIKE "%…%"'' search.\\ \\ Allows searching by interface properties. Works only with text fields. |
+|searchInventory | object | Return only hosts that have inventory data matching the given wildcard search. \\ \\ This parameter is affected by the same additional parameters as ''search''. |
+|sortfield|string/array| Sort the result by the given properties. \\ \\ Possible values are: ''hostid'', ''host'', ''name'', ''status''.  |
+|countOutput|boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving data by name ===
+
+Retrieve all data about two hosts named "Zabbix server" and "Linux server".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.get",
+    "params": {
+        "filter": {
+            "host": [
+                "Zabbix server",
+                "Linux server"
+            ]
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "maintenances": [],
+            "hostid": "10160",
+            "proxy_hostid": "0",
+            "host": "Zabbix server",
+            "status": "0",
+            "disable_until": "0",
+            "error": "",
+            "available": "0",
+            "errors_from": "0",
+            "lastaccess": "0",
+            "ipmi_authtype": "-1",
+            "ipmi_privilege": "2",
+            "ipmi_username": "",
+            "ipmi_password": "",
+            "ipmi_disable_until": "0",
+            "ipmi_available": "0",
+            "snmp_disable_until": "0",
+            "snmp_available": "0",
+            "maintenanceid": "0",
+            "maintenance_status": "0",
+            "maintenance_type": "0",
+            "maintenance_from": "0",
+            "ipmi_errors_from": "0",
+            "snmp_errors_from": "0",
+            "ipmi_error": "",
+            "snmp_error": "",
+            "jmx_disable_until": "0",
+            "jmx_available": "0",
+            "jmx_errors_from": "0",
+            "jmx_error": "",
+            "name": "Zabbix server",
+            "description": "The Zabbix monitoring server.",
+            "tls_connect": "1",
+            "tls_accept": "1",
+            "tls_issuer": "",
+            "tls_subject": "",
+            "tls_psk_identity": "",
+            "tls_psk": ""
+        },
+        {
+            "maintenances": [],
+            "hostid": "10167",
+            "proxy_hostid": "0",
+            "host": "Linux server",
+            "status": "0",
+            "disable_until": "0",
+            "error": "",
+            "available": "0",
+            "errors_from": "0",
+            "lastaccess": "0",
+            "ipmi_authtype": "-1",
+            "ipmi_privilege": "2",
+            "ipmi_username": "",
+            "ipmi_password": "",
+            "ipmi_disable_until": "0",
+            "ipmi_available": "0",
+            "snmp_disable_until": "0",
+            "snmp_available": "0",
+            "maintenanceid": "0",
+            "maintenance_status": "0",
+            "maintenance_type": "0",
+            "maintenance_from": "0",
+            "ipmi_errors_from": "0",
+            "snmp_errors_from": "0",
+            "ipmi_error": "",
+            "snmp_error": "",
+            "jmx_disable_until": "0",
+            "jmx_available": "0",
+            "jmx_errors_from": "0",
+            "jmx_error": "",
+            "name": "Linux server",
+            "description": "",
+            "tls_connect": "1",
+            "tls_accept": "1",
+            "tls_issuer": "",
+            "tls_subject": "",
+            "tls_psk_identity": "",
+            "tls_psk": ""
+        }
+    ],
+    "id": 1
+}
+</code>
+=== Retrieving host groups ===
+
+Retrieve names of the groups host "Zabbix server" is member of, but no host details themselves.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.get",
+    "params": {
+        "output": ["hostid"],
+        "selectGroups": "extend",
+        "filter": {
+            "host": [
+                "Zabbix server"
+            ]
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 2
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "hostid": "10085",
+            "groups": [
+                {
+                    "groupid": "2",
+                    "name": "Linux servers",
+                    "internal": "0",
+                    "flags": "0"
+                },
+                {
+                    "groupid": "4",
+                    "name": "Zabbix servers",
+                    "internal": "0",
+                    "flags": "0"
+                }
+            ]
+        }
+    ],
+    "id": 2
+}
+</code>
+
+=== Retrieving linked templates ===
+
+Retrieve the IDs and names of templates linked to host "10084".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.get",
+    "params": {
+        "output": ["hostid"],
+        "selectParentTemplates": [
+            "templateid",
+            "name"
+        ],
+        "hostids": "10084"
+    },
+    "id": 1,
+    "auth": "70785d2b494a7302309b48afcdb3a401"
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "hostid": "10084",
+            "parentTemplates": [
+                {
+                    "name": "Template OS Linux",
+                    "templateid": "10001"
+                },
+                {
+                    "name": "Template App Zabbix Server",
+                    "templateid": "10047"
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Searching by host inventory data ===
+
+Retrieve hosts that contain "Linux" in the host inventory "OS" field.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.get",
+    "params": {
+        "output": [
+            "host"
+        ],
+        "selectInventory": [
+            "os"
+        ],
+        "searchInventory": {
+            "os": "Linux"
+        }
+    },
+    "id": 2,
+    "auth": "7f9e00124c75e8f25facd5c093f3e9a0"
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "hostid": "10084",
+            "host": "Zabbix server",
+            "inventory": {
+                "os": "Linux Ubuntu"
+            }
+        },
+        {
+            "hostid": "10107",
+            "host": "Linux server",
+            "inventory": {
+                "os": "Linux Mint"
+            }
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Searching by host tags ===
+
+Retrieve hosts that have tag "Host name" equal to "Linux server".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.get",
+    "params": {
+        "output": ["hostid"],
+        "selectTags": "extend",
+        "evaltype": 0,
+        "tags": [
+            {
+                "tag": "Host name",
+                "value": "Linux server",
+                "operator": 1
+            }
+        ]
+    },
+    "auth": "7f9e00124c75e8f25facd5c093f3e9a0",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "hostid": "10085",
+            "tags": [
+                {
+                    "tag": "Host name",
+                    "value": "Linux server"
+                },
+                {
+                    "tag": "OS",
+                    "value": "RHEL 7"
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[manual:api:reference:template:object#template|Template]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+
+==== Source ====
+
+CHost::get() in //frontends/php/include/classes/api/services/CHost.php//.

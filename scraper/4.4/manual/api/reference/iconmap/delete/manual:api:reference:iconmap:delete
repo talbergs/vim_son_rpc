@@ -1,0 +1,52 @@
+===== iconmap.delete =====
+
+==== Description ====
+
+''object iconmap.delete(array **iconMapIds**)''
+
+This method allows to delete icon maps.
+
+==== Parameters ====
+
+''(array)'' IDs of the icon maps to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted icon maps under the ''iconmapids'' property.
+
+==== Examples ====
+
+=== Delete multiple icon maps ===
+
+Delete two icon maps.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "iconmap.delete",
+    "params": [
+        "2",
+        "5"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "iconmapids": [
+            "2",
+            "5"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== Source ====
+
+CIconMap::delete() in //frontends/php/include/classes/api/services/CIconMap.php//.

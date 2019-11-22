@@ -1,0 +1,10 @@
+===== Discovery check =====
+
+This class is designed to work with discovery checks. 
+
+Object references: \\
+  * [[manual:api:reference:dcheck:object#discovery_check|Discovery check]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:dcheck:get|dcheck.get]]'' - retrieve discovery checks

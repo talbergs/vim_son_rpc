@@ -1,0 +1,6 @@
+===== API info ====
+
+This class is designed to retrieve meta information about the API. 
+
+Available methods: \\
+  * ''[[manual:api:reference:apiinfo:version|apiinfo.version]]'' - retrieving the version of the Zabbix API

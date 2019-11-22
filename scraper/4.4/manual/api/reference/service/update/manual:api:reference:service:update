@@ -1,0 +1,68 @@
+===== service.update =====
+
+==== Description ====
+
+''object service.update(object/array **services**)''
+
+This method allows to update existing services.
+
+==== Parameters ====
+
+''(object/array)'' service properties to be updated.
+
+The ''serviceid'' property must be defined for each service, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#service|standard service properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dependencies | array | Service dependencies to replace the current service dependencies.  \\ \\ Each service dependency has the following parameters: \\ - ''dependsOnServiceid'' - //(string)// ID of an service the service depends on, that is, the child service. \\ - ''soft'' - //(integer)// type of service dependency; refer to the [[object#service_dependency|service dependency object page]] for more information on dependency types. |
+| parentid | string | ID of a hard-linked parent service. |
+| times | array | Service times to replace the current service times. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated services under the ''serviceids'' property.
+
+==== Examples ====
+
+=== Setting the parent of an service ===
+
+Make service "3" the hard-linked parent of service "5".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "service.update",
+    "params": {
+        "serviceid": "5",
+        "parentid": "3"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "serviceids": [
+            "5"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[adddependencies|service.adddependencies]]
+  * [[addtimes|service.addtimes]]
+  * [[deletedependencies|service.deletedependencies]]
+  * [[deletetimes|service.deletetimes]]
+
+==== Source ====
+
+CService::update() in //frontends/php/include/classes/api/services/CService.php//.

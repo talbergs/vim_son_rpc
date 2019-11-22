@@ -1,0 +1,241 @@
+===== trigger.get =====
+
+==== Description ====
+
+''integer/array trigger.get(object **parameters**)''
+
+The method allows to retrieve triggers according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| triggerids | string/array | Return only triggers with the given IDs. |
+| groupids | string/array | Return only triggers that belong to hosts from the given host groups. |
+| templateids | string/array | Return only triggers that belong to the given templates. |
+| hostids | string/array | Return only triggers that belong to the given hosts. |
+| itemids | string/array | Return only triggers that contain the given items. |
+| applicationids | string/array | Return only triggers that contain items from the given applications. |
+| functions | string/array | Return only triggers that use the given functions. \\ \\ Refer to the [[manual:appendix:triggers:functions|supported trigger functions]] page for a list of supported functions. |
+| group | string | Return only triggers that belong to hosts from the host group with the given name. |
+| host | string | Return only triggers that belong to host with the given name. |
+^ |||
+| inherited | boolean | If set to ''true'' return only triggers inherited from a template. |
+| templated | boolean | If set to ''true'' return only triggers that belong to templates. |
+| dependent | boolean | If set to ''true'' return only triggers that have dependencies. If set to ''false'' return only triggers that do not have dependencies. |
+| monitored | flag | Return only enabled triggers that belong to monitored hosts and contain only enabled items. |
+| active | flag | Return only enabled triggers that belong to monitored hosts. |
+| maintenance | boolean | If set to ''true'' return only enabled triggers that belong to hosts in maintenance. |
+| withUnacknowledgedEvents | flag | Return only triggers that have unacknowledged events. |
+| withAcknowledgedEvents | flag | Return only triggers with all events acknowledged. |
+| withLastEventUnacknowledged | flag | Return only triggers with the last event unacknowledged. |
+| skipDependent | flag | Skip triggers in a problem state that are dependent on other triggers. Note that the other triggers are ignored if disabled, have disabled items or disabled item hosts. |
+| lastChangeSince | timestamp | Return only triggers that have changed their state after the given time. |
+| lastChangeTill | timestamp | Return only triggers that have changed their state before the given time. |
+| only_true | flag | Return only triggers that have recently been in a problem state. |
+| min_severity | integer | Return only triggers with severity greater or equal than the given severity. |
+| evaltype | integer | Rules for tag searching. \\ \\ Possible values: \\ 0 - (default) And/Or; \\ 2 - Or.        |
+| tags | array of objects | Return only triggers with given tags. Exact match by tag and case-sensitive or case-insensitive search by tag value depending on operator value. \\ Format: ''<nowiki>[{"tag": "<tag>", "value": "<value>", "operator": "<operator>"}, ...]</nowiki>''.\\ An empty array returns all triggers. \\ \\ Possible operator types: \\ 0 - (default) Like; \\ 1 - Equal.|
+^ |||
+| expandComment | flag | Expand macros in the trigger description. |
+| expandDescription | flag | Expand macros in the name of the trigger. |
+| expandExpression | flag | Expand functions and macros in the trigger expression. |
+| selectGroups | query | Return the host groups that the trigger belongs to in the ''groups'' property. |
+| selectHosts | query | Return the hosts that the trigger belongs to in the ''hosts'' property. |
+| selectItems | query | Return items contained by the trigger in the ''items'' property. |
+| selectFunctions | query | Return functions used in the trigger in the ''functions'' property. \\ \\ The function objects represents the functions used in the trigger expression and has the following properties: \\ ''functionid'' - //(string)// ID of the function; \\ ''itemid'' - //(string)// ID of the item used in the function;\\ ''function'' - //(string)// name of the function;\\ ''parameter'' - //(string)// parameter passed to the function. |
+| selectDependencies | query | Return triggers that the trigger depends on in the ''dependencies'' property. |
+| selectDiscoveryRule | query | Return the low-level discovery rule that created the trigger. |
+| selectLastEvent | query | Return the last significant trigger event in the ''lastEvent'' property. |
+| selectTags | query | Return the trigger tags in ''tags'' property. |
+| selectTriggerDiscovery | query | Return the trigger discovery object in the ''triggerDiscovery'' property. The trigger discovery objects links the trigger to a trigger prototype from which it was created. \\ \\ It has the following properties: \\   ''parent_triggerid'' - ''(string)'' ID of the trigger prototype from which the trigger has been created. |
+^ |||
+|filter  | object |Return only those results that exactly match the given filter.\\ \\ Accepts an array, where the keys are property names, and the values are either a single value or an array of values to match against. \\ \\ Supports additional filters: \\ ''host'' - technical name of the host that the trigger belongs to; \\ ''hostid'' - ID of the host that the trigger belongs to. |
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selectHosts'' - results will be sorted by ''host''. |
+| sortfield | string/array | [[:manual/api/reference_commentary#common_get_method_parameters|Sort]] the result by the given properties.\\ \\ Possible values are: ''triggerid'', ''description'', ''status'', ''priority'', ''lastchange'' and ''hostname''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving data by trigger ID ===
+
+Retrieve all data and the functions used in trigger "14062".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.get",
+    "params": {
+        "triggerids": "14062",
+        "output": "extend",
+        "selectFunctions": "extend"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "triggerid": "14062",
+            "expression": "{13513}>0",
+            "description": "/etc/passwd has been changed on {HOST.NAME}",
+            "url": "",
+            "status": "0",
+            "value": "0",
+            "priority": "2",
+            "lastchange": "0",
+            "comments": "",
+            "error": "",
+            "templateid": "10016",
+            "type": "0",
+            "state": "0",
+            "flags": "0",
+            "recovery_mode": "0",
+            "recovery_expression": "",
+            "correlation_mode": "0",
+            "correlation_tag": "",
+            "manual_close": "0",
+            "opdata": "",
+            "functions": [
+                {
+                    "functionid": "13513",
+                    "itemid": "24350",
+                    "triggerid": "14062",
+                    "parameter": "0",
+                    "function": "diff"
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Retrieving triggers in problem state ===
+
+Retrieve the ID, name and severity of all triggers in problem state and sort them by severity in descending order.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.get",
+    "params": {
+        "output": [
+            "triggerid",
+            "description",
+            "priority"
+        ],
+        "filter": {
+            "value": 1
+        },
+        "sortfield": "priority",
+        "sortorder": "DESC"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "triggerid": "13907",
+            "description": "Zabbix self-monitoring processes < 100% busy",
+            "priority": "4"
+        },
+        {
+            "triggerid": "13824",
+            "description": "Zabbix discoverer processes more than 75% busy",
+            "priority": "3"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Retrieving a specific trigger with tags ===
+
+Retrieve a specific trigger with tags.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.get",
+    "params": {
+        "output": [
+            "triggerid",
+            "description"
+        ],
+        "selectTags": "extend",
+        "triggerids": [
+            "17578"
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "triggerid": "17370",
+            "description": "Service status",
+            "tags": [
+                {
+                    "tag": "service",
+                    "value": "{{ITEM.VALUE}.regsub(\"Service (.*) has stopped\", \"\\1\")}"
+                },
+                {
+                    "tag": "error",
+                    "value": ""
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:discoveryrule:object#discovery_rule|Discovery rule]]
+  * [[manual:api:reference:item:object#item|Item]]
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+
+==== Source ====
+
+CTrigger::get() in //frontends/php/include/classes/api/services/CTrigger.php//.

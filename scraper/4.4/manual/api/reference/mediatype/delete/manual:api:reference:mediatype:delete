@@ -1,0 +1,53 @@
+===== mediatype.delete =====
+
+==== Description ====
+
+''object mediatype.delete(array **mediaTypeIds**)''
+
+This method allows to delete media types.
+
+==== Parameters ====
+
+''(array)'' IDs of the media types to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted media types under the ''mediatypeids'' property.
+
+==== Examples ====
+
+=== Deleting multiple media types ===
+
+Delete two media types.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "mediatype.delete",
+    "params": [
+        "3",
+        "5"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "mediatypeids": [
+            "3",
+            "5"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CMediaType::delete() in //frontends/php/include/classes/api/services/CMediaType.php//.

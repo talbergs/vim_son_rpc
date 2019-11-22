@@ -1,0 +1,72 @@
+===== graph.create =====
+
+==== Description ====
+
+''object graph.create(object/array **graphs**)''
+
+This method allows to create new graphs.
+
+==== Parameters ====
+
+''(object/array)'' Graphs to create.
+
+Additionally to the [[object#graph|standard graph properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **gitems** \\ (required) | array | Graph items to be created for the graph. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created graphs under the ''graphids'' property. The order of the returned IDs matches the order of the passed graphs.
+
+==== Examples ====
+
+=== Creating a graph ===
+
+Create a graph with two items.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "graph.create",
+    "params": {
+        "name": "MySQL bandwidth",
+        "width": 900,
+        "height": 200,
+        "gitems": [
+            {
+                "itemid": "22828",
+                "color": "00AA00"
+            },
+            {
+                "itemid": "22829",
+                "color": "3333FF"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "graphids": [
+            "652"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:graphitem:object#graph_item|Graph item]]
+
+==== Source ====
+
+CGraph::create() in //frontends/php/include/classes/api/services/CGraph.php//.

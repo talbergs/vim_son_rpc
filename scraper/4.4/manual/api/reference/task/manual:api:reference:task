@@ -1,0 +1,6 @@
+===== Task =====
+
+This class is designed to work with tasks. 
+
+Available methods: \\
+  * ''[[manual:api:reference:task:create|task.create]]'' - creating new tasks

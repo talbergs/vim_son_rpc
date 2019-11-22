@@ -1,0 +1,10 @@
+[package]
+name = "scraper"
+version = "0.1.0"
+authors = ["Your Name <you@example.com>"]
+edition = "2018"
+
+[dependencies]
+parse_wiki_text = "*"
+select = "*"
+reqwest = "*"

@@ -1,0 +1,52 @@
+===== action.delete =====
+
+==== Description ====
+
+''object action.delete(array **actionIds**)''
+
+This method allows to delete actions.
+
+==== Parameters ====
+
+''(array)'' IDs of the actions to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted actions under the ''actionids'' property.
+
+==== Examples ====
+
+=== Delete multiple actions ===
+
+Delete two actions.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "action.delete",
+    "params": [
+        "17",
+        "18"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "actionids": [
+            "17",
+            "18"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== Source ====
+
+CAction::delete() in //frontends/php/include/classes/api/services/CAction.php//.

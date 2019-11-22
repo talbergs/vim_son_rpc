@@ -1,0 +1,19 @@
+===== > Host interface object =====
+
+The following objects are directly related to the ''hostinterface'' API.
+==== Host interface ====
+
+The host interface object has the following properties.
+
+<note important>Note that both IP and DNS are required. If you do not want to use DNS, set it to an empty string.</note>
+
+^  Property  ^  Type  ^  Description  ^
+|interfaceid  |string  |//(readonly)// ID of the interface. |
+|**dns** \\ (required) |string  | DNS name used by the interface. \\ \\ Can be empty if the connection is made via IP. |
+|**hostid** \\ (required)  |string  | ID of the host the interface belongs to. |
+|**ip** \\ (required) |string  | IP address used by the interface. \\ \\ Can be empty if the connection is made via DNS. |
+|**main** \\ (required)  |integer  | Whether the interface is used as default on the host. Only one interface of some type can be set as default on a host. \\ \\ Possible values are: \\ 0 - not default; \\ 1 - default. |
+|**port** \\ (required) |string  | Port number used by the interface. Can contain user macros. |
+|**type** \\ (required)  |integer  | Interface type. \\ \\ Possible values are: \\ 1 - agent; \\ 2 - SNMP; \\ 3 - IPMI; \\ 4 - JMX. \\ |
+|**useip** \\ (required) |integer  | Whether the connection should be made via IP. \\ \\ Possible values are: \\ 0 - connect using host DNS name; \\ 1 - connect using host IP address for this host interface. |
+| bulk | integer | Whether to use bulk SNMP requests. \\ \\ Possible values are: \\ 0 - don't use bulk requests; \\ 1 - //(default)// use bulk requests. |

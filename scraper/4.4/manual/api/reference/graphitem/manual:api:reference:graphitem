@@ -1,0 +1,10 @@
+===== Graph item =====
+
+This class is designed to work with hosts. 
+
+Object references: \\
+  * [[manual:api:reference:graphitem:object#graph_item|Graph item]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:graphitem:get|graphitem.get]]'' - retrieving graph items

@@ -1,0 +1,53 @@
+===== maintenance.delete =====
+
+==== Description ====
+
+''object maintenance.delete(array **maintenanceIds**)''
+
+This method allows to delete maintenances.
+
+==== Parameters ====
+
+''(array)'' IDs of the maintenances to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted maintenances under the ''maintenanceids'' property.
+
+==== Examples ====
+
+=== Deleting multiple maintenances ===
+
+Delete two maintenanaces.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "maintenance.delete",
+    "params": [
+        "3",
+        "1"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "maintenanceids": [
+            "3",
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CMaintenance::delete() in //frontends/php/include/classes/api/services/CMaintenance.php//.

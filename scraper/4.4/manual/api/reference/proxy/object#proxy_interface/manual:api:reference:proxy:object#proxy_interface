@@ -1,0 +1,32 @@
+===== > Proxy object =====
+
+The following objects are directly related to the ''proxy'' API.
+
+==== Proxy ====
+
+The proxy object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| proxyid  | string  | //(readonly)// ID of the proxy.  |
+| **host** \\ (required) | string | Name of the proxy. |
+| **status** \\ (required) | integer | Type of proxy. \\ \\ Possible values:\\ 5 - active proxy;\\ 6 - passive proxy. |
+| description | text | Description of the proxy. |
+| lastaccess | timestamp | //(readonly)// Time when the proxy last connected to the server. |
+|tls_connect |integer | Connections to host. \\ \\ Possible values are: \\ 1 - //(default)// No encryption; \\ 2 - PSK; \\ 4 - certificate. |
+|tls_accept |integer | Connections from host. \\ \\ Possible bitmap values are: \\ 1 - //(default)// No encryption; \\ 2 - PSK; \\ 4 - certificate. |
+|tls_issuer |string | Certificate issuer. |
+|tls_subject |string | Certificate subject. |
+|tls_psk_identity |string | PSK identity. Required if either ''tls_connect'' or ''tls_accept'' has PSK enabled. |
+|tls_psk |string | The preshared key, at least 32 hex digits. Required if either ''tls_connect'' or ''tls_accept'' has PSK enabled. |
+|auto_compress |integer | //(readonly)// Indicates if communication between Zabbix server and proxy is compressed.\\ \\ Possible values are: \\ 0 - No compression; \\ 1 - Compression enabled; |
+==== Proxy interface ====
+
+The proxy interface object defines the interface used to connect to a passive proxy. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+|interfaceid  |string  |//(readonly)// ID of the interface. |
+|**dns** \\ (required) |string  | DNS name to connect to. \\ \\ Can be empty if connections are made via IP address. |
+|**ip** \\ (required) |string  | IP address to connect to. \\ \\ Can be empty if connections are made via DNS names. |
+|**port** \\ (required) |string  | Port number to connect to. |
+|**useip** \\ (required) |integer  | Whether the connection should be made via IP address. \\ \\ Possible values are: \\ 0 - connect using DNS name; \\ 1 - connect using IP address. |
+|hostid |string  | //(readonly)// ID of the proxy the interface belongs to. |

@@ -1,0 +1,56 @@
+===== script.create =====
+
+==== Description ====
+
+''object script.create(object/array **scripts**)''
+
+This method allows to create new scripts.
+
+==== Parameters ====
+
+''(object/array)'' Scripts to create.
+
+The method accepts scripts with the [[:manual:api:reference:script:object#script|standard script properties]].
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created scripts under the ''scriptids'' property. The order of the returned IDs matches the order of the passed scripts.
+
+==== Examples ====
+
+=== Create a script ===
+
+Create a script that will reboot a server. The script will require write access to the host and will display a configuration message before running in the frontend.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "script.create",
+    "params": {
+        "name": "Reboot server",
+        "command": "reboot server 1",
+        "host_access": 3,
+        "confirmation": "Are you sure you would like to reboot the server?"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "scriptids": [
+            "3"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CScript::create() in //frontends/php/include/classes/api/services/CScript.php//.

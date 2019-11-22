@@ -1,0 +1,77 @@
+===== httptest.create =====
+
+==== Description ====
+
+''object httptest.create(object/array **webScenarios**)''
+
+This method allows to create new web scenarios.
+
+<note>Creating a web scenario will automatically create a set of [[manual:web_monitoring:items|web monitoring items]].</note>
+
+==== Parameters ====
+
+''(object/array)'' Web scenarios to create.
+
+Additionally to the [[object#web_scenario|standard web scenario properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **steps** \\ (required) | array | Web scenario steps. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created web scenarios under the ''httptestids'' property. The order of the returned IDs matches the order of the passed web scenarios.
+
+==== Examples ====
+
+=== Creating a web scenario ===
+
+Create a web scenario to monitor the company home page. The scenario will have two steps, to check the home page and the "About" page and make sure they return the HTTP status code 200.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "httptest.create",
+    "params": {
+        "name": "Homepage check",
+        "hostid": "10085",
+        "steps": [
+            {
+                "name": "Homepage",
+                "url": "http://mycompany.com",
+                "status_codes": "200",
+                "no": 1
+            },
+            {
+                "name": "Homepage / About",
+                "url": "http://mycompany.com/about",
+                "status_codes": "200",
+                "no": 2
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "httptestids": [
+            "5"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#scenario_step|Scenario step]]
+
+==== Source ====
+
+CHttpTest::create() in //frontends/php/include/classes/api/services/CHttpTest.php//.

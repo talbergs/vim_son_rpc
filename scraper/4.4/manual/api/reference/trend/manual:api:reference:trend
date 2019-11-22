@@ -1,0 +1,9 @@
+===== Trend =====
+
+This class is designed to work with trend data. 
+
+Object references: \\
+  * [[manual:api:reference:trend:object#trend|Trend]]
+
+Available methods: \\
+  * ''[[manual:api:reference:trend:get|trend.get]]'' - retrieving trends

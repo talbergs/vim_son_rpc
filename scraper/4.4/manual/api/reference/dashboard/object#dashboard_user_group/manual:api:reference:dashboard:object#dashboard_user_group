@@ -1,0 +1,53 @@
+===== > Dashboard object =====
+
+The following objects are directly related to the ''dashboard'' API.
+
+==== Dashboard ====
+
+The dashboard object has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| dashboardid  | string  | //(readonly)// ID of the dashboard.  |
+| **name** \\ (required) | string | Name of the dashboard. |
+| userid | string | Dashboard owner user ID. |
+| private | integer | Type of dashboard sharing. \\ \\ Possible values: \\ 0 - public dashboard; \\ 1 - //(default)// private dashboard. |
+
+==== Dashboard widget ====
+
+The dashboard widget object has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| widgetid | string | //(readonly)// ID of the dashboard widget. |
+| **type** \\ (required) | string | Type of the dashboard widget. \\ \\ Possible values: \\ actionlog - Action log; \\ clock - Clock; \\ dataover - Data overview; \\ discovery - Discovery status; \\ favgraphs - Favourite graphs; \\ favmaps - Favourite maps; \\ favscreens - Favourite screens; \\ graph - Graph (classic); \\ hostavail - Host availability; \\ map - Map; \\ navtree - Map Navigation Tree; \\ plaintext - Plain text; \\ problemhosts - Problem hosts; \\ problems - Problems; \\ problemsbysv - Problems by severity; \\ svggraph - Graph; \\ systeminfo - System information; \\ trigover - Trigger overview; \\ url - URL; \\ web - Web monitoring; |
+| name | string | Custom widget name. |
+| x | integer | A horizontal position from the left side of the dashboard. \\ \\ Valid values range from 0 to 23. |
+| y | integer | A vertical position from the top of the dashboard. \\ \\ Valid values range from 0 to 62.|
+| width | integer | The widget width. \\ \\ Valid values range from 1 to 24. |
+| height | integer | The widget height. \\ \\ Valid values range from 2 to 32. |
+| view_mode | integer | The widget view mode. \\ \\ Possible values: \\ 0 - (default) default widget view; \\ 1 - with hidden header; |
+| fields | array | Array of the [[object#dashboard_widget_field|dashboard widget field]] objects. |
+
+==== Dashboard widget field ====
+
+The dashboard widget field object has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| **type** \\ (required) | integer | Type of the widget field. \\ \\ Possible values: \\ 0 - Integer; \\ 1 - String; \\ 2 - Host group; \\ 3 - Host; \\ 4 - Item; \\ 6 - Graph; \\ 8 - Map; |
+| name | string | Widget field name. |
+| **value** \\ (required) | mixed | Widget field value depending of type. |
+
+==== Dashboard user group ====
+
+List of dashboard permissions based on user groups. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| **usrgrpid** \\ (required) | string | User group ID. |
+| **permission** \\ (required) | integer | Type of permission level. \\ \\ Possible values: \\ 2 - read only; \\ 3 - read-write; |
+
+==== Dashboard user ====
+
+List of dashboard permissions based on users. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| **userid** \\ (required) | string | User ID. |
+| **permission** \\ (required) | integer | Type of permission level. \\ \\ Possible values: \\ 2 - read only; \\ 3 - read-write; |

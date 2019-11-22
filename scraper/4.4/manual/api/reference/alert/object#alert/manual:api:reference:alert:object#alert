@@ -1,0 +1,27 @@
+===== > Alert object =====
+
+The following objects are directly related to the ''alert'' API.
+
+==== Alert ====
+
+<note>Alerts are created by the Zabbix server and cannot be modified via the API.</note>
+
+The alert object contains information about whether certain action operations have been executed successfully. It has the following properties.
+
+^  Property     ^  Type     ^  Description     ^
+| alertid       | string    | ID of the alert. |
+| actionid      | string    | ID of the action that generated the alert. |
+| alerttype     | integer   | Alert type. \\ \\ Possible values: \\ 0 - message; \\ 1 - remote command. |
+| clock         | timestamp | Time when the alert was generated. |
+| error         | string    | Error text if there are problems sending a message or running a command. |
+| esc_step      | integer   | Action escalation step during which the alert was generated. |
+| eventid       | string    | ID of the event that triggered the action. |
+| mediatypeid   | string    | ID of the media type that was used to send the message. |
+| message       | text      | Message text. Used for message alerts. |
+| retries       | integer   | Number of times Zabbix tried to send the message. |
+| sendto        | string    | Address, user name or other identifier of the recipient. Used for message alerts. |
+| status        | integer   | Status indicating whether the action operation has been executed successfully. \\ \\ Possible values for message alerts: \\ 0 - message not sent. \\ 1 - message sent. \\ 2 - failed after a number of retries. \\ 3 - new alert is not yet processed by alert manager. \\ \\ Possible values for command alerts: \\ 0 - command not run. \\ 1 - command run. \\ 2 - tried to run the command on the Zabbix agent but it was unavailable. |
+| subject       | string    | Message subject. Used for message alerts. |
+| userid        | string    | ID of the user that the message was sent to. |
+| p_eventid     | string    | ID of problem event, which generated the alert. |
+| acknowledgeid | string    | ID of acknowledgement, which generated the alert. |

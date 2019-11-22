@@ -1,0 +1,79 @@
+===== host.massupdate =====
+
+==== Description ====
+
+''object host.massupdate(object **parameters**)''
+
+This method allows to simultaneously replace or remove related objects and update properties on multiple hosts.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the hosts to update and the properties that should be updated. 
+
+Additionally to the [[object#host|standard host properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **hosts** \\ (required) | object/array | Hosts to be updated. \\ \\ The hosts must have the ''hostid'' property defined. |
+| groups | object/array | Host groups to replace the current host groups the hosts belong to. \\ \\ The host groups must have the ''groupid'' property defined.  |
+| interfaces | object/array | Host interfaces to replace the current host interfaces on the given hosts. |
+| inventory | object | Host inventory properties. \\ \\ Host inventory mode cannot be updated using the ''inventory'' parameter, use ''inventory_mode'' instead. |
+| macros | object/array | User macros to replace the current user macros on the given hosts. |
+| templates | object/array | Templates to replace the currently linked templates on the given hosts. \\ \\ The templates must have the ''templateid'' property defined. |
+| templates_clear | object/array | Templates to unlink and clear from the given hosts. \\ \\ The templates must have the ''templateid'' property defined. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated hosts under the ''hostids'' property.
+
+==== Examples ====
+
+=== Enabling multiple hosts ===
+
+Enable monitoring of two hosts, i.e., set their status to 0.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.massupdate",
+    "params": {
+        "hosts": [
+            {
+                "hostid": "69665"
+            },
+            {
+                "hostid": "69666"
+            }
+        ],
+        "status": 0
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "69665",
+            "69666"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[update|host.update]]
+  * [[massadd|host.massadd]]
+  * [[massremove|host.massremove]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[manual:api:reference:template:object#host_group|Template]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+==== Source ====
+
+CHost::massUpdate() in //frontends/php/include/classes/api/services/CHost.php//.

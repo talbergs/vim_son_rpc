@@ -1,0 +1,53 @@
+===== triggerprototype.delete =====
+
+==== Description ====
+
+''object triggerprototype.delete(array **triggerPrototypeIds**)''
+
+This method allows to delete trigger prototypes.
+
+==== Parameters ====
+
+''(array)'' IDs of the trigger prototypes to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted trigger prototypes under the ''triggerids'' property.
+
+==== Examples ====
+
+=== Deleting multiple trigger prototypes ===
+
+Delete two trigger prototypes.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "triggerprototype.delete",
+    "params": [
+        "12002",
+        "12003"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "12002",
+            "12003"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTriggerPrototype::delete() in //frontends/php/include/classes/api/services/CTriggerPrototype.php//.

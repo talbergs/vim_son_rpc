@@ -1,0 +1,116 @@
+===== user.get =====
+
+==== Description ====
+
+''integer/array user.get(object **parameters**)''
+
+The method allows to retrieve users according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| mediaids | string/array | Return only users that use the given media. |
+| mediatypeids | string/array | Return only users that use the given media types. |
+| userids | string/array | Return only users with the given IDs. |
+| usrgrpids | string/array | Return only users that belong to the given user groups. |
+^ |||
+| getAccess | flag | Adds additional information about user permissions. \\ \\ Adds the following properties for each user: \\ ''gui_access'' - //(integer)// user's frontend authentication method. Refer to the ''gui_access'' property of the [[manual:api:reference:usergroup:object#user_group|user group object]] for a list of possible values. \\ ''debug_mode'' - //(integer)// indicates whether debug is enabled for the user. Possible values: 0 - debug disabled, 1 - debug enabled. \\ ''users_status'' - //(integer)// indicates whether the user is disabled. Possible values: 0 - user enabled, 1 - user disabled. |
+| selectMedias | query | Return media used by the user in the ''medias'' property. |
+| selectMediatypes | query | Return media types used by the user in the ''mediatypes'' property. |
+| selectUsrgrps | query | Return user groups that the user belongs to in the ''usrgrps'' property. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''userid'' and ''alias''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving users ===
+
+Retrieve all of the configured users.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "user.get",
+    "params": {
+        "output": "extend"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "userid": "1",
+            "alias": "Admin",
+            "name": "Zabbix",
+            "surname": "Administrator",
+            "url": "",
+            "autologin": "1",
+            "autologout": "0s",
+            "lang": "ru_RU",
+            "refresh": "0s",
+            "type": "3",
+            "theme": "default",
+            "attempt_failed": "0",
+            "attempt_ip": "",
+            "attempt_clock": "0",
+            "rows_per_page": "50"
+        },
+        {
+            "userid": "2",
+            "alias": "guest",
+            "name": "Default2",
+            "surname": "User",
+            "url": "",
+            "autologin": "0",
+            "autologout": "15m",
+            "lang": "en_GB",
+            "refresh": "30s",
+            "type": "1",
+            "theme": "default",
+            "attempt_failed": "0",
+            "attempt_ip": "",
+            "attempt_clock": "0",
+            "rows_per_page": "50"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:user:object#media|Media]]
+  * [[manual:api:reference:mediatype:object#media_type|Media type]]
+  * [[manual:api:reference:usergroup:object#user_group|User group]]
+
+==== Source ====
+
+CUser::get() in //frontends/php/include/classes/api/services/CUser.php//.

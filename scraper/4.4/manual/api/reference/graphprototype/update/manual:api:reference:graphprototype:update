@@ -1,0 +1,60 @@
+===== graphprototype.update =====
+
+==== Description ====
+
+''object graphprototype.update(object/array **graphPrototypes**)''
+
+This method allows to update existing graph prototypes.
+
+==== Parameters ====
+
+''(object/array)'' Graph prototype properties to be updated.
+
+The ''graphid'' property must be defined for each graph prototype, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#graph_prototype|standard graph prototype properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| gitems | array | Graph items to replace existing graph items. If a graph item has the ''gitemid'' property defined it will be updated, otherwise a new graph item will be created. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated graph prototypes under the ''graphids'' property.
+
+==== Examples ====
+
+=== Changing the size of a graph prototype ===
+
+Change the size of a graph prototype to 1100 to 400 pixels.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "graphprototype.update",
+    "params": {
+        "graphid": "439",
+        "width": 1100,
+        "height": 400
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "graphids": [
+            "439"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CGraphPrototype::update() in //frontends/php/include/classes/api/services/CGraphPrototype.php//.

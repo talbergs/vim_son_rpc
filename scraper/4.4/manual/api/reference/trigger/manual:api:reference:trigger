@@ -1,0 +1,15 @@
+===== Trigger =====
+
+This class is designed to work with triggers. 
+
+Object references: \\
+  * [[manual:api:reference:trigger:object#trigger|Trigger]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:trigger:adddependencies|trigger.adddependencies]]'' - adding new trigger dependencies
+  * ''[[manual:api:reference:trigger:create|trigger.create]]'' - creating new triggers
+  * ''[[manual:api:reference:trigger:delete|trigger.delete]]'' - deleting triggers
+  * ''[[manual:api:reference:trigger:deletedependencies|trigger.deletedependencies]]'' - deleting trigger dependencies
+  * ''[[manual:api:reference:trigger:get|trigger.get]]'' - retrieving triggers
+  * ''[[manual:api:reference:trigger:update|trigger.update]]'' - updating triggers

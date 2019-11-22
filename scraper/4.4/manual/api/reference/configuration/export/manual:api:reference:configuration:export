@@ -1,0 +1,55 @@
+===== configuration.export =====
+
+==== Description ====
+
+''string configuration.export(object **parameters**)''
+
+This method allows to export configuration data as a serialized string.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the objects to be exported and the format to use.
+
+^ Parameter ^ Type ^ Description ^
+| **format** \\ (required) | string | Format in which the data must be exported. \\ \\ Possible values: \\ ''json'' - JSON; \\ ''xml'' - XML. |
+| **options** \\ (required) | object | Objects to be exported. \\ \\ The ''options'' object has the following parameters: \\ ''groups'' - ''(array)'' IDs of host groups to export; \\ ''hosts'' - ''(array)'' IDs of hosts to export; \\ ''images'' - ''(array)'' IDs of images to export; \\ ''maps'' - ''(array)'' IDs of maps to export. \\ ''screens'' - ''(array)'' IDs of screens to export; \\ ''templates'' - ''(array)'' IDs of templates to export; \\ ''valueMaps'' - ''(array)'' IDs of value maps to export; \\ |
+==== Return values ====
+
+''(string)'' Returns a serialized string containing the requested configuration data.
+
+==== Examples ====
+
+=== Exporting a host ===
+
+Export the configuration of a host as an XML string.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "configuration.export",
+    "params": {
+        "options": {
+            "hosts": [
+                "10161"
+            ]
+        },
+        "format": "xml"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<zabbix_export><version>4.0</version><date>2018-03-29T06:54:34Z</date><groups><group><name>Zabbix servers</name></group></groups><hosts><host><host>Export host</host><name>Export host</name><description/><proxy/><status>0</status><ipmi_authtype>-1</ipmi_authtype><ipmi_privilege>2</ipmi_privilege><ipmi_username/><ipmi_password/><tls_connect>1</tls_connect><tls_accept>1</tls_accept><tls_issuer/><tls_subject/><tls_psk_identity/><tls_psk/><templates/><groups><group><name>Zabbix servers</name></group></groups><interfaces><interface><default>1</default><type>1</type><useip>1</useip><ip>127.0.0.1</ip><dns/><port>10050</port><bulk>1</bulk><interface_ref>if1</interface_ref></interface></interfaces><applications><application><name>Application</name></application></applications><items><item><name>Item</name><type>0</type><snmp_community/><snmp_oid/><key>item.key</key><delay>30s</delay><history>90d</history><trends>365d</trends><status>0</status><value_type>3</value_type><allowed_hosts/><units/><snmpv3_contextname/><snmpv3_securityname/><snmpv3_securitylevel>0</snmpv3_securitylevel><snmpv3_authprotocol>0</snmpv3_authprotocol><snmpv3_authpassphrase/><snmpv3_privprotocol>0</snmpv3_privprotocol><snmpv3_privpassphrase/><params/><ipmi_sensor/><authtype>0</authtype><username/><password/><publickey/><privatekey/><port/><description/><inventory_link>0</inventory_link><applications><application><name>Application</name></application></applications><valuemap><name>Host status</name></valuemap><logtimefmt/><preprocessing/><jmx_endpoint/><timeout>3s</timeout><url/><query_fields/><posts/><status_codes>200</status_codes><follow_redirects>1</follow_redirects><post_type>0</post_type><http_proxy/><headers/><retrieve_mode>0</retrieve_mode><request_method>1</request_method><output_format>0</output_format><allow_traps>0</allow_traps><ssl_cert_file/><ssl_key_file/><ssl_key_password/><verify_peer>0</verify_peer><verify_host>0</verify_host><master_item/><interface_ref>if1</interface_ref></item></items><discovery_rules/><httptests/><macros/><inventory/></host></hosts><value_maps><value_map><name>Host status</name><mappings><mapping><value>0</value><newvalue>Up</newvalue></mapping><mapping><value>2</value><newvalue>Unreachable</newvalue></mapping></mappings></value_map></value_maps></zabbix_export>\n",
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CConfiguration::export() in //frontends/php/include/classes/api/services/CConfiguration.php//.

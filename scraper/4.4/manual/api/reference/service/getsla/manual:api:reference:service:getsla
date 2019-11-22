@@ -1,0 +1,98 @@
+===== service.getsla =====
+
+==== Description ====
+
+''object service.getsla(object **parameters**)''
+
+This method allows to calculate availability information about services.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the services and time intervals to calculate SLA.
+
+^ Parameter ^ Type ^ Description ^
+| serviceids | string/array | IDs of services to return availability information for. |
+| intervals | array | Time intervals to return service layer availability information about. \\ \\ Each time interval must have the following parameters: \\ - ''from'' - //(timestamp)// interval start time; \\ - ''to'' - //(timestamp)// interval end time. |
+
+==== Return values ====
+
+''(object)'' Returns the following availability information about each service under the corresponding service ID.
+
+^ Property ^ Type ^ Description ^
+| status | integer | Current status of the service. \\ \\ Refer to the [[object#service|service object page]] for more information on service statuses. |
+| problems | array | Triggers that are currently in problem state and are linked either to the service or one of its descendants. |
+| sla | array | SLA data about each time period. \\ \\ Each SLA object has the following properties: \\ - ''from'' - //(timestamp)// interval start time; \\ - ''to'' - //(timestamp)// interval end time; \\ - ''sla'' - //(float)// SLA for the given time interval; \\ - ''okTime'' - //(integer)// time the service was in OK state, in seconds;  \\ - ''problemTime'' - //(integer)// time the service was in problem state, in seconds; \\ - ''downtimeTime'' - //(integer)// time the service was in scheduled downtime, in seconds. |
+
+==== Examples ====
+
+=== Retrieving availability information for an service ===
+
+Retrieve availability information about a service during a week. 
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "service.getsla",
+    "params": {
+        "serviceids": "2",
+        "intervals": [
+            {
+                "from": 1352452201,
+                "to": 1353057001
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "2": {
+            "status": "3",
+            "problems": {
+                "13904": {
+                    "triggerid": "13904",
+                    "expression": "{13359}=0",
+                    "description": "Service unavailable",
+                    "url": "",
+                    "status": "0",
+                    "value": "1",
+                    "priority": "3",
+                    "lastchange": "1352967420",
+                    "comments": "",
+                    "error": "",
+                    "templateid": "0",
+                    "type": "0",
+                    "value_flags": "0",
+                    "flags": "0"
+                }
+            },
+            "sla": [
+                {
+                    "from": 1352452201,
+                    "to": 1353057001,
+                    "sla": 97.046296296296,
+                    "okTime": 586936,
+                    "problemTime": 17864,
+                    "downtimeTime": 0
+                }
+            ]
+        }
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:trigger:object#trigger|Trigger]]
+
+==== Source ====
+
+CService::getSla() in //frontends/php/include/classes/api/services/CService.php//.

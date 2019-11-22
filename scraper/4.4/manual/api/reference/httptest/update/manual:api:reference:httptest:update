@@ -1,0 +1,63 @@
+===== httptest.update =====
+
+==== Description ====
+
+''object httptest.update(object/array **webScenarios**)''
+
+This method allows to update existing web scenarios.
+
+==== Parameters ====
+
+''(object/array)'' Web scenario properties to be updated.
+
+The ''httptestid'' property must be defined for each web scenario, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#web_scenario|standard web scenario properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| steps| array | Scenario steps to replace existing steps. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated web scenarios under the ''httptestid'' property.
+
+==== Examples ====
+
+=== Enabling a web scenario ===
+
+Enable a web scenario, that is, set its status to "0".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "httptest.update",
+    "params": {
+        "httptestid": "5",
+        "status": 0
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "httptestids": [
+            "5"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#scenario_step|Scenario step]]
+
+==== Source ====
+
+CHttpTest::update() in //frontends/php/include/classes/api/services/CHttpTest.php//.

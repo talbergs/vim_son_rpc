@@ -1,0 +1,28 @@
+
+===== > Graph object =====
+
+The following objects are directly related to the ''graph'' API.
+
+==== Graph ====
+
+The graph object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| graphid  | string  | //(readonly)// ID of the graph.  |
+| **height** \\ (required) | integer | Height of the graph in pixels. |
+| **name** \\ (required) | string | Name of the graph |
+| **width** \\ (required) | integer | Width of the graph in pixels. |
+| flags | integer | //(readonly)// Origin of the graph. \\ \\ Possible values are: \\ 0 - //(default)// a plain graph; \\ 4 - a discovered graph. |
+| graphtype | integer | Graph's layout type. \\ \\ Possible values: \\ 0 - //(default)// normal; \\ 1 - stacked; \\ 2 - pie; \\ 3 - exploded.|
+| percent_left | float | Left percentile. \\ \\ Default: 0. |
+| percent_right | float | Right percentile. \\ \\ Default: 0. |
+| show_3d | integer | Whether to show pie and exploded graphs in 3D. \\ \\ Possible values: \\ 0 - //(default)// show in 2D; \\ 1 - show in 3D. |
+| show_legend | integer | Whether to show the legend on the graph. \\ \\ Possible values: \\ 0 - hide; \\ 1 - //(default)// show. |
+| show_work_period | integer | Whether to show the working time on the graph. \\ \\ Possible values: \\ 0 - hide; \\ 1 - //(default)// show. |
+| templateid | string | //(readonly)// ID of the parent template graph. |
+| yaxismax | float | The fixed maximum value for the Y axis.\\ \\ Default: 100. |
+| yaxismin | float | The fixed minimum value for the Y axis.\\ \\ Default: 0. |
+| ymax_itemid | string | ID of the item that is used as the maximum value for the Y axis. |
+| ymax_type | integer | Maximum value calculation method for the Y axis. \\ \\ Possible values: \\ 0 - //(default)// calculated; \\ 1 - fixed; \\ 2 - item. |
+| ymin_itemid | string | ID of the item that is used as the minimum value for the Y axis. |
+| ymin_type | integer | Minimum value calculation method for the Y axis. \\ \\ Possible values: \\ 0 - //(default)// calculated; \\ 1 - fixed; \\ 2 - item. |

@@ -1,0 +1,116 @@
+===== script.get =====
+
+==== Description ====
+
+''integer/array script.get(object **parameters**)''
+
+The method allows to retrieve scripts according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| groupids | string/array | Return only scripts that can be run on the given host groups. |
+| hostids | string/array | Return only scripts that can be run on the given hosts. |
+| scriptids | string/array | Return only scripts with the given IDs. |
+| usrgrpids | string/array | Return only scripts that can be run by users in the given user groups. |
+^ |||
+| selectGroups | query | Return a ''[[:manual/api/reference/hostgroup/object|groups]]'' property with host groups that the script can be run on.  |
+| selectHosts | query | Return a ''[[:manual/api/reference/host/object|hosts]]'' property with hosts that the script can be run on.  |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''scriptid'' and ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve all scripts ===
+
+Retrieve all configured scripts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "script.get",
+    "params": {
+        "output": "extend"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [    
+        {
+            "scriptid": "1",
+            "name": "Ping",
+            "command": "/bin/ping -c 3 {HOST.CONN} 2>&1",
+            "host_access": "2",
+            "usrgrpid": "0",
+            "groupid": "0",
+            "description": "",
+            "confirmation": "",
+            "type": "0",
+            "execute_on": "1"
+        },
+        {
+            "scriptid": "2",
+            "name": "Traceroute",
+            "command": "/usr/bin/traceroute {HOST.CONN} 2>&1",
+            "host_access": "2",
+            "usrgrpid": "0",
+            "groupid": "0",
+            "description": "",
+            "confirmation": "",
+            "type": "0",
+            "execute_on": "1"
+        },
+        {
+            "scriptid": "3",
+            "name": "Detect operating system",
+            "command": "sudo /usr/bin/nmap -O {HOST.CONN} 2>&1",
+            "host_access": "2",
+            "usrgrpid": "7",
+            "groupid": "0",
+            "description": "",
+            "confirmation": "",
+            "type": "0",
+            "execute_on": "1"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:host:object#object_details|Host]]
+  * [[manual:api:reference:hostgroup:object#object_details|Host group]]
+
+==== Source ====
+
+CScript::get() in //frontends/php/include/classes/api/services/CScript.php//.

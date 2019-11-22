@@ -1,0 +1,9 @@
+===== History =====
+
+This class is designed to work with history data. 
+
+Object references: \\
+  * [[manual:api:reference:history:object#history|History]]
+
+Available methods: \\
+  * ''[[manual:api:reference:history:get|history.get]]'' - retrieving history data.

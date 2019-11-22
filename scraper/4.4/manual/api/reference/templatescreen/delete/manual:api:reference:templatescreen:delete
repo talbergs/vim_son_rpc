@@ -1,0 +1,53 @@
+===== templatescreen.delete =====
+
+==== Description ====
+
+''object templatescreen.delete(array **templateScreenIds**)''
+
+This method allows to delete template screens.
+
+==== Parameters ====
+
+''(array)'' IDs of the template screens to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted template screens under the ''screenids'' property.
+
+==== Examples ====
+
+=== Delete multiple template screens ===
+
+Delete two template screens.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "templatescreen.delete",
+    "params": [
+        "45",
+        "46"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenids": [
+            "45",
+            "46"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTemplateScreen::delete() in //frontends/php/include/classes/api/services/CTemplateScreen.php//.

@@ -1,0 +1,14 @@
+===== Template screen =====
+
+This class is designed to work with template screens. 
+
+Object references: \\
+  * [[manual:api:reference:templatescreen:object#template_screen|Template screen]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:templatescreen:copy|templatescreen.copy]]'' - copy template screens
+  * ''[[manual:api:reference:templatescreen:create|templatescreen.create]]'' - create new template screens
+  * ''[[manual:api:reference:templatescreen:delete|templatescreen.delete]]'' - delete template screens
+  * ''[[manual:api:reference:templatescreen:get|templatescreen.get]]'' - retrieve template screens
+  * ''[[manual:api:reference:templatescreen:update|templatescreen.update]]'' - update template screens

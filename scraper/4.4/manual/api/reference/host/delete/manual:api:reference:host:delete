@@ -1,0 +1,51 @@
+===== host.delete =====
+
+==== Description ====
+
+''object host.delete(array **hosts**)''
+
+This method allows to delete hosts.
+
+==== Parameters ====
+
+''(array)'' IDs of hosts to delete. 
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted hosts under the ''hostids'' property.
+
+==== Examples ====
+
+=== Deleting multiple hosts ===
+
+Delete two hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.delete",
+    "params": [
+        "13",
+        "32"
+    ],
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+  
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "13",
+            "32"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== Source ====
+
+CHost::delete() in //frontends/php/include/classes/api/services/CHost.php//.

@@ -1,0 +1,32 @@
+===== > Trigger prototype object =====
+
+The following objects are directly related to the ''triggerprototype'' API.
+
+==== Trigger prototype ====
+
+The trigger prototype object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| triggerid  | string  | //(readonly)// ID of the trigger prototype.  |
+| **description** \\ (required) | string | Name of the trigger prototype. |
+| **expression** \\ (required) | string | Reduced trigger expression. |
+| opdata   | string | Operational data. |
+| comments | string | Additional comments to the trigger prototype. |
+| priority | integer | Severity of the trigger prototype. \\ \\ Possible values: \\ 0 - //(default)// not classified; \\ 1 - information; \\ 2 - warning; \\ 3 - average; \\ 4 - high; \\ 5 - disaster. |
+| status | integer | Whether the trigger prototype is enabled or disabled. \\ \\ Possible values: \\ 0 - //(default)// enabled; \\ 1 - disabled. |
+| templateid | string | //(readonly)// ID of the parent template trigger prototype. |
+| type | integer | Whether the trigger prototype can generate multiple problem events. \\ \\ Possible values: \\ 0 - //(default)// do not generate multiple events; \\ 1 - generate multiple events. |
+| url | string | URL associated with the trigger prototype. |
+| recovery_mode | integer | OK event generation mode. \\ \\ Possible values are: \\ 0 - //(default)// Expression; \\ 1 - Recovery expression; \\ 2 - None.|
+| recovery_expression | string | Reduced trigger recovery expression. |
+| correlation_mode | integer | OK event closes. \\ \\ Possible values are: \\ 0 - //(default)// All problems; \\ 1 - All problems if tag values match.|
+| correlation_tag | string | Tag for matching. |
+| manual_close | integer | Allow manual close. \\ \\ Possible values are: \\ 0 - //(default)// No; \\ 1 - Yes.|
+
+==== Trigger prototype tag ====
+
+The trigger prototype tag object has the following properties.
+
+^  Property             ^ Type    ^ Description                  ^
+| **tag** \\ (required) | string  | Trigger prototype tag name.  |
+| value                 | string  | Trigger prototype tag value. |

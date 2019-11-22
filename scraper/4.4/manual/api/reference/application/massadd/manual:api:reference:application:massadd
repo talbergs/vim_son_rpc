@@ -1,0 +1,77 @@
+===== application.massadd =====
+
+==== Description ====
+
+''object application.massadd(object **parameters**)''
+
+This method allows to simultaneously add multiple items to the given applications.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the applications to update and the items to add to the applications.
+
+The method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **applications** \\ (required) | array/object | Applications to be updated. \\ \\ The applications must have the ''applicationid'' property defined. |
+| items | array/object | Items to add to the given applications. \\ \\ The items must have the ''itemid'' property defined. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated applications under the ''applicationids'' property.
+
+==== Examples ====
+
+=== Adding items to multiple applications ===
+
+Add the given items to two applications.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "application.massadd",
+    "params": {
+        "applications": [
+            {
+                "applicationid": "247"
+            },
+            {
+                "applicationid": "246"
+            }
+        ],
+        "items": [
+            {
+                "itemid": "22800"
+            },
+            {
+                "itemid": "22801"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "applicationids": [
+            "247",
+            "246"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:item:object|Item]]
+
+==== Source ====
+
+CApplication::massAdd() in //frontends/php/include/classes/api/services/CApplication.php//.

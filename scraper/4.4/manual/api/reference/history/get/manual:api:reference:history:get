@@ -1,0 +1,139 @@
+===== history.get =====
+
+==== Description ====
+
+''integer/array history.get(object **parameters**)''
+
+The method allows to retrieve history data according to the given parameters.
+
+See also: [[:manual/installation/known_issues#api|known issues]]
+
+<note important>This method may return historical data of a deleted entity if this data has not been removed by the housekeeper yet.</note>
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| history | integer | History object types to return. \\ \\ Possible values: \\ 0 - numeric float; \\ 1 - character; \\ 2 - log; \\ 3 - numeric unsigned; \\ 4 - text. \\ \\ Default: 3. |
+| hostids | string/array | Return only history from the given hosts. |
+| itemids | string/array | Return only history from the given items. |
+| time_from | timestamp | Return only values that have been received after or at the given time. |
+| time_till | timestamp | Return only values that have been received before or at the given time. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''itemid'' and ''clock''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving item history data ===
+
+Return 10 latest values received from a numeric(float) item.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "history.get",
+    "params": {
+        "output": "extend",
+        "history": 0,
+        "itemids": "23296",
+        "sortfield": "clock",
+        "sortorder": "DESC",
+        "limit": 10
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "itemid": "23296",
+            "clock": "1351090996",
+            "value": "0.0850",
+            "ns": "563157632"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090936",
+            "value": "0.1600",
+            "ns": "549216402"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090876",
+            "value": "0.1800",
+            "ns": "537418114"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090816",
+            "value": "0.2100",
+            "ns": "522659528"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090756",
+            "value": "0.2150",
+            "ns": "507809457"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090696",
+            "value": "0.2550",
+            "ns": "495509699"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090636",
+            "value": "0.3600",
+            "ns": "477708209"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090576",
+            "value": "0.3750",
+            "ns": "463251343"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090516",
+            "value": "0.3150",
+            "ns": "447947017"
+        },
+        {
+            "itemid": "23296",
+            "clock": "1351090456",
+            "value": "0.2750",
+            "ns": "435307141"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CHistory::get() in //frontends/php/include/classes/api/services/CHistory.php//.

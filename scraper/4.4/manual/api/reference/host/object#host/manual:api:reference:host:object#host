@@ -1,0 +1,132 @@
+===== > Host object =====
+
+The following objects are directly related to the host API.
+
+==== Host ====
+
+The host object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+|hostid  |string  |//(readonly)// ID of the host.  |
+|**host** \\ (required) |string  |Technical name of the host.  |
+|available  |integer  |//(readonly)// Availability of Zabbix agent. \\ \\ Possible values are:\\ 0 - //(default)// unknown;\\ 1 - available;\\ 2 - unavailable. |
+| description | text | Description of the host. |
+|disable_until  |timestamp  |//(readonly)// The next polling time of an unavailable Zabbix agent. |
+|error  |string  |//(readonly)// Error text if Zabbix agent is unavailable. |
+|errors_from  |timestamp  |//(readonly)// Time when Zabbix agent became unavailable. |
+| flags | integer | //(readonly)// Origin of the host. \\ \\ Possible values: \\ 0 - a plain host; \\ 4 - a discovered host. |
+|inventory_mode | integer | Host inventory population mode. \\ \\ Possible values are: \\ -1 - disabled; \\ 0 - //(default)// manual; \\ 1 - automatic. |
+|ipmi_authtype  |integer  |IPMI authentication algorithm. \\ \\ Possible values are:\\ -1 - //(default)// default; \\ 0 - none; \\ 1 - MD2; \\ 2 - MD5 \\ 4 - straight; \\ 5 - OEM; \\ 6 - RMCP+. |
+|ipmi_available  |integer  |//(readonly)// Availability of IPMI agent. \\ \\ Possible values are:\\ 0 - //(default)// unknown;\\ 1 - available;\\ 2 - unavailable. |
+|ipmi_disable_until  |timestamp  |//(readonly)// The next polling time of an unavailable IPMI agent. |
+|ipmi_error  |string  |//(readonly)// Error text if IPMI agent is unavailable. |
+|ipmi_errors_from  |timestamp  |//(readonly)// Time when IPMI agent became unavailable. |
+|ipmi_password  |string  |IPMI password. |
+|ipmi_privilege  |integer  |IPMI privilege level. \\ \\ Possible values are:\\ 1 - callback;\\ 2 - //(default)// user;\\ 3 - operator;\\ 4 - admin;\\ 5 - OEM. |
+|ipmi_username  |string  |IPMI username. |
+|jmx_available  |integer  |//(readonly)// Availability of JMX agent. \\ \\ Possible values are:\\ 0 - //(default)// unknown;\\ 1 - available;\\ 2 - unavailable. |
+|jmx_disable_until  |timestamp  |//(readonly)// The next polling time of an unavailable JMX agent. |
+|jmx_error  |string  |//(readonly)// Error text if JMX agent is unavailable. |
+|jmx_errors_from  |timestamp  |//(readonly)// Time when JMX agent became unavailable. |
+|maintenance_from  |timestamp  |//(readonly)// Starting time of the effective maintenance. |
+|maintenance_status  |integer  |//(readonly)// Effective maintenance status. \\ \\ Possible values are:\\ 0 - //(default)// no maintenance;\\ 1 - maintenance in effect. |
+|maintenance_type  |integer  |//(readonly)// Effective maintenance type. \\ \\ Possible values are:\\ 0 - //(default)// maintenance with data collection;\\ 1 - maintenance without data collection. |
+|maintenanceid  |string  |//(readonly)// ID of the maintenance that is currently in effect on the host. |
+|name  |string  |Visible name of the host.  \\ \\ Default: ''host'' property value. |
+|proxy_hostid  |string  |ID of the proxy that is used to monitor the host.  |
+|snmp_available  |integer  |//(readonly)// Availability of SNMP agent. \\ \\ Possible values are:\\ 0 - //(default)// unknown;\\ 1 - available;\\ 2 - unavailable. |
+|snmp_disable_until  |timestamp  |//(readonly)// The next polling time of an unavailable SNMP agent. |
+|snmp_error  |string  |//(readonly)// Error text if SNMP agent is unavailable. |
+|snmp_errors_from  |timestamp  |//(readonly)// Time when SNMP agent became unavailable. |
+|status  |integer  | Status and function of the host. \\ \\ Possible values are:\\ 0 - //(default)// monitored host;\\ 1 - unmonitored host. |
+|tls_connect |integer | Connections to host. \\ \\ Possible values are: \\ 1 - //(default)// No encryption; \\ 2 - PSK; \\ 4 - certificate. |
+|tls_accept |integer | Connections from host. \\ \\ Possible bitmap values are: \\ 1 - //(default)// No encryption; \\ 2 - PSK; \\ 4 - certificate. |
+|tls_issuer |string | Certificate issuer. |
+|tls_subject |string | Certificate subject. |
+|tls_psk_identity |string | PSK identity. Required if either ''tls_connect'' or ''tls_accept'' has PSK enabled. |
+|tls_psk |string | The preshared key, at least 32 hex digits. Required if either ''tls_connect'' or ''tls_accept'' has PSK enabled. |
+==== Host inventory ====
+
+The host inventory object has the following properties. 
+
+<note tip>Each property has it's own unique ID number, which is used to associate host inventory fields with items.</note>
+
+^ ID ^  Property  ^  Type  ^  Description  ^
+| 4 | alias | string | Alias. |
+| 11 | asset_tag | string | Asset tag. |
+| 28 | chassis | string | Chassis. |
+| 23 | contact | string | Contact person. |
+| 32 | contract_number | string | Contract number. |
+| 47 | date_hw_decomm | string | HW decommissioning date. |
+| 46 | date_hw_expiry | string | HW maintenance expiry date. |
+| 45 | date_hw_install | string | HW installation date. |
+| 44 | date_hw_purchase | string | HW purchase date. |
+| 34 | deployment_status | string | Deployment status. |
+| 14 | hardware | string | Hardware. |
+| 15 | hardware_full | string | Detailed hardware. |
+| 39 | host_netmask | string | Host subnet mask. |
+| 38 | host_networks | string | Host networks. |
+| 40 | host_router | string | Host router. |
+| 30 | hw_arch | string | HW architecture. |
+| 33 | installer_name | string | Installer name. |
+| 24 | location | string | Location. |
+| 25 | location_lat | string | Location latitude. |
+| 26 | location_lon | string | Location longitude. |
+| 12 | macaddress_a | string | MAC address A. |
+| 13 | macaddress_b | string | MAC address B. |
+| 29 | model | string | Model. |
+| 3 | name | string | Name. |
+| 27 | notes | string | Notes. |
+| 41 | oob_ip | string | OOB IP address. |
+| 42 | oob_netmask | string | OOB host subnet mask. |
+| 43 | oob_router | string | OOB router. |
+| 5 | os | string | OS name. |
+| 6 | os_full | string | Detailed OS name. |
+| 7 | os_short | string | Short OS name. |
+| 61  | poc_1_cell | string | Primary POC mobile number. |
+| 58 | poc_1_email | string | Primary email. |
+| 57 | poc_1_name | string | Primary POC name. |
+| 63 | poc_1_notes | string | Primary POC notes. |
+| 59 | poc_1_phone_a | string | Primary POC phone A. |
+| 60 | poc_1_phone_b | string | Primary POC phone B. |
+| 62 | poc_1_screen | string | Primary POC screen name. |
+| 68 | poc_2_cell | string | Secondary POC mobile number. |
+| 65 | poc_2_email | string | Secondary POC email. |
+| 64 | poc_2_name | string | Secondary POC name. |
+| 70 | poc_2_notes | string | Secondary POC notes. |
+| 66 | poc_2_phone_a | string | Secondary POC phone A. |
+| 67 | poc_2_phone_b | string | Secondary POC phone B. |
+| 69 | poc_2_screen | string | Secondary POC screen name. |
+| 8 | serialno_a | string | Serial number A. |
+| 9 | serialno_b | string | Serial number B. |
+| 48 | site_address_a | string | Site address A. |
+| 49 | site_address_b | string | Site address B. |
+| 50 | site_address_c | string | Site address C. |
+| 51 | site_city | string | Site city. |
+| 53 | site_country | string | Site country. |
+| 56 | site_notes | string | Site notes. |
+| 55 | site_rack | string | Site rack location. |
+| 52 | site_state | string | Site state. |
+| 54 | site_zip | string | Site ZIP/postal code. |
+| 16 | software | string | Software. |
+| 18 | software_app_a | string | Software application A. |
+| 19 | software_app_b | string | Software application B. |
+| 20 | software_app_c | string | Software application C. |
+| 21 | software_app_d | string | Software application D. |
+| 22 | software_app_e | string | Software application E. |
+| 17 | software_full | string | Software details. |
+| 10 | tag | string | Tag. |
+| 1 | type | string | Type. |
+| 2 | type_full | string | Type details. |
+| 35 | url_a | string | URL A. |
+| 36 | url_b | string | URL B. |
+| 37 | url_c | string | URL C. |
+| 31 | vendor | string | Vendor. |
+
+==== Host tag ====
+
+The host tag object has the following properties.
+
+^  Property             ^ Type    ^ Description     ^
+| **tag** \\ (required) | string  | Host tag name.  |
+| value                 | string  | Host tag value. |

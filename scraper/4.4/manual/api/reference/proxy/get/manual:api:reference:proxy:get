@@ -1,0 +1,105 @@
+===== proxy.get =====
+
+==== Description ====
+
+''integer/array proxy.get(object **parameters**)''
+
+The method allows to retrieve proxies according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| proxyids | string/array | Return only proxies with the given IDs. |
+^ |||
+| selectHosts | query | Return a ''[[:manual/api/reference/host/object|hosts]]'' property with the hosts monitored by the proxy. |
+| selectInterface | query | Return an ''[[:manual/api/reference/hostinterface/object|interface]]'' property with the proxy interface used by a passive proxy. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''hostid'', ''host'' and ''status''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve all proxies ===
+
+Retrieve all configured proxies and their interfaces.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "proxy.get",
+    "params": {
+        "output": "extend",
+        "selectInterface": "extend"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "interface": [],
+            "host": "Active proxy",
+            "status": "5",
+            "lastaccess": "0",
+            "proxyid": "30091",
+            "description": "",
+            "tls_connect": "1",
+            "tls_accept": "1",
+            "tls_issuer": "",
+            "tls_subject": "",
+            "tls_psk_identity": "",
+            "tls_psk": ""
+        },
+        {
+            "interface": {
+                "interfaceid": "30109",
+                "hostid": "30092",
+                "useip": "1",
+                "ip": "127.0.0.1",
+                "dns": "",
+                "port": "10051"
+            ],
+            "host": "Passive proxy",
+            "status": "6",
+            "lastaccess": "0",
+            "proxyid": "30092",
+            "description": ""
+        }
+    ],
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[object#proxy_interface|Proxy interface]]
+==== Source ====
+
+CProxy::get() in //frontends/php/include/classes/api/services/CProxy.php//.

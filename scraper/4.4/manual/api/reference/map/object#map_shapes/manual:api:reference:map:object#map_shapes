@@ -1,0 +1,188 @@
+===== > Map object =====
+
+The following objects are directly related to the ''map'' API.
+
+==== Map ====
+
+The map object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| sysmapid  | string  | //(readonly)// ID of the map.  |
+| **height** \\ (required) | integer | Height of the map in pixels. |
+| **name** \\ (required) | string | Name of the map. |
+| **width** \\ (required) | integer | Width of the map in pixels. |
+| backgroundid | string | ID of the image used as the background for the map. |
+| expand_macros | integer | Whether to expand macros in labels when configuring the map. \\ \\ Possible values: \\ 0 - //(default)// do not expand macros; \\ 1 - expand macros. |
+| expandproblem | integer | Whether the the problem trigger will be displayed for elements with a single problem. \\ \\ Possible values: \\ 0 - always display the number of problems; \\ 1 - //(default)// display the problem trigger if there's only one problem. |
+| grid_align | integer | Whether to enable grid aligning. \\ \\ Possible values: \\ 0 - disable grid aligning; \\ 1 - //(default)// enable grid aligning. |
+| grid_show | integer | Whether to show the grid on the map. \\ \\ Possible values: \\ 0 - do not show the grid; \\ 1 - //(default)// show the grid. |
+| grid_size | integer | Size of the map grid in pixels. \\ \\ Supported values: 20, 40, 50, 75 and 100. \\ \\ Default: 50. |
+| highlight | integer | Whether icon highlighting is enabled. \\ \\ Possible values: \\ 0 - highlighting disabled; \\ 1 - //(default)// highlighting enabled. |
+| iconmapid | string | ID of the icon map used on the map. |
+| label_format | integer | Whether to enable advanced labels. \\ \\ Possible values: \\ 0 - //(default)// disable advanced labels; \\ 1 - enable advanced labels. |
+| label_location | integer | Location of the map element label. \\ \\ Possible values: \\ 0 - //(default)// bottom; \\ 1 - left; \\ 2 - right; \\ 3 - top. |
+| label_string_host | string | Custom label for host elements. \\ \\ Required for maps with custom host label type. |
+| label_string_hostgroup | string | Custom label for host group elements. \\ \\ Required for maps with custom host group label type. |
+| label_string_image | string | Custom label for image elements.  \\ \\ Required for maps with custom image label type. |
+| label_string_map | string | Custom label for map elements.  \\ \\ Required for maps with custom map label type. |
+| label_string_trigger | string | Custom label for trigger elements.  \\ \\ Required for maps with custom trigger label type. |
+| label_type | integer | Map element label type. \\ \\ Possible values: \\ 0 - label; \\ 1 - IP address; \\ 2 - //(default)// element name; \\ 3 - status only; \\ 4 - nothing. |
+| label_type_host | integer | Label type for host elements. \\ \\ Possible values: \\ 0 - label; \\ 1 - IP address; \\ 2 - //(default)// element name; \\ 3 - status only; \\ 4 - nothing; \\ 5 - custom. |
+| label_type_hostgroup | integer | Label type for host group elements. \\ \\ Possible values: \\ 0 - label; \\ 2 - //(default)// element name; \\ 3 - status only; \\ 4 - nothing; \\ 5 - custom. |
+| label_type_image | integer | Label type for host group elements. \\ \\ Possible values: \\ 0 - label; \\ 2 - //(default)// element name; \\ 4 - nothing; \\ 5 - custom. |
+| label_type_map | integer | Label type for map elements. \\ \\ Possible values: \\ 0 - label; \\ 2 - //(default)// element name; \\ 3 - status only; \\ 4 - nothing; \\ 5 - custom. |
+| label_type_trigger | integer | Label type for trigger elements. \\ \\ Possible values: \\ 0 - label; \\ 2 - //(default)// element name; \\ 3 - status only; \\ 4 - nothing; \\ 5 - custom. |
+| markelements | integer | Whether to highlight map elements that have recently changed their status. \\ \\ Possible values: \\ 0 - //(default)// do not highlight elements; \\ 1 - highlight elements. |
+| severity_min | integer | Minimum severity of the triggers that will be displayed on the map. \\ \\ Refer to the [[manual:api:reference:trigger:object#trigger|trigger "severity" property]] for a list of supported trigger severities. |
+| show_unack | integer | How problems should be displayed. \\ \\ Possible values: \\ 0 - //(default)// display the count of all problems; \\ 1 - display only the count of unacknowledged problems; \\ 2 - display the count of acknowledged and unacknowledged problems separately. |
+| userid | string | Map owner user ID. |
+| private | integer | Type of map sharing. \\ \\ Possible values: \\ 0 - public map; \\ 1 - //(default)// private map. |
+| show_suppressed | integer | Whether suppressed problems are shown. \\ \\ Possible values: \\ 0 - //(default)// hide suppressed problems; \\ 1 - show suppressed problems. |
+==== Map element =====
+
+The map element object defines an object displayed on a map. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| selementid  | string  | //(readonly)// ID of the map element.  |
+| **elements** \\ (required) | array | Element data object. Required for host, host group, trigger and map type elements. |
+| **elementtype** \\ (required) | integer | Type of map element. \\ \\ Possible values: \\ 0 - host; \\ 1 - map; \\ 2 - trigger; \\ 3 - host group; \\ 4 - image. |
+| **iconid_off** \\ (required) | string | ID of the image used to display the element in default state. |
+| areatype | integer | How separate host group hosts should be displayed. \\ \\ Possible values: \\ 0 - //(default)// the host group element will take up the whole map; \\ 1 - the host group element will have a fixed size. |
+| application | string | Name of the application to display problems from. Used only for host and host group map elements. |
+| elementsubtype | integer | How a host group element should be displayed on a map. \\ \\ Possible values: \\ 0 - //(default)// display the host group as a single element; \\ 1 - display each host in the group separately. |
+| height | integer | Height of the fixed size host group element in pixels. \\ \\ Default: 200. |
+| iconid_disabled | string | ID of the image used to display disabled map elements. Unused for image elements. |
+| iconid_maintenance | string | ID of the image used to display map elements in maintenance. Unused for image elements. |
+| iconid_on | string | ID of the image used to display map elements with problems. Unused for image elements. |
+| label | string | Label of the element.  |
+| label_location | integer | Location of the map element label. \\ \\ Possible values: \\ -1 - //(default)// default location; \\ 0 - bottom; \\ 1 - left; \\ 2 - right; \\ 3 - top. |
+| permission | integer | Type of permission level. \\ \\ Possible values: \\ -1 - none; \\ 2 - read only; \\ 3 - read-write. |
+| sysmapid | string | //(readonly)// ID of the map that the element belongs to. |
+| urls | array | Map element URLs. \\ \\ The map element URL object is [[object#map_element_url|described in detail below]]. |
+| use_iconmap | integer | Whether icon mapping must be used for host elements. \\ \\ Possible values: \\ 0 - do not use icon mapping; \\ 1 - //(default)// use icon mapping. |
+| viewtype | integer | Host group element placing algorithm. \\ \\ Possible values: \\ 0 -  //(default)// grid. |
+| width | integer | Width of the fixed size host group element in pixels. \\ \\ Default: 200. |
+| x | integer | X-coordinates of the element in pixels. \\ \\ Default: 0. |
+| y | integer | Y-coordinates of the element in pixels. \\ \\ Default: 0. |
+
+=== Map element Host ===
+The map element Host object defines one host element.
+^  Property  ^  Type  ^  Description  ^
+| hostid | string | Host ID |
+
+=== Map element Host group ===
+The map element Host group object defines one host group element.
+^  Property  ^  Type  ^  Description  ^
+| groupid | string | Host group ID |
+
+=== Map element Map ===
+The map element Map object defines one map element.
+^  Property  ^  Type  ^  Description  ^
+| sysmapid | string | Map ID |
+
+=== Map element Trigger ===
+The map element Trigger object defines one or more trigger elements.
+^  Property  ^  Type  ^  Description  ^
+| triggerid | string | Trigger ID |
+
+=== Map element URL ===
+The map element URL object defines a clickable link that will be available for a specific map element. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| sysmapelementurlid  | string  | //(readonly)// ID of the map element URL.  |
+| **name** \\ (required) | string | Link caption. |
+| **url** \\ (required) | string | Link URL. |
+| selementid | string | ID of the map element that the URL belongs to. | 
+
+==== Map link ====
+
+The map link object defines a link between two map elements. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| linkid  | string  | //(readonly)// ID of the map link. |
+| **selementid1** \\ (required) | string | ID of the first map element linked on one end. |
+| **selementid2** \\ (required) | string | ID of the first map element linked on the other end. |
+| color | string | Line color as a hexadecimal color code. \\ \\ Default: ''000000''. |
+| drawtype | integer | Link line draw style. \\ \\ Possible values: \\ 0 - //(default)// line; \\ 2 - bold line; \\ 3 - dotted line; \\ 4 - dashed line. |
+| label | string | Link label. |
+| linktriggers | array | Map link triggers to use as link status indicators. \\ \\ The map link trigger object is [[object#map_link_trigger|described in detail below]]. |
+| permission | integer | Type of permission level. \\ \\ Possible values: \\ -1 - none; \\ 2 - read only; \\ 3 - read-write. |
+| sysmapid | string | ID of the map the link belongs to. |
+
+=== Map link trigger ===
+
+The map link trigger object defines a map link status indicator based on the state of a trigger. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| linktriggerid  | string  | //(readonly)// ID of the map link trigger. |
+| **triggerid** \\ (reqiuired) | string | ID of the trigger used as a link indicator. |
+| color | string | Indicator color as a hexadecimal color code. \\ \\ Default: ''DD0000''. |
+| drawtype | integer | Indicator draw style. \\ \\ Possible values: \\ 0 - //(default)// line; \\ 2 - bold line; \\ 3 - dotted line; \\ 4 - dashed line. |
+| linkid | string | ID of the map link that the link trigger belongs to. |
+
+==== Map URL ====
+
+The map URL object defines a clickable link that will be available for all elements of a specific type on the map. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| sysmapurlid  | string  | //(readonly)// ID of the map URL.  |
+| **name** \\ (required) | string | Link caption. |
+| **url** \\ (required) | string | Link URL. |
+| elementtype | integer | Type of map element for which the URL will be available. \\ \\ Refer to the [[object#map_element|map element "type" property]] for a list of supported types. \\ \\ Default: 0. | 
+| sysmapid | string | ID of the map that the URL belongs to. |
+
+==== Map user ====
+
+List of map permissions based on users. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| sysmapuserid  | string  | //(readonly)// ID of the map user.  |
+| **userid** \\ (required) | string | User ID. |
+| **permission** \\ (required) | integer | Type of permission level. \\ \\ Possible values: \\ 2 - read only; \\ 3 - read-write;|
+
+==== Map user group ====
+
+List of map permissions based on user groups. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| sysmapusrgrpid  | string  | //(readonly)// ID of the map user group.  |
+| **usrgrpid** \\ (required) | string | User group ID. |
+| **permission** \\ (required) | integer | Type of permission level. \\ \\ Possible values: \\ 2 - read only; \\ 3 - read-write;|
+
+==== Map shapes ====
+
+The map shape object defines an geometric shape (with or without text) displayed on a map. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| sysmap_shapeid  | string  | //(readonly)// ID of the map shape element.  |
+| **type** (required) | integer | Type of map shape element. \\ \\ Possible values: \\ 0 - rectangle; \\ 1 - ellipse. \\ \\ Property is required when new shapes are created.|
+| x | integer | X-coordinates of the shape in pixels. \\ \\ Default: 0. |
+| y | integer | Y-coordinates of the shape in pixels. \\ \\ Default: 0. |
+| width | integer | Width of the shape in pixels. \\ \\ Default: 200. |
+| height | integer | Height of the shape in pixels. \\ \\ Default: 200. |
+| text | string | Text of the shape. |
+| font | integer | Font of the text within shape. \\ \\ Possible values: \\ 0 - Georgia, serif \\ 1 - “Palatino Linotype”, “Book Antiqua”, Palatino, serif \\ 2 - “Times New Roman”, Times, serif \\ 3 - Arial, Helvetica, sans-serif \\ 4 - “Arial Black”, Gadget, sans-serif \\ 5 - “Comic Sans MS”, cursive, sans-serif \\ 6 - Impact, Charcoal, sans-serif \\ 7 - “Lucida Sans Unicode”, “Lucida Grande”, sans-serif \\ 8 - Tahoma, Geneva, sans-serif \\ 9 - “Trebuchet MS”, Helvetica, sans-serif \\ 10 - Verdana, Geneva, sans-serif \\ 11 - “Courier New”, Courier, monospace \\ 12 - “Lucida Console”, Monaco, monospace \\ \\ Default: 9. |
+| font_size | integer | Font size in pixels. \\ \\ Default: 11. |
+| font_color | string | Font color. \\ \\ Default: '000000'. |
+| text_halign | integer | Horizontal alignment of text. \\ \\ Possible values: \\ 0 - center; \\ 1 - left; \\ 2 - right. \\ \\ Default: 0. |
+| text_valign | integer | Vertical alignment of text. \\ \\ Possible values: \\ 0 - middle; \\ 1 - top; \\ 2 - bottom. \\ \\ Default: 0. |
+| border_type | integer | Type of the border. \\ \\ Possible values: \\ 0 - none; \\ 1 - ''—————''; \\ 2 - ''·····''; \\ 3 - ''- - -''. \\ \\ Default: 0. |
+| border_width | integer | Width of the border in pixels. \\ \\ Default: 0. |
+| border_color | string | Border color. \\ \\ Default: '000000'. |
+| background_color | string | Background color (fill color). \\ \\ Default: ''(empty)''. |
+| zindex | integer | Value used to order shapes (z-index). \\ \\ Default: 0. |
+
+==== Map lines ====
+
+The map line object defines an line displayed on a map. It has the following properties:
+
+^  Property  ^  Type  ^  Description  ^
+| sysmap_shapeid  | string  | //(readonly)// ID of the map shape element.  |
+| x1 | integer | X-coordinates of the line point 1 in pixels. \\ \\ Default: 0. |
+| y1 | integer | Y-coordinates of the line point 1 in pixels. \\ \\ Default: 0. |
+| x2 | integer | X-coordinates of the line point 2 in pixels. \\ \\ Default: 200. |
+| y2 | integer | Y-coordinates of the line point 2 in pixels. \\ \\ Default: 200. |
+| line_type | integer | Type of the border. \\ \\ Possible values: \\ 0 - none; \\ 1 - ''—————''; \\ 2 - ''·····''; \\ 3 - ''- - -''. \\ \\ Default: 0. |
+| line_width | integer | Width of the border in pixels. \\ \\ Default: 0. |
+| line_color | string | Border color. \\ \\ Default: '000000'. |
+| zindex | integer | Value used to order shapes (z-index). \\ \\ Default: 0. |

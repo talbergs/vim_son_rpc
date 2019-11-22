@@ -1,0 +1,52 @@
+===== template.delete =====
+
+==== Description ====
+
+''object template.delete(array **templateIds**)''
+
+This method allows to delete templates.
+
+==== Parameters ====
+
+''(array)'' IDs of the templates to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted templates under the ''templateids'' property.
+
+==== Examples ====
+
+=== Deleting multiple templates ===
+
+Delete two templates.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.delete",
+    "params": [
+        "13",
+        "32"
+    ],
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+  
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "templateids": [
+            "13",
+            "32"
+        ]
+    },
+    "id": 1
+}
+</code>
+==== Source ====
+
+CTemplate::delete() in //frontends/php/include/classes/api/services/CTemplate.php//.

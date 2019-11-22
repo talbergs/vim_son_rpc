@@ -1,0 +1,16 @@
+===== Dashboard =====
+
+This class is designed to work with dashboards. 
+
+Object references: \\
+  * [[manual:api:reference:dashboard:object#dashboard|Dashboard]]
+  * [[manual:api:reference:dashboard:object#dashboard_widget|Dashboard widget]]
+  * [[manual:api:reference:dashboard:object#dashboard_widget_field|Dashboard widget field]]
+  * [[manual:api:reference:dashboard:object#dashboard_user_group|Dashboard user group]]
+  * [[manual:api:reference:dashboard:object#dashboard_user|Dashboard user]]
+
+Available methods: \\
+  * ''[[manual:api:reference:dashboard:create|dashboard.create]]'' - creating new dashboards
+  * ''[[manual:api:reference:dashboard:delete|dashboard.delete]]'' - deleting dashboards
+  * ''[[manual:api:reference:dashboard:get|dashboard.get]]'' - retrieving dashboards
+  * ''[[manual:api:reference:dashboard:update|dashboard.update]]'' - updating dashboards

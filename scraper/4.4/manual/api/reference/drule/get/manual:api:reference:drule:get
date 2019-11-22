@@ -1,0 +1,154 @@
+===== drule.get =====
+
+==== Description ====
+
+''integer/array drule.get(object **parameters**)''
+
+The method allows to retrieve discovery rules according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dhostids | string/array | Return only discovery rules that created the given discovered hosts. |
+| druleids | string/array | Return only discovery rules with the given IDs. |
+| dserviceids | string/array | Return only discovery rules that created the given discovered services. |
+^ |||
+| selectDChecks | query | Return a ''[[:manual/api/reference/dcheck/object|dchecks]]'' property with the discovery checks used by the discovery rule. \\ \\ Supports ''count''. |
+| selectDHosts | query | Return a ''[[:manual/api/reference/dhost/object|dhosts]]'' property with the discovered hosts created by the discovery rule. \\ \\ Supports ''count''. |
+^ |||
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selectDChecks'' - results will be sorted by ''dcheckid''; \\ ''selectDHosts'' - results will be sorted by ''dhostsid''. |
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''druleid'' and ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve all discovery rules ===
+
+Retrieve all configured discovery rules and the discovery checks they use.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "drule.get",
+    "params": {
+        "output": "extend",
+        "selectDChecks": "extend"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "druleid": "2",
+            "proxy_hostid": "0",
+            "name": "Local network",
+            "iprange": "192.168.3.1-255",
+            "delay": "5s",
+            "nextcheck": "1348754327",
+            "status": "0",
+            "dchecks": [
+                {
+                    "dcheckid": "7",
+                    "druleid": "2",
+                    "type": "3",
+                    "key_": "",
+                    "snmp_community": "",
+                    "ports": "21",
+                    "snmpv3_securityname": "",
+                    "snmpv3_securitylevel": "0",
+                    "snmpv3_authpassphrase": "",
+                    "snmpv3_privpassphrase": "",
+                    "uniq": "0",
+                    "snmpv3_authprotocol": "0",
+                    "snmpv3_privprotocol": "0",
+                    "host_source": "1",
+                    "name_source": "0"                     
+                },
+                {
+                    "dcheckid": "8",
+                    "druleid": "2",
+                    "type": "4",
+                    "key_": "",
+                    "snmp_community": "",
+                    "ports": "80",
+                    "snmpv3_securityname": "",
+                    "snmpv3_securitylevel": "0",
+                    "snmpv3_authpassphrase": "",
+                    "snmpv3_privpassphrase": "",
+                    "uniq": "0",
+                    "snmpv3_authprotocol": "0",
+                    "snmpv3_privprotocol": "0",
+                    "host_source": "1",
+                    "name_source": "0"                    
+                }
+            ]
+        },
+        {
+            "druleid": "6",
+            "proxy_hostid": "0",
+            "name": "Zabbix agent discovery",
+            "iprange": "192.168.1.1-255",
+            "delay": "1h",
+            "nextcheck": "0",
+            "status": "0",
+            "dchecks": [
+                {
+                    "dcheckid": "10",
+                    "druleid": "6",
+                    "type": "9",
+                    "key_": "system.uname",
+                    "snmp_community": "",
+                    "ports": "10050",
+                    "snmpv3_securityname": "",
+                    "snmpv3_securitylevel": "0",
+                    "snmpv3_authpassphrase": "",
+                    "snmpv3_privpassphrase": "",
+                    "uniq": "0",
+                    "snmpv3_authprotocol": "0",
+                    "snmpv3_privprotocol": "0",
+                    "host_source": "2",
+                    "name_source": "3"                    
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:dhost:object#discovered_host|Discovered host]]
+  * [[manual:api:reference:dcheck:object#discovery_check|Discovery check]]
+
+==== Source ====
+
+CDRule::get() in //frontends/php/include/classes/api/services/CDRule.php//.

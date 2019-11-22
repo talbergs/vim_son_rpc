@@ -1,0 +1,120 @@
+===== screen.create =====
+
+==== Description ====
+
+''object screen.create(object/array **screens**)''
+
+This method allows to create new screens.
+
+==== Parameters ====
+
+''(object/array)'' Screens to create.
+
+Additionally to the [[object#screen|standard screen properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| screenitems | array | Screen items to be created for the screen. |
+| users | array | Screen user shares to be created on the screen. |
+| userGroups | array | Screen user group shares to be created on the screen. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created screens under the ''screenids'' property. The order of the returned IDs matches the order of the passed screens.
+
+==== Examples ====
+
+=== Creating a screen ===
+
+Create a screen named "Graphs" with 2 rows and 3 columns and add a graph to the upper-left cell.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screen.create",
+    "params": {
+        "name": "Graphs",
+        "hsize": 3,
+        "vsize": 2,
+        "screenitems": [
+            {
+                "resourcetype": 0,
+                "resourceid": "612",
+                "rowspan": 1,
+                "colspan": 1,
+                "x": 0,
+                "y": 0
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenids": [
+            "26"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Screen sharing ===
+
+Create a screen with two types of sharing (user and user group).
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screen.create",
+    "params": {
+        "name": "Screen sharing",
+        "hsize": 3,
+        "vsize": 2,
+        "users": [
+            {
+                "userid": "4",
+                "permission": "3"
+            }
+        ],
+        "userGroups": [
+            {
+                "usrgrpid": "7",
+                "permission": "2"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenids": [
+            "83"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:screenitem:object#screen_item|Screen item]]
+  * [[object#screen_user|Screen user]]
+  * [[object#screen_user_group|Screen user group]]
+
+==== Source ====
+
+CScreen::create() in //frontends/php/include/classes/api/services/CScreen.php//.

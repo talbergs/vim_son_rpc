@@ -1,0 +1,13 @@
+===== Application =====
+
+This class is designed to work with applications. 
+
+Object references: \\
+  * [[manual:api:reference:application:object#application|Application]]
+
+Available methods: \\
+  * ''[[manual:api:reference:application:create|application.create]]'' - creating new applications
+  * ''[[manual:api:reference:application:delete|application.delete]]'' - deleting applications
+  * ''[[manual:api:reference:application:get|application.get]]'' - retrieving application
+  * ''[[manual:api:reference:application:massadd|application.massadd]]'' - updating application
+  * ''[[manual:api:reference:application:update|application.update]]'' - adding items to applications

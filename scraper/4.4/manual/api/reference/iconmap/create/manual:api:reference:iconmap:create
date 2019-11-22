@@ -1,0 +1,72 @@
+===== iconmap.create =====
+
+==== Description ====
+
+''object iconmap.create(object/array **iconMaps**)''
+
+This method allows to create new icon maps.
+
+==== Parameters ====
+
+''(object/array)'' Icon maps to create.
+
+Additionally to the [[object#icon_map|standard icon map properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **mappings** \\ (required) | array | Icon mappings to be created for the icon map. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created icon maps under the ''iconmapids'' property. The order of the returned IDs matches the order of the passed icon maps.
+
+==== Examples ====
+
+=== Create an icon map ===
+
+Create an icon map to display hosts of different types.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "iconmap.create",
+    "params": {
+        "name": "Type icons",
+        "default_iconid": "2",
+        "mappings": [
+            {
+                "inventory_link": 1,
+                "expression": "server",
+                "iconid": "3"
+            },
+            {
+                "inventory_link": 1,
+                "expression": "switch",
+                "iconid": "4"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "iconmapids": [
+            "2"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#icon_mapping|Icon mapping]]
+==== Source ====
+
+CIconMap::create() in //frontends/php/include/classes/api/services/CIconMap.php//.

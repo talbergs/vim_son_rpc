@@ -1,0 +1,278 @@
+===== action.create =====
+
+==== Description ====
+
+''object action.create(object/array **actions**)''
+
+This method allows to create new actions.
+
+==== Parameters ====
+
+''(object/array)'' Actions to create.
+
+Additionally to the [[object#action|standard action properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| filter | object | Action filter object for the action. |
+| operations | array | Action operations to create for the action. |
+| recovery_operations | array | Action recovery operations to create for the action. |
+| acknowledge_operations | array | Action acknowledge operations to create for the action. |
+
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created actions under the ''actionids'' property. The order of the returned IDs matches the order of the passed actions.
+
+==== Examples ====
+
+=== Create a trigger action ===
+
+Create an action that will be run when a trigger from host "30045" that has the word "memory" in its name goes into problem state. The action must first send a message to all users in user group "7". If the event is not resolved in 4 minutes, it will run script "3" on all hosts in group "2". On trigger recovery it will notify all users who received any messages regarding the problem before. On trigger acknowledge, message with custom subject and body will be sent to all who left acknowledgements and comments via all media types.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "action.create",
+    "params": {
+        "name": "Trigger action",
+        "eventsource": 0,
+        "status": 0,
+        "esc_period": "2m",
+        "def_shortdata": "{TRIGGER.NAME}: {TRIGGER.STATUS}",
+        "def_longdata": "{TRIGGER.NAME}: {TRIGGER.STATUS}\r\nLast value: {ITEM.LASTVALUE}\r\n\r\n{TRIGGER.URL}",
+        "filter": {
+            "evaltype": 0,
+            "conditions": [
+                {
+                    "conditiontype": 1,
+                    "operator": 0,
+                    "value": "10084"
+                },
+                {
+                    "conditiontype": 3,
+                    "operator": 2,
+                    "value": "memory"
+                }
+            ]
+        },
+        "operations": [
+            {
+                "operationtype": 0,
+                "esc_period": "0s",
+                "esc_step_from": 1,
+                "esc_step_to": 2,
+                "evaltype": 0,
+                "opmessage_grp": [
+                    {
+                        "usrgrpid": "7"
+                    }
+                ],
+                "opmessage": {
+                    "default_msg": 1,
+                    "mediatypeid": "1"
+                }
+            },
+            {
+                "operationtype": 1,
+                "esc_step_from": 3,
+                "esc_step_to": 4,
+                "evaltype": 0,
+                "opconditions": [
+                    {
+                        "conditiontype": 14,
+                        "operator": 0,
+                        "value": "0"
+                    }
+                ],
+                "opcommand_grp": [
+                    {
+                        "groupid": "2"
+                    }
+                ],
+                "opcommand": {
+                    "type": 4,
+                    "scriptid": "3"
+                }
+            }
+        ],
+        "recovery_operations": [
+            {
+                "operationtype": "11",
+                "opmessage": {
+                    "default_msg": 1
+                }
+            }    
+        ],
+        "acknowledge_operations": [
+            {
+                "operationtype": "12",
+                "opmessage": {
+                    "message": "Custom acknowledge operation message body",
+                    "subject": "Custom acknowledge operation message subject"
+                }
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "actionids": [
+            "17"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Create a discovery action ===
+
+Create an action that will link discovered hosts to template "30085".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "action.create",
+    "params": {
+        "name": "Discovery action",
+        "eventsource": 1,
+        "status": 0,
+        "esc_period": "0s",
+        "filter": {
+            "evaltype": 0,
+            "conditions": [
+                {
+                    "conditiontype": 21,
+                    "value": "1"
+                },
+                {
+                    "conditiontype": 10,
+                    "value": "2"
+                }
+            ]
+        },
+        "operations": [
+            {
+                "esc_step_from": 1,
+                "esc_period": "0s",
+                "optemplate": [
+                    {
+                        "templateid": "10091"
+                    }
+                ],
+                "operationtype": 6,
+                "esc_step_to": 1
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "actionids": [
+            "18"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Using a custom expression filter ===
+
+Create a trigger action that will use a custom filter condition. The action must send a message for each trigger with severity higher or equal to "Warning" for hosts "10084" and "10106". The formula IDs "A", "B" and "C" have been chosen arbitrarily.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "action.create",
+    "params": {
+        "name": "Trigger action",
+        "eventsource": 0,
+        "status": 0,
+        "esc_period": "2m",
+        "def_shortdata": "{TRIGGER.NAME}: {TRIGGER.STATUS}",
+        "def_longdata": "{TRIGGER.NAME}: {TRIGGER.STATUS}\r\nLast value: {ITEM.LASTVALUE}\r\n\r\n{TRIGGER.URL}",
+        "filter": {
+            "evaltype": 3,
+            "formula": "A and (B or C)",
+            "conditions": [
+                {
+                    "conditiontype": 4,
+                    "operator": 5,
+                    "value": "2",
+                    "formulaid": "A"
+                },
+                {
+                    "conditiontype": 1,
+                    "operator": 0,
+                    "value": "10084",
+                    "formulaid": "B"
+                },
+                {
+                    "conditiontype": 1,
+                    "operator": 0,
+                    "value": "10106",
+                    "formulaid": "C"
+                }
+            ]
+        },
+        "operations": [
+            {
+                "operationtype": 0,
+                "esc_period": "0s",
+                "esc_step_from": 1,
+                "esc_step_to": 2,
+                "evaltype": 0,
+                "opmessage_grp": [
+                    {
+                        "usrgrpid": "7"
+                    }
+                ],
+                "opmessage": {
+                    "default_msg": 1,
+                    "mediatypeid": "1"
+                }
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "actionids": [
+            "18"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#action_filter|Action filter]]
+  * [[object#action_operation|Action operation]]
+
+==== Source ====
+
+CAction::create() in //frontends/php/include/classes/api/services/CAction.php//.

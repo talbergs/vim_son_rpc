@@ -1,0 +1,53 @@
+===== discoveryrule.delete =====
+
+==== Description ====
+
+''object discoveryrule.delete(array **lldRuleIds**)''
+
+This method allows to delete LLD rules.
+
+==== Parameters ====
+
+''(array)'' IDs of the LLD rules to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted LLD rules under the ''itemids'' property.
+
+==== Examples ====
+
+=== Deleting multiple LLD rules ===
+
+Delete two LLD rules.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.delete",
+    "params": [
+        "27665",
+        "27668"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "ruleids": [
+            "27665",
+            "27668"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CDiscoveryRule::delete() in //frontends/php/include/classes/api/services/CDiscoveryRule.php//.

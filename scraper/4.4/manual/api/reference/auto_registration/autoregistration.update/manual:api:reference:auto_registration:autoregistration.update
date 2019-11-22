@@ -1,0 +1,45 @@
+===== autoregistration.update =====
+
+==== Description ====
+
+''object autoregistration.update(object **autoregistration**)''
+
+This method allows to update existing autoregistration.
+
+==== Parameters ====
+
+''(object)'' Autoregistration properties to be updated.
+
+==== Return values ====
+
+''(boolean )'' Returns boolean true as result on successful update.
+
+==== Examples ====
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "autoregistration.update",
+    "params": {
+        "tls_accept": "3",
+        "tls_psk_identity": "Agent007",
+        "tls_psk": "11111595725ac58dd977beef14b97461a7c1045b9a1c923453302c5473193478"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CAutoregistration::update() in //frontends/php/include/classes/api/services/CAutoregistration.php//.

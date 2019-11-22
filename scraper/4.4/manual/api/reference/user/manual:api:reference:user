@@ -1,0 +1,15 @@
+===== User ====
+
+This class is designed to work with users. 
+
+Object references: \\
+  * [[manual:api:reference:user:object#user|User]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:user:create|user.create]]'' - creating new users
+  * ''[[manual:api:reference:user:delete|user.delete]]'' - deleting users
+  * ''[[manual:api:reference:user:get|user.get]]'' - retrieving users
+  * ''[[manual:api:reference:user:login|user.login]]'' - logging in to the API
+  * ''[[manual:api:reference:user:logout|user.logout]]'' - logging out of the API
+  * ''[[manual:api:reference:user:update|user.update]]'' - updating users

@@ -1,0 +1,70 @@
+===== triggerprototype.create =====
+
+==== Description ====
+
+''object triggerprototype.create(object/array **triggerPrototypes**)''
+
+This method allows to create new trigger prototypes.
+
+==== Parameters ====
+
+''(object/array)'' Trigger prototypes to create.
+
+Additionally to the [[object#trigger_prototype|standard trigger prototype properties]] the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dependencies | array | Triggers and trigger prototypes that the trigger prototype is dependent on. \\ \\ The triggers must have the ''triggerid'' property defined. |
+| tags         | array | Trigger prototype tags. |
+
+<note important>The trigger expression has to be given in its expanded form and must contain at least one item prototype.</note>
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created trigger prototypes under the ''triggerids'' property. The order of the returned IDs matches the order of the passed trigger prototypes.
+
+==== Examples ====
+
+=== Creating a trigger prototype ===
+
+Create a trigger prototype to detect when a file system has less than 20% free disk space.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "triggerprototype.create",
+    "params": {
+        "description": "Free disk space is less than 20% on volume {#FSNAME}",
+        "expression": "{Zabbix server:vfs.fs.size[{#FSNAME},pfree].last()}<20",
+        "tags": [
+            {
+                "tag": "volume",
+                "value": "{#FSNAME}"
+            },
+            {
+                "tag": "type",
+                "value": "{#FSTYPE}"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "17372"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CTriggerPrototype::create() in //frontends/php/include/classes/api/services/CTriggerPrototype.php//.

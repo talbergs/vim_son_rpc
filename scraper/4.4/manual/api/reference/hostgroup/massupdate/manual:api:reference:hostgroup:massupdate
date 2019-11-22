@@ -1,0 +1,72 @@
+===== hostgroup.massupdate =====
+
+==== Description ====
+
+''object hostgroup.massupdate(object **parameters**)''
+
+This method allows to simultaneously replace or remove related objects for multiple host groups.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the host groups to update and the objects that should be updated. 
+
+^ Parameter ^ Type ^ Description ^
+| **groups** \\ (required) | object/array | Host groups to be updated. \\ \\ The host groups must have the ''groupid'' property defined. |
+| hosts | object/array | Hosts to replace the current hosts on the given host groups. \\ \\ The hosts must have the ''hostid'' property defined. |
+| templates | object/array | Templates to replace the current templates on the given host groups. \\ \\ The templates must have the ''templateid'' property defined. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated host groups under the ''groupids'' property.
+
+==== Examples ====
+
+=== Replacing hosts in a host group ===
+
+Replace all hosts in the host group with ID.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.massupdate",
+    "params": {
+        "groups": [
+            {
+                "groupid": "6"
+            }
+        ],
+        "hosts": [
+            {
+                "hostid": "30050"
+            }
+        ]
+    },
+    "auth": "f223adf833b2bf2ff38574a67bba6372",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "groupids": [
+            "6",
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|hostgroup.update]]
+  * [[massadd|hostgroup.massadd]]
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:template:object#template|Template]]
+
+==== Source ====
+
+CHostGroup::massUpdate() in //frontends/php/include/classes/api/services/CHostGroup.php//.

@@ -1,0 +1,53 @@
+===== script.delete =====
+
+==== Description ====
+
+''object script.delete(array **scriptIds**)''
+
+This method allows to delete scripts.
+
+==== Parameters ====
+
+''(array)'' IDs of the scripts to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted scripts under the ''scriptids'' property.
+
+==== Examples ====
+
+=== Delete multiple scripts ===
+
+Delete two scripts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "script.delete",
+    "params": [
+        "3",
+        "4"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "scriptids": [
+            "3",
+            "4"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CScript::delete() in //frontends/php/include/classes/api/services/CScript.php//.

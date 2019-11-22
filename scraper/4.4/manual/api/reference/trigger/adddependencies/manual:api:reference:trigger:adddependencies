@@ -1,0 +1,62 @@
+===== trigger.adddependencies =====
+
+==== Description ====
+
+''object trigger.adddependencies(object/array **triggerDependencies**)''
+
+This method allows to create new trigger dependencies.
+
+==== Parameters ====
+
+''(object/array)'' Trigger dependencies to create. 
+
+Each trigger dependency has the following parameters:
+^ Parameter ^ Type ^ Description ^
+| **triggerid** \\ (required) | string | ID of the dependent trigger. |
+| **dependsOnTriggerid** \\ (required) | string | ID of the trigger that the trigger depends on. |
+
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the dependent triggers under the ''triggerids'' property.
+
+==== Examples ====
+
+=== Add a trigger dependency ===
+
+Make trigger "14092" dependent on trigger "13565."
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.adddependencies",
+    "params": {
+        "triggerid": "14092",
+        "dependsOnTriggerid": "13565"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "triggerids": [
+            "14092"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|trigger.update]]
+
+==== Source ====
+
+CTrigger::addDependencies() in //frontends/php/include/classes/api/services/CTrigger.php//.

@@ -1,0 +1,68 @@
+===== hostinterface.massremove =====
+
+==== Description ====
+
+''object hostinterface.massremove(object **parameters**)''
+
+This method allows to remove host interfaces from the given hosts.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the hosts to be updated and the interfaces to be removed.
+
+^ Parameter ^ Type ^ Description ^
+| **hostids** \\ (required) | string/array | IDs of the hosts to be updated. |
+| **interfaces** \\ (required) | object/array | Host interfaces to remove from the given hosts. \\ \\ The host interface object must have the ip, dns and port properties defined |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted host interfaces under the ''interfaceids'' property.
+
+==== Examples ====
+
+=== Removing interfaces ===
+
+Remove the "127.0.0.1" SNMP interface from two hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostinterface.massremove",
+    "params": {
+        "hostids": [
+            "30050",
+            "30052"
+        ],
+        "interfaces": {
+            "dns": "",
+            "ip": "127.0.0.1",
+            "port": "161"
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "interfaceids": [
+            "30069",
+            "30070"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[delete|hostinterface.delete]]
+  * [[manual:api:reference:host:massremove|host.massremove]]
+==== Source ====
+
+CHostInterface::massRemove() in //frontends/php/include/classes/api/services/CHostInterface.php//.

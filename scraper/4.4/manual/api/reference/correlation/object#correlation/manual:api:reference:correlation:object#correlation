@@ -1,0 +1,53 @@
+===== > Correlation object =====
+
+The following objects are directly related to the ''correlation'' API.
+
+==== Correlation ====
+
+The correlation object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| correlationid | string | //(readonly)// ID of the correlation. |
+| **name** \\ (required) | string | Name of the correlation. |
+| description | string | Description of the correlation. |
+| status | integer | Whether the correlation is enabled or disabled. \\ \\ Possible values are: \\ 0 - //(default)// enabled; \\ 1 - disabled. |
+
+==== Correlation operation ====
+
+The correlation operation object defines an operation that will be performed when a correlation is executed. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| **type** \\ (required) | integer | Type of operation. \\ \\ Possible values: \\ 0 - close old events; \\ 1 - close new event. |
+
+==== Correlation filter ====
+
+The correlation filter object defines a set of conditions that must be met to perform the configured correlation operations. It has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| **evaltype** \\ (required)  | integer | Filter condition evaluation method. \\ \\ Possible values: \\ 0 - and/or; \\ 1 - and; \\ 2 - or; \\ 3 - custom expression. |
+| **conditions** \\ (required) | array | Set of filter conditions to use for filtering results. |
+| eval_formula | string | //(readonly)// Generated expression that will be used for evaluating filter conditions. The expression contains IDs that reference specific filter conditions by its ''formulaid''. The value of ''eval_formula'' is equal to the value of ''formula'' for filters with a custom expression.  |
+| formula  | string | User-defined expression to be used for evaluating conditions of filters with a custom expression. The expression must contain IDs that reference specific filter conditions by its ''formulaid''.  The IDs used in the expression must exactly match the ones defined in the filter conditions: no condition can remain unused or omitted.\\ \\ Required for custom expression filters.  |
+
+=== Correlation filter condition ===
+
+The correlation filter condition object defines a specific condition that must be checked before running the correlation operations.
+
+^  Property  ^  Type  ^  Description  ^
+| **type** \\ (required) | integer | Type of condition. \\ \\ Possible values: \\ 0 - old event tag; \\ 1 - new event tag; \\ 2 - new event host group; \\ 3 - event tag pair; \\ 4 - old event tag value; \\ 5 - new event tag value.  |
+| tag | string | Event tag (old or new). Required when type of condition is: 0, 1, 4, 5. |
+| groupid | string | Host group ID. Required when type of condition is: 2. |
+| oldtag | string | Old event tag. Required when type of condition is: 3. |
+| newtag | string | Old event tag. Required when type of condition is: 3. |
+| value | string | Event tag (old or new) value. Required when type of condition is: 4, 5. |
+| formulaid | string | Arbitrary unique ID that is used to reference the condition from a custom expression. Can only contain capital-case letters. The ID must be defined by the user when modifying filter conditions, but will be generated anew when requesting them afterward. |
+| operator | integer | Condition operator. \\ \\ Required when type of condition is: 2, 4, 5. |
+
+<note tip>To better understand how to use filters with various types of expressions, see examples on the [[get#retrieve_correlations|correlation.get]] and [[create#using_a_custom_expression_filter|correlation.create]] method pages.</note>
+
+The following operators and values are supported for each condition type.
+
+^ Condition ^ Condition name ^ Supported operators ^ Expected value ^
+| 2 | Host group | =, <> | Host group ID. |
+| 4 | Old event tag value | =, <>, like, not like | string |
+| 5 | New  event tag value | =, <>, like, not like | string |

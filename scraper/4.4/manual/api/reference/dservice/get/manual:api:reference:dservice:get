@@ -1,0 +1,107 @@
+===== dservice.get =====
+
+==== Description ====
+
+''integer/array dservice.get(object **parameters**)''
+
+The method allows to retrieve discovered services according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dserviceids | string/array | Return only discovered services with the given IDs. |
+| dhostids | string/array | Return only discovered services that belong to the given discovered hosts. |
+| dcheckids | string/array | Return only discovered services that have been detected by the given discovery checks. |
+| druleids | string/array | Return only discovered services that have been detected by the given discovery rules. |
+^ |||
+| selectDRules | query | Return a ''[[:manual/api/reference/drule/object|drules]]'' property with an array of the discovery rules that detected the service.  |
+| selectDHosts | query | Return a ''[[:manual/api/reference/dhost/object|dhosts]]'' property with an array the discovered hosts that the service belongs to. |
+| selectHosts | query | Return a ''[[:manual/api/reference/host/object|hosts]]'' property with the hosts with the same IP address and proxy as the service. \\ \\ Supports ''count''. |
+^ |||
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selectHosts'' - result will be sorted by ''hostid''. |
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''dserviceid'', ''dhostid'' and ''ip''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve services discovered on a host ===
+
+Retrieve all discovered services detected on discovered host "11".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "dservice.get",
+    "params": {
+        "output": "extend",
+        "dhostids": "11"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "dserviceid": "12",
+            "dhostid": "11",
+            "value": "",
+            "port": "80",
+            "status": "1",
+            "lastup": "0",
+            "lastdown": "1348650607",
+            "dcheckid": "5",
+            "ip": "192.168.1.134",
+            "dns": "john.local"
+        },
+        {
+            "dserviceid": "13",
+            "dhostid": "11",
+            "value": "",
+            "port": "21",
+            "status": "1",
+            "lastup": "0",
+            "lastdown": "1348650610",
+            "dcheckid": "6",
+            "ip": "192.168.1.134",
+            "dns": "john.local"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:dhost:object#discovered_host|Discovered host]]
+  * [[manual:api:reference:dcheck:object#discovery_check|Discovery check]]
+  * [[manual:api:reference:host:object#host|Host]]
+==== Source ====
+
+CDService::get() in //frontends/php/include/classes/api/services/CDService.php//.

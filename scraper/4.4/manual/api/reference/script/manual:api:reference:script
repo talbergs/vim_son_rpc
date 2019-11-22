@@ -1,0 +1,15 @@
+===== Script =====
+
+This class is designed to work with scripts. 
+
+Object references: \\
+  * [[manual:api:reference:script:object#script|Script]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:script:create|script.create]]'' - create new scripts
+  * ''[[manual:api:reference:script:delete|script.delete]]'' - delete scripts
+  * ''[[manual:api:reference:script:execute|script.execute]]'' - run scripts
+  * ''[[manual:api:reference:script:get|script.get]]'' - retrieve scripts
+  * ''[[manual:api:reference:script:getscriptsbyhosts|script.getscriptsbyhosts]]'' - retrieve scripts for hosts
+  * ''[[manual:api:reference:script:update|script.update]]'' - update scripts

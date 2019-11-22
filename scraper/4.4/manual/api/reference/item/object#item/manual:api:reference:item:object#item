@@ -1,0 +1,118 @@
+===== > Item object =====
+
+The following objects are directly related to the ''item'' API.
+
+==== Item ====
+
+<note>Web items cannot be directly created, updated or deleted via the Zabbix API.</note>
+
+The item object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| itemid  | string  | //(readonly)// ID of the item.  |
+| **delay** \\ (required) | string | Update interval of the item. Accepts seconds or a time unit with suffix (30s,1m,2h,1d).\\ Optionally one or more [[manual:config:items:item:custom_intervals|custom intervals]] can be specified either as flexible intervals or scheduling.\\ Multiple intervals are separated by a semicolon.\\ User macros may be used. A single macro has to fill the whole field. Multiple macros in a field or macros mixed with text are not supported.\\ Flexible intervals may be written as two macros separated by a forward slash (e.g. ''{$FLEX_INTERVAL}/{$FLEX_PERIOD}'').\\ \\ Optional for Zabbix trapper or dependent items.|
+| **hostid** \\ (required) | string | ID of the host or template that the item belongs to. \\ \\ For update operations this field is //readonly//. |
+| **interfaceid** \\ (required) | string  | ID of the item's host interface.\\ \\ Not required for template items. Optional for internal, active agent, trapper, aggregate, calculated, dependent and  database monitor items. |
+| **key_** \\ (required) | string | Item key. |
+| **name** \\ (required) | string | Name of the item. |
+| **type** \\ (required) | integer | Type of the item. \\ \\ Possible values: \\ 0 - Zabbix agent; \\ 1 - SNMPv1 agent; \\ 2 - Zabbix trapper; \\ 3 - simple check; \\ 4 - SNMPv2 agent; \\ 5 - Zabbix internal; \\ 6 - SNMPv3 agent; \\ 7 - Zabbix agent (active); \\ 8 - Zabbix aggregate; \\ 9 - web item; \\ 10 - external check; \\ 11 - database monitor; \\ 12 - IPMI agent; \\ 13 - SSH agent; \\ 14 - TELNET agent; \\ 15 - calculated; \\ 16 - JMX agent; \\ 17 - SNMP trap; \\ 18 - Dependent item; \\ 19 - HTTP agent; |
+| **url** \\ (required) | string | URL string, required only for HTTP agent item type. Supports user macros, {HOST.IP}, {HOST.CONN}, {HOST.DNS}, {HOST.HOST}, {HOST.NAME}, {ITEM.ID}, {ITEM.KEY}. |
+| **value_type** \\ (required) | integer | Type of information of the item. \\ \\ Possible values: \\ 0 - numeric float; \\ 1 - character; \\ 2 - log; \\ 3 - numeric unsigned; \\ 4 - text. |
+| allow_traps | integer | HTTP agent item field. Allow to populate value as in trapper item type also.\\ \\ 0 - //(default)// Do not allow to accept incoming data.  \\ 1 - Allow to accept incoming data.  |
+| authtype | integer | Used only by SSH agent items or HTTP agent items. \\ \\ SSH agent authentication method possible values: \\ 0 - //(default)// password; \\ 1 - public key.\\ \\ HTTP agent authentication method possible values:\\ 0 - //(default)// none\\ 1 - basic\\ 2 - NTLM |
+| description | string | Description of the item. |
+| error | string | //(readonly)// Error text if there are problems updating the item. |
+| flags | integer | //(readonly)// Origin of the item. \\ \\ Possible values: \\ 0 - a plain item; \\ 4 - a discovered item. |
+| follow_redirects | integer | HTTP agent item field. Follow respose redirects while pooling data.\\ \\ 0 - Do not follow redirects. \\ 1 - //(default)// Follow redirects. |
+| headers | object | HTTP agent item field. Object with HTTP(S) request headers, where header name is used as key and header value as value. \\ \\ Example: \\ { "User-Agent": "Zabbix" } |
+| history | string | A time unit of how long the history data should be stored. Also accepts user macro. \\ \\ Default: 90d. |
+| http_proxy | string | HTTP agent item field. HTTP(S) proxy connection string. |
+| inventory_link | integer | ID of the host inventory field that is populated by the item. \\ \\ Refer to the [[manual:api:reference:host:object#host_inventory|host inventory page]] for a list of supported host inventory fields and their IDs. \\ \\ Default: 0. |
+| ipmi_sensor | string | IPMI sensor. Used only by IPMI items. |
+| jmx_endpoint | string | JMX agent custom connection string. \\ \\ Default value: \\ <nowiki>service:jmx:rmi:///jndi/rmi://{HOST.CONN}:{HOST.PORT}/jmxrmi</nowiki> |
+| lastclock | timestamp | //(readonly)// Time when the item was last updated. \\ \\ This property will only return a value for the period configured in [[manual:web_interface:definitions|ZBX_HISTORY_PERIOD]]. |
+| lastns | integer | //(readonly)// Nanoseconds when the item was last updated. \\ \\ This property will only return a value for the period configured in [[manual:web_interface:definitions|ZBX_HISTORY_PERIOD]]. |
+| lastvalue | string | //(readonly)// Last value of the item. \\ \\ This property will only return a value for the period configured in [[manual:web_interface:definitions|ZBX_HISTORY_PERIOD]]. |
+| logtimefmt | string | Format of the time in log entries. Used only by log items. |
+| master_itemid | integer | Master item ID.\\ Recursion up to 3 dependent items and maximum count of dependent items equal to 999 are allowed. \\ \\ Required by dependent items. |
+| output_format | integer | HTTP agent item field. Should response converted to JSON.\\ \\ 0 - //(default)// Store raw. \\ 1 - Convert to JSON. |
+| params | string | Additional parameters depending on the type of the item: \\ - executed script for SSH and Telnet items; \\ - SQL query for database monitor items; \\ - formula for calculated items. |
+| password | string | Password for authentication. Used by simple check, SSH, Telnet, database monitor, JMX and HTTP agent items. \\ When used by JMX, username should also be specified together with password or both properties should be left blank.  |
+| port | string | Port monitored by the item. Used only by SNMP items. |
+| post_type | integer | HTTP agent item field. Type of post data body stored in posts property.\\ \\ 0 - //(default)// Raw data. \\ 2 - JSON data. \\ 3 - XML data. |
+| posts | string | HTTP agent item field. HTTP(S) request body data. Used with post_type. |
+| prevvalue | string | //(readonly)// Previous value of the item. \\ \\ This property will only return a value for the period configured in [[manual:web_interface:definitions|ZBX_HISTORY_PERIOD]]. |
+| privatekey | string | Name of the private key file. |
+| publickey | string | Name of the public key file. |
+| query_fields | array | HTTP agent item field. Query parameters. Array of objects with 'key':'value' pairs, where value can be empty string. |
+| request_method | integer | HTTP agent item field. Type of request method.\\ \\ 0 - //(default)// GET \\ 1 - POST \\ 2 - PUT \\ 3 - HEAD |
+| retrieve_mode | integer | HTTP agent item field. What part of response should be stored.\\ \\ 0 - //(default)// Body. \\ 1 - Headers. \\ 2 - Both body and headers will be stored. \\ \\ For request_method HEAD only 1 is allowed value. |
+| snmp_community | string | SNMP community. Used only by SNMPv1 and SNMPv2 items. |
+| snmp_oid | string | SNMP OID. |
+| snmpv3_authpassphrase | string | SNMPv3 auth passphrase. Used only by SNMPv3 items. |
+| snmpv3_authprotocol | integer | SNMPv3 authentication protocol. Used only by SNMPv3 items. \\ \\ Possible values: \\ 0 - //(default)// MD5; \\ 1 - SHA. |
+| snmpv3_contextname | string | SNMPv3 context name. Used only by SNMPv3 items. |
+| snmpv3_privpassphrase | string | SNMPv3 priv passphrase. Used only by SNMPv3 items.  |
+| snmpv3_privprotocol | integer | SNMPv3 privacy protocol. Used only by SNMPv3 items. \\ \\ Possible values: \\ 0 - //(default)// DES; \\ 1 - AES. |
+| snmpv3_securitylevel | integer | SNMPv3 security level. Used only by SNMPv3 items. \\ \\ Possible values: \\ 0 - noAuthNoPriv; \\ 1 - authNoPriv; \\ 2 - authPriv. |
+| snmpv3_securityname | string | SNMPv3 security name. Used only by SNMPv3 items. |
+| ssl_cert_file | string | HTTP agent item field. Public SSL Key file path. |
+| ssl_key_file | string | HTTP agent item field. Private SSL Key file path. |
+| ssl_key_password | string | HTTP agent item field. Password for SSL Key file. |
+| state | integer | //(readonly)// State of the item. \\ \\ Possible values: \\ 0 - //(default)// normal; \\ 1 - not supported. |
+| status | integer | Status of the item. \\ \\ Possible values: \\ 0 - //(default)// enabled item; \\ 1 - disabled item. |
+| status_codes | string | HTTP agent item field. Ranges of required HTTP status codes separated by commas. Also supports user macros as part of comma separated list. \\ \\ Example: 200,200-{$M},{$M},200-400 |
+| templateid | string | (readonly) ID of the parent template item.\\ \\ //Hint//: Use the ''hostid'' property to specify the template that the item belongs to. |
+| timeout | string | HTTP agent item field. Item data polling request timeout. Support user macros. \\ \\ default: 3s \\ maximum value: 60s |
+| trapper_hosts | string | Allowed hosts. Used by trapper items or HTTP agent items. |
+| trends | string | A time unit of how long the trends data should be stored. Also accepts user macro. \\ \\ Default: 365d. |
+| units | string | Value units. |
+| username | string | Username for authentication. Used by simple check, SSH, Telnet, database monitor, JMX and HTTP agent items. \\ \\ Required by SSH and Telnet items. \\ When used by JMX, password should also be specified together with username or both properties should be left blank.  |
+| valuemapid | string | ID of the associated value map. |
+| verify_host | integer | HTTP agent item field. Validate host name in URL is in Common Name field or a Subject Alternate Name field of host certificate.\\ \\ 0 - //(default)// Do not validate. \\ 1 - Validate. |
+| verify_peer | integer | HTTP agent item field. Validate is host certificate authentic.\\ \\ 0 - //(default)// Do not validate. \\ 1 - Validate. |
+=== Item preprocessing ===
+
+The item preprocessing object has the following properties.
+
+^ Property                 ^ Type    ^ Description ^
+| **type** \\ (required)   | integer | The preprocessing option type. \\ \\ Possible values: \\ 1 - Custom multiplier; \\ 2 - Right trim; \\ 3 - Left trim; \\ 4 - Trim; \\ 5 - Regular expression matching; \\ 6 - Boolean to decimal; \\ 7 - Octal to decimal; \\ 8 - Hexadecimal to decimal; \\ 9 - Simple change; \\ 10 - Change per second; \\ 11 - XML XPath; \\ 12 - JSONPath; \\ 13 - In range; \\ 14 - Matches regular expression; \\ 15 - Does not match regular expression; \\ 16 - Check for error in JSON; \\ 17 - Check for error in XML; \\ 18 - Check for error using regular expression; \\ 19 - Discard unchanged; \\ 20 - Discard unchanged with heartbeat; \\ 21 - JavaScript; \\ 22 - Prometheus pattern; \\ 23 - Prometheus to JSON. |
+| **params** \\ (required) | string  | Additional parameters used by preprocessing option. Multiple parameters are separated by LF (\n) character. |
+| **error_handler** \\ (required) | integer | Action type used in case of preprocessing step failure. \\ \\ Possible values: \\ 0 - Error message is set by Zabbix server; \\ 1 - Discard value; \\ 2 - Set custom value; \\ 3 - Set custom error message. |
+| **error_handler_params** \\ (required) | string  | Error handler parameters. Used with ''error_handler''. \\ \\ Must be empty, if ''error_handler'' is 0 or 1. \\ Can be empty if, ''error_handler'' is 2. \\ Cannot be empty, if ''error_handler'' is 3. |
+
+The following parameters and error handlers are supported for each preprocessing type.
+
+^ Preprocessing type ^ Name                                  ^ Parameter 1                    ^ Parameter 2           ^ Supported error handlers ^
+| 1                  | Custom multiplier                     | number<sup>1, 6</sup>          |                       | 0, 1, 2, 3               |
+| 2                  | Right trim                            | list of characters<sup>2</sup> |                       |                          |
+| 3                  | Left trim                             | list of characters<sup>2</sup> |                       |                          |
+| 4                  | Trim                                  | list of characters<sup>2</sup> |                       |                          |
+| 5                  | Regular expression                    | pattern<sup>3</sup>            | output<sup>2</sup>    | 0, 1, 2, 3               |
+| 6                  | Boolean to decimal                    |                                |                       | 0, 1, 2, 3               |
+| 7                  | Octal to decimal                      |                                |                       | 0, 1, 2, 3               |
+| 8                  | Hexadecimal to decimal                |                                |                       | 0, 1, 2, 3               |
+| 9                  | Simple change                         |                                |                       | 0, 1, 2, 3               |
+| 10                 | Change per second                     |                                |                       | 0, 1, 2, 3               |
+| 11                 | XML XPath                             | path<sup>4</sup>               |                       | 0, 1, 2, 3               |
+| 12                 | JSONPath                              | path<sup>4</sup>               |                       | 0, 1, 2, 3               |
+| 13                 | In range                              | min<sup>1, 6</sup>             | max<sup>1, 6</sup>    | 0, 1, 2, 3               |
+| 14                 | Matches regular expression            | pattern<sup>3</sup>            |                       | 0, 1, 2, 3               |
+| 15                 | Does not match regular expression     | pattern<sup>3</sup>            |                       | 0, 1, 2, 3               |
+| 16                 | Check for error in JSON               | path<sup>4</sup>               |                       | 0, 1, 2, 3               |
+| 17                 | Check for error in XML                | path<sup>4</sup>               |                       | 0, 1, 2, 3               |
+| 18                 | Check for error using regular expression | pattern<sup>3</sup>         | output<sup>2</sup>    | 0, 1, 2, 3               |
+| 19                 | Discard unchanged                     |                                |                       |                          |
+| 20                 | Discard unchanged with heartbeat      | seconds<sup>5, 6</sup>         |                       |                          |
+| 21                 | JavaScript                            | script<sup>2</sup>             |                       |                          |
+| 22                 | Prometheus pattern                    | pattern<sup>6, 7</sup>         | output<sup>6, 8</sup> | 0, 1, 2, 3               |
+| 23                 | Prometheus to JSON                    | pattern<sup>6, 7</sup>         |                       | 0, 1, 2, 3               |
+
+<sup>1</sup> integer or floating-point number \\
+<sup>2</sup> string \\
+<sup>3</sup> regular expression \\
+<sup>4</sup> JSONPath or XML XPath \\
+<sup>5</sup> positive integer (with support of time suffixes, e.g. 30s, 1m, 2h, 1d) \\
+<sup>6</sup> user macro \\
+<sup>7</sup> Prometheus pattern following the syntax: ''<metric name>{<label name>="<label value>", ...} == <value>''. Each Prometheus pattern component (metric, label name, label value and metric value) can be user macro. \\
+<sup>8</sup> Prometheus output following the syntax: ''<label name>''.

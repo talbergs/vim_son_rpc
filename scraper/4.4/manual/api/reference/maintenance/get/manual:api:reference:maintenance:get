@@ -1,0 +1,124 @@
+===== maintenance.get =====
+
+==== Description ====
+
+''integer/array maintenance.get(object **parameters**)''
+
+The method allows to retrieve maintenances according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| groupids | string/array | Return only maintenances that are assigned to the given host groups. |
+| hostids | string/array | Return only maintenances that are assigned to the given hosts. |
+| maintenanceids | string/array | Return only maintenances with the given IDs. |
+^ |||
+| selectGroups | query | Return a ''[[:manual/api/reference/hostgroup/object|groups]]'' property with host groups assigned to the maintenance.  |
+| selectHosts | query | Return a ''[[:manual/api/reference/host/object|hosts]]'' property with hosts assigned to the maintenance.  |
+| selectTags | query | Return a ''[[:manual/api/reference/trigger/object#trigger_tag|tags]]'' property with problem tags of the maintenance.  |
+| selectTimeperiods | query | Return a ''timeperiods'' property with time periods of the maintenance.  |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''maintenanceid'', ''name'' and ''maintenance_type''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving maintenances ===
+
+Retrieve all configured maintenances, and the data about the assigned host groups, defined time periods and problem tags.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "maintenance.get",
+    "params": {
+        "output": "extend",
+        "selectGroups": "extend",
+        "selectTimeperiods": "extend",
+        "selectTags": "extend"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "maintenanceid": "3",
+            "name": "Sunday maintenance",
+            "maintenance_type": "0",
+            "description": "",
+            "active_since": "1358844540",
+            "active_till": "1390466940",
+            "tags_evaltype": "0",
+            "groups": [
+                {
+                    "groupid": "4",
+                    "name": "Zabbix servers",
+                    "internal": "0"
+                }
+            ],
+            "timeperiods": [
+                {
+                    "timeperiodid": "4",
+                    "timeperiod_type": "3",
+                    "every": "1",
+                    "month": "0",
+                    "dayofweek": "1",
+                    "day": "0",
+                    "start_time": "64800",
+                    "period": "3600",
+                    "start_date": "2147483647"
+                }
+            ],
+            "tags": [
+                {
+                    "tag": "service",
+                    "operator": "0",
+                    "value": "mysqld",
+                },
+                {
+                    "tag": "error",
+                    "operator": "2",
+                    "value": ""
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[object#time_period|Time period]]
+==== Source ====
+
+CMaintenance::get() in //frontends/php/include/classes/api/services/CMaintenance.php//.

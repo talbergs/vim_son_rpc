@@ -1,0 +1,232 @@
+===== dashboard.get =====
+
+==== Description ====
+
+''integer/array dashboard.get(object **parameters**)''
+
+The method allows to retrieve dashboards according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dashboardids | string/array | Return only dashboards with the given IDs. |
+^ |||
+| selectWidgets | query | Return a ''widgets'' property with the dashboard widgets that are used in the dashboard. |
+| selectUsers| query | Return a ''[[:manual/api/reference/user/object|users]]'' property with users that the dashboard is shared with. |
+| selectUserGroups| query | Return a ''[[:manual/api/reference/usergroup/object|userGroups]]'' property with user groups that the dashboard is shared with. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible value is: ''dashboardid''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving a dashboard by ID ===
+
+Retrieve all data about dashboards "1" and "2".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "dashboard.get",
+    "params": {
+        "output": "extend",
+        "selectWidgets": "extend",
+        "selectUsers": "extend",
+        "selectUserGroups": "extend",
+        "dashboardids": [
+            "1",
+            "2"
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "dashboardid": "1",
+            "name": "Dashboard",
+            "userid": "1",
+            "private": "0",
+            "users": [],
+            "userGroups": [],
+            "widgets": [
+                {
+                    "widgetid": "9",
+                    "type": "systeminfo",
+                    "name": "",
+                    "x": "12",
+                    "y": "8",
+                    "width": "12",
+                    "height": "5",
+                    "view_mode": 0,
+                    "fields": []
+                },
+                {
+                    "widgetid": "8",
+                    "type": "problemsbysv",
+                    "name": "",
+                    "x": "12",
+                    "y": "4",
+                    "width": "12",
+                    "height": "4",
+                    "view_mode": 0,
+                    "fields": []
+                },
+                {
+                    "widgetid": "7",
+                    "type": "problemhosts",
+                    "name": "",
+                    "x": "12",
+                    "y": "0",
+                    "width": "12",
+                    "height": "4",
+                    "view_mode": 0,
+                    "fields": []
+                },
+                {
+                    "widgetid": "6",
+                    "type": "discovery",
+                    "name": "",
+                    "x": "6",
+                    "y": "9",
+                    "width": "6",
+                    "height": "4",
+                    "view_mode": 0,
+                    "fields": []
+                },
+                {
+                    "widgetid": "5",
+                    "type": "web",
+                    "name": "",
+                    "x": "0",
+                    "y": "9",
+                    "width": "6",
+                    "height": "4",
+                    "view_mode": 0,
+                    "fields": []
+                },
+                {
+                    "widgetid": "4",
+                    "type": "problems",
+                    "name": "",
+                    "x": "0",
+                    "y": "3",
+                    "width": "12",
+                    "height": "6",
+                    "view_mode": 0,
+                    "fields": []
+                },
+                {
+                    "widgetid": "3",
+                    "type": "favmaps",
+                    "name": "",
+                    "x": "8",
+                    "y": "0",
+                    "width": "4",
+                    "height": "3",
+                    "view_mode": 0,
+                    "fields": []
+                },
+                {
+                    "widgetid": "2",
+                    "type": "favscreens",
+                    "name": "",
+                    "x": "4",
+                    "y": "0",
+                    "width": "4",
+                    "height": "3",
+                    "view_mode": 0,
+                    "fields": []
+                },
+                {
+                    "widgetid": "1",
+                    "type": "favgraphs",
+                    "name": "",
+                    "x": "0",
+                    "y": "0",
+                    "width": "4",
+                    "height": "3",
+                    "view_mode": 0,
+                    "fields": []
+                }
+            ]
+        },
+        {
+            "dashboardid": "2",
+            "name": "My dashboard",
+            "userid": "1",
+            "private": "1",
+            "users": [
+                {
+                    "userid": "4",
+                    "permission": "3"
+                }
+            ],
+            "userGroups": [
+                {
+                    "usrgrpid": "7",
+                    "permission": "2"
+                }
+            ],
+            "widgets": [
+                {
+                    "widgetid": "10",
+                    "type": "problems",
+                    "name": "",
+                    "x": "0",
+                    "y": "0",
+                    "width": "12",
+                    "height": "5",
+                    "view_mode": 0,
+                    "fields": [
+                        {
+                            "type": "2",
+                            "name": "groupids",
+                            "value": "4"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#dashboard_widget|Dashboard widget]]
+  * [[object#dashboard_widget_field|Dashboard widget field]]
+  * [[object#dashboard_user|Dashboard user]]
+  * [[object#dashboard_user_group|Dashboard user group]]
+
+==== Source ====
+
+CDashboard::get() in //frontends/php/include/classes/api/services/CDashboard.php//.

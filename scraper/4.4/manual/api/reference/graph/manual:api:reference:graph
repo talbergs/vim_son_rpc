@@ -1,0 +1,12 @@
+===== Graph =====
+
+This class is designed to work with items. 
+
+Object references: \\
+  * [[manual:api:reference:graph:object#graph|Graph]]
+
+Available methods: \\
+  * ''[[manual:api:reference:graph:create|graph.create]]'' - creating new graphs
+  * ''[[manual:api:reference:graph:delete|graph.delete]]'' - deleting graphs
+  * ''[[manual:api:reference:graph:get|graph.get]]'' - retrieving graphs
+  * ''[[manual:api:reference:graph:update|graph.update]]'' - updating graphs

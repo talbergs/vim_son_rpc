@@ -1,0 +1,71 @@
+===== templatescreen.create =====
+
+==== Description ====
+
+''object templatescreen.create(object/array **templateScreens**)''
+
+This method allows to create new template screens.
+
+==== Parameters ====
+
+''(object/array)'' Template screens to create.
+
+Additionally to the [[object#template_screen|standard template screen properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **screenitems** | array | Template screen items to create on the screen. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created template screens under the ''screenids'' property. The order of the returned IDs matches the order of the passed template screens.
+
+==== Examples ====
+
+=== Create a template screen ===
+
+Create a template screen named “Graphs” with 2 rows and 3 columns and add a graph to the upper-left cell.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "templatescreen.create",
+    "params": {
+        "name": "Graphs",
+        "templateid": "10047",
+        "hsize": 3,
+        "vsize": 2,
+        "screenitems": [
+            {
+                "resourcetype": 0,
+                "resourceid": "410",
+                "x": 0,
+                "y": 0
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenids": [
+            "45"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:templatescreenitem:object#template_screen_item|Template screen item]]
+
+==== Source ====
+
+CTemplateScreen::create() in //frontends/php/include/classes/api/services/CTemplateScreen.php//.

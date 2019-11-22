@@ -1,0 +1,12 @@
+===== Item =====
+
+This class is designed to work with items. 
+
+Object references: \\
+  * [[manual:api:reference:item:object#item|Item]]
+
+Available methods: \\
+  * ''[[manual:api:reference:item:create|item.create]]'' - creating new items
+  * ''[[manual:api:reference:item:delete|item.delete]]'' - deleting items
+  * ''[[manual:api:reference:item:get|item.get]]'' - retrieving items
+  * ''[[manual:api:reference:item:update|item.update]]'' - updating items

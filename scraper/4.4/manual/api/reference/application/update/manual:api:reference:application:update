@@ -1,0 +1,54 @@
+===== application.update =====
+
+==== Description ====
+
+''object application.update(object/array **applications**)''
+
+This method allows to update existing applications.
+
+==== Parameters ====
+
+''(object/array)'' [[object#application|Application properties]] to be updated.
+
+The ''applicationid'' property must be defined for each application, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated applications under the ''applicationids'' property.
+
+==== Examples ====
+
+=== Changing the name of an application ===
+
+Change the name of the application to "Processes and performance".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "application.update",
+    "params": {
+        "applicationid": "13",
+        "name": "Processes and performance"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "applicationids": [
+            "13"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CApplication::update() in //frontends/php/include/classes/api/services/CApplication.php//.

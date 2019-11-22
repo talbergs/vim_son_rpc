@@ -1,0 +1,20 @@
+===== Map =====
+
+This class is designed to work with maps. 
+
+Object references: \\
+  * [[manual:api:reference:map:object#map|Map]]
+  * [[manual:api:reference:map:object#map_element|Map element]]
+  * [[manual:api:reference:map:object#map_link|Map link]]
+  * [[manual:api:reference:map:object#map_url|Map URL]]
+  * [[manual:api:reference:map:object#map_user|Map user]]
+  * [[manual:api:reference:map:object#map_user_group|Map user group]]
+  * [[manual:api:reference:map:object#map_shapes|Map shape]]
+  * [[manual:api:reference:map:object#map_lines|Map line]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:map:create|map.create]]'' - create new maps
+  * ''[[manual:api:reference:map:delete|map.delete]]'' - delete maps
+  * ''[[manual:api:reference:map:get|map.get]]'' - retrieve maps
+  * ''[[manual:api:reference:map:update|map.update]]'' - update maps

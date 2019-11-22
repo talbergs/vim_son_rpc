@@ -1,0 +1,49 @@
+===== user.logout =====
+
+==== Description ====
+
+''string/object user.logout(array)''
+
+This method allows to log out of the API and invalidates the current authentication token.
+
+==== Parameters ====
+
+''(array)'' The method accepts an empty array.
+
+==== Return values ====
+
+''(boolean)'' Returns ''true'' if the user has been logged out successfully. 
+
+==== Examples ====
+
+=== Logging out ===
+
+Log out from the API.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "user.logout",
+    "params": [],
+    "id": 1,
+    "auth": "16a46baf181ef9602e1687f3110abf8a"
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[login|user.login]]
+
+==== Source ====
+
+CUser::login() in //frontends/php/include/classes/api/services/CUser.php//.

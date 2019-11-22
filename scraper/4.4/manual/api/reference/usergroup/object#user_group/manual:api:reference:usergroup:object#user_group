@@ -1,0 +1,30 @@
+===== > User group object =====
+
+The following objects are directly related to the ''usergroup'' API.
+
+==== User group ====
+
+The user group object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| usrgrpid  | string  | //(readonly)// ID of the user group.  |
+| **name** \\ (required) | string | Name of the user group. |
+| debug_mode | integer | Whether debug mode is enabled or disabled. \\ \\ Possible values are: \\ 0 - //(default)// disabled; \\ 1 - enabled. |
+| gui_access | integer | Frontend authentication method of the users in the group. \\ \\ Possible values: \\ 0 - //(default)// use the system default authentication method; \\ 1 - use internal authentication; \\ 2 - use LDAP authentication; \\ 3 - disable access to the frontend. |
+| users_status | integer | Whether the user group is enabled or disabled. \\ \\ Possible values are: \\ 0 - //(default)// enabled; \\ 1 - disabled. |
+==== Permission ====
+
+The permission object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| **id** \\ (required) | string | ID of the host group to add permission to. |
+| **permission** \\ (required) | integer | Access level to the host group. \\ \\ Possible values: \\ 0 - access denied; \\ 2 - read-only access; \\ 3 - read-write access. |
+
+==== Tag based permission ====
+
+The tag based permission object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| **groupid** \\ (required) | string | ID of the host group to add permission to. |
+| **tag** | string | Tag name. |
+| **value** | string | Tag value. |

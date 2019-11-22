@@ -1,0 +1,15 @@
+===== Discovery rule =====
+
+This class is designed to work with network discovery rules. 
+
+<note tip>This API is meant to work with network discovery rules. For the low-level discovery rules see the [[discoveryrule|LLD rule API]].</note>
+
+Object references: \\
+  * [[manual:api:reference:drule:object#discovery_rule|Discovery rule]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:drule:create|drule.create]]'' - create new discovery rules
+  * ''[[manual:api:reference:drule:delete|drule.delete]]'' - delete discovery rules
+  * ''[[manual:api:reference:drule:get|drule.get]]'' - retrieve discovery rules
+  * ''[[manual:api:reference:drule:update|drule.update]]'' - update discovery rules

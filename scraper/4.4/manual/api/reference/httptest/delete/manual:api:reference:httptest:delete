@@ -1,0 +1,53 @@
+===== httptest.delete =====
+
+==== Description ====
+
+''object httptest.delete(array **webScenarioIds**)''
+
+This method allows to delete web scenarios.
+
+==== Parameters ====
+
+''(array)'' IDs of the web scenarios to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted web scenarios under the ''httptestids'' property.
+
+==== Examples ====
+
+=== Deleting multiple web scenarios ===
+
+Delete two web scenarios.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "httptest.delete",
+    "params": [
+        "2",
+        "3"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "httptestids": [
+            "2",
+            "3"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CHttpTest::delete() in //frontends/php/include/classes/api/services/CHttpTest.php//.

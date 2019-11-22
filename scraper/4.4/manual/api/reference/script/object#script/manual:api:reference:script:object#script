@@ -1,0 +1,19 @@
+===== > Script object =====
+
+The following objects are directly related to the ''script'' API.
+
+==== Script ====
+
+The script object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| scriptid  | string  | //(readonly)// ID of the script.  |
+| **command** \\ (required) | string | Command to run. |
+| **name** \\ (required) | string | Name of the script. |
+| confirmation | string | Confirmation pop up text. The pop up will appear when trying to run the script from the Zabbix frontend. |
+| description | string | Description of the script. |
+| execute_on | integer | Where to run the script. \\ \\ Possible values: \\ 0 - run on Zabbix agent; \\ 1 - run on Zabbix server.  \\ 2 - //(default)// run on Zabbix server (proxy). |
+| groupid | string | ID of the host group that the script can be run on. If set to 0, the script will be available on all host groups. \\ \\ Default: 0. |
+| host_access | integer | Host permissions needed to run the script. \\ \\ Possible values: \\ 2 - //(default)// read; \\ 3 - write. |
+| type | integer | Script type. \\ \\ Possible values: \\ 0 - //(default)// script; \\ 1 - IPMI. |
+| usrgrpid | string | ID of the user group that will be allowed to run the script. If set to 0, the script will be available for all user groups. \\ \\ Default: 0. |

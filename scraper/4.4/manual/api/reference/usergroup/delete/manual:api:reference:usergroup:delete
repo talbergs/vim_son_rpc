@@ -1,0 +1,53 @@
+===== usergroup.delete =====
+
+==== Description ====
+
+''object usergroup.delete(array **userGroupIds**)''
+
+This method allows to delete user groups.
+
+==== Parameters ====
+
+''(array)'' IDs of the user groups to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted user groups under the ''usrgrpids'' property.
+
+==== Examples ====
+
+=== Deleting multiple user groups ===
+
+Delete two user groups.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usergroup.delete",
+    "params": [
+        "20",
+        "21"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "usrgrpids": [
+            "20",
+            "21"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CUserGroup::delete() in //frontends/php/include/classes/api/services/CUserGroup.php//.

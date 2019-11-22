@@ -1,0 +1,359 @@
+===== discoveryrule.get =====
+
+==== Description ====
+
+''integer/array discoveryrule.get(object **parameters**)''
+
+The method allows to retrieve LLD rules according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| itemids | string/array | Return only LLD rules with the given IDs. |
+| hostids | string/array | Return only LLD rules that belong to the given hosts. |
+| inherited | boolean | If set to ''true'' return only LLD rules inherited from a template. |
+| interfaceids | string/array | Return only LLD rules use the given host interfaces. |
+| monitored | boolean | If set to ''true'' return only enabled LLD rules that belong to monitored hosts. |
+| templated | boolean | If set to ''true'' return only LLD rules that belong to templates. |
+| templateids | string/array | Return only LLD rules that belong to the given templates. |
+^ |||
+| selectFilter | query | Return a ''filter'' property with data of the filter used by the LLD rule. |
+| selectGraphs | query | Returns a ''[[:manual/api/reference/graph/object|graphs]]'' property with graph prototypes that belong to the LLD rule.\\ \\ Supports ''count''. |
+| selectHostPrototypes | query | Return a ''[[:manual/api/reference/hostprototype/object|hostPrototypes]]'' property with host prototypes that belong to the LLD rule.\\ \\ Supports ''count''. |
+| selectHosts | query | Return a ''[[:manual/api/reference/host/object|hosts]]'' property with an array of hosts that the LLD rule belongs to.  |
+| selectItems | query | Return an ''[[:manual/api/reference/item/object|items]]'' property with item prototypes that belong to the LLD rule. \\ \\ Supports ''count''. |
+| selectTriggers | query | Return a ''[[:manual/api/reference/trigger/object|triggers]]'' property with trigger prototypes that belong to the LLD rule.\\ \\ Supports ''count''. |
+| selectApplicationPrototypes | query | Return an ''applicationPrototypes'' property with application prototypes that belong to all item prototypes that belong to this LLD rule. |
+| selectLLDMacroPaths | query | Return an ''lld_macro_paths'' property with a list of LLD macros and paths to values assigned to each corresponding macro. |
+| selectPreprocessing | query | Return a ''preprocessing'' property with LLD rule preprocessing options. \\ \\ It has the following properties: \\ ''type'' - ''(string)'' The preprocessing option type: \\ 5 - Regular expression matching; \\ 11 - XML XPath; \\ 12 - JSONPath; \\ 15 - Does not match regular expression; \\ 16 - Check for error in JSON; \\ 17 - Check for error in XML; \\ 20 - Discard unchanged with heartbeat; \\ 23 - Prometheus to JSON. \\ \\ ''params'' - ''(string)'' Additional parameters used by preprocessing option. Multiple parameters are separated by LF (\n) character. \\ ''error_handler'' - ''(string)'' Action type used in case of preprocessing step failure: \\ 0 - Error message is set by Zabbix server; \\ 1 - Discard value; \\ 2 - Set custom value; \\ 3 - Set custom error message. \\ \\ ''error_handler_params'' - ''(string)'' Error handler parameters. |
+^ |||
+|filter  | object | Return only those results that exactly match the given filter.\\ \\ Accepts an array, where the keys are property names, and the values are either a single value or an array of values to match against. \\ \\ Supports additional filters: \\ ''host'' - technical name of the host that the LLD rule belongs to. |
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selctItems''; \\ ''selectGraphs''; \\ ''selectTriggers''. |
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''itemid'', ''name'', ''key_'', ''delay'', ''type'' and ''status''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving discovery rules from a host ===
+
+Retrieve all discovery rules from host "10202".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.get",
+    "params": {
+        "output": "extend",
+        "hostids": "10202"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "itemid": "27425",
+            "type": "0",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10202",
+            "name": "Network interface discovery",
+            "key_": "net.if.discovery",
+            "delay": "1h",
+            "state": "0",
+            "status": "0",
+            "trapper_hosts": "",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "error": "",
+            "templateid": "22444",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "interfaceid": "119",
+            "port": "",
+            "description": "Discovery of network interfaces as defined in global regular expression \"Network interfaces for discovery\".",
+            "lifetime": "30d",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "snmpv3_contextname": "",
+            "jmx_endpoint": "",
+            "master_itemid": "0",
+            "timeout": "3s",
+            "url": "",
+            "query_fields": [],
+            "posts": "",
+            "status_codes": "200",
+            "follow_redirects": "1",
+            "post_type": "0",
+            "http_proxy": "",
+            "headers": [],
+            "retrieve_mode": "0",
+            "request_method": "0",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0"
+        },
+        {
+            "itemid": "27426",
+            "type": "0",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10202",
+            "name": "Mounted filesystem discovery",
+            "key_": "vfs.fs.discovery",
+            "delay": "1h",
+            "state": "0",
+            "status": "0",
+            "trapper_hosts": "",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "error": "",
+            "templateid": "22450",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "interfaceid": "119",
+            "port": "",
+            "description": "Discovery of file systems of different types as defined in global regular expression \"File systems for discovery\".",
+            "lifetime": "30d",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "snmpv3_contextname": "",
+            "jmx_endpoint": "",
+            "master_itemid": "0",
+            "timeout": "3s",
+            "url": "",
+            "query_fields": [],
+            "posts": "",
+            "status_codes": "200",
+            "follow_redirects": "1",
+            "post_type": "0",
+            "http_proxy": "",
+            "headers": [],
+            "retrieve_mode": "0",
+            "request_method": "0",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Retrieving filter conditions ===
+
+Retrieve the name of the LLD rule "24681" and its filter conditions. The filter uses the "and" evaluation type, so the ''formula'' property is empty and ''eval_formula'' is generated automatically.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.get",
+    "params": {
+        "output": [
+            "name"
+        ],
+        "selectFilter": "extend",
+        "itemids": ["24681"]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "itemid": "24681",
+            "name": "Filtered LLD rule",
+            "filter": {
+                "evaltype": "1",
+                "formula": "",
+                "conditions": [
+                    {
+                        "macro": "{#MACRO1}",
+                        "value": "@regex1",
+                        "operator": "8",
+                        "formulaid": "A"
+                    },
+                    {
+                        "macro": "{#MACRO2}",
+                        "value": "@regex2",
+                        "operator": "8",
+                        "formulaid": "B"
+                    },
+                    {
+                        "macro": "{#MACRO3}",
+                        "value": "@regex3",
+                        "operator": "8",
+                        "formulaid": "C"
+                    }
+                ],
+                "eval_formula": "A and B and C"
+            }
+        }
+    ],
+    "id": 1
+}
+</code>
+
+=== Retrieve LLD rule by URL ===
+
+Retrieve LLD rule for host by rule URL field value. Only exact match of URL string defined for LLD rule is supported.
+
+Request:
+
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "discoveryrule.get",
+    "params": {
+        "hostids": "10257",
+        "filter": {
+            "type": "19",
+            "url": "http://127.0.0.1/discoverer.php"
+        }
+    },
+    "id": 39,
+    "auth": "d678e0b85688ce578ff061bd29a20d3b"
+}
+</code>
+
+Response:
+
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "itemid": "28336",
+            "type": "19",
+            "snmp_community": "",
+            "snmp_oid": "",
+            "hostid": "10257",
+            "name": "API HTTP agent",
+            "key_": "api_discovery_rule",
+            "delay": "5s",
+            "history": "90d",
+            "trends": "0",
+            "status": "0",
+            "value_type": "4",
+            "trapper_hosts": "",
+            "units": "",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "error": "",
+            "logtimefmt": "",
+            "templateid": "0",
+            "valuemapid": "0",
+            "params": "",
+            "ipmi_sensor": "",
+            "authtype": "0",
+            "username": "",
+            "password": "",
+            "publickey": "",
+            "privatekey": "",
+            "flags": "1",
+            "interfaceid": "5",
+            "port": "",
+            "description": "",
+            "inventory_link": "0",
+            "lifetime": "30d",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "state": "0",
+            "snmpv3_contextname": "",
+            "jmx_endpoint": "",
+            "master_itemid": "0",
+            "timeout": "3s",
+            "url": "http://127.0.0.1/discoverer.php",
+            "query_fields": [
+                {
+                    "mode": "json"
+                },
+                {
+                    "elements": "2"
+                }
+            ],
+            "posts": "",
+            "status_codes": "200",
+            "follow_redirects": "1",
+            "post_type": "0",
+            "http_proxy": "",
+            "headers": {
+                "X-Type": "api",
+                "Authorization": "Bearer mF_A.B5f-2.1JcM"
+            },
+            "retrieve_mode": "0",
+            "request_method": "1",
+            "ssl_cert_file": "",
+            "ssl_key_file": "",
+            "ssl_key_password": "",
+            "verify_peer": "0",
+            "verify_host": "0",
+            "allow_traps": "0"
+        }
+    ],
+    "id": 39
+}
+</code>
+==== See also ====
+
+  * [[manual:api:reference:graphprototype:object#graph_prototype|Graph prototype]]
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:itemprototype:object#item_prototype|Item prototype]]
+  * [[object#lld_rule_filter|LLD rule filter]]
+  * [[manual:api:reference:triggerprototype:object#trigger_prototype|Trigger prototype]]
+==== Source ====
+
+CDiscoveryRule::get() in //frontends/php/include/classes/api/services/CDiscoveryRule.php//.

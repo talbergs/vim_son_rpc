@@ -1,0 +1,75 @@
+===== hostprototype.create =====
+
+==== Description ====
+
+''object hostprototype.create(object/array **hostPrototypes**)''
+
+This method allows to create new host prototypes.
+
+==== Parameters ====
+
+''(object/array)'' Host prototypes to create.
+
+Additionally to the [[object#host_prototype|standard host prototype properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **groupLinks** \\ (required) | array | Group links to be created for the host prototype. |
+| **ruleid** \\ (required) | string | ID of the LLD rule that the host prototype belongs to. |
+| groupPrototypes | array | Group prototypes to be created for the host prototype. |
+| templates | object/array | Templates to be linked to the host prototype. \\ \\ The templates must have the ''templateid'' property defined. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created host prototypes under the ''hostids'' property. The order of the returned IDs matches the order of the passed host prototypes.
+
+==== Examples ====
+
+=== Creating a host prototype ===
+
+Create a host prototype "{#VM.NAME}" on LLD rule "23542" with a group prototype "{#HV.NAME}". Link it to host group "2".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostprototype.create",
+    "params": {
+        "host": "{#VM.NAME}",
+        "ruleid": "23542",
+        "groupLinks": [
+            {
+                "groupid": "2"
+            }
+        ],
+        "groupPrototypes": [
+            {
+                "name": "{#HV.NAME}"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10103"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#group_link|Group link]]
+  * [[object#group_prototype|Group prototype]]
+
+==== Source ====
+
+CHostPrototype::create() in //frontends/php/include/classes/api/services/CHostPrototype.php//.

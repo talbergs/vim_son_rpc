@@ -1,0 +1,52 @@
+===== autoregistration.get =====
+
+==== Description ====
+
+''object autoregistration.get(object **parameters**)''
+
+The method allows to retrieve autoregistration object according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports only one parameter.
+
+^ Parameter ^ Type ^ Description ^
+| output |query|This parameter being common for all ''get'' methods described in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+
+==== Return values ====
+
+''(object)'' Returns autoregistration object.
+
+==== Examples ====
+
+Request:
+<code java>
+{
+   "jsonrpc": "2.0",
+    "method": "autoregistration.get",
+    "params": {
+        "output": "extend"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "tls_accept": "3",
+        "tls_psk_identity": "Agent007",
+        "tls_psk": "11111595725ac58dd977beef14b97461a7c1045b9a1c923453302c5473193478"
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CAutoregistration::get() in //frontends/php/include/classes/api/services/CAutoregistration.php//.

@@ -1,0 +1,123 @@
+===== usergroup.get =====
+
+==== Description ====
+
+''integer/array usergroup.get(object **parameters**)''
+
+The method allows to retrieve user groups according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| status | integer | Return only user groups with the given status. \\ \\ Refer to the [[object#user_group|user group page]] for a list of supported statuses. |
+| userids | string/array | Return only user groups that contain the given users. |
+| usrgrpids | string/array | Return only user groups with the given IDs. |
+| with_gui_access | integer | Return only user groups with the given frontend authentication method.  \\ \\ Refer to the [[object#user_group|user group page]] for a list of supported methods. |
+^ |||
+| selectTagFilters | query | Return user group tag based permissions in the ''tag_filters'' property. \\ \\ It has the following properties: \\ ''groupid'' - (string) ID of the host group; \\ ''tag'' - (string) tag name; \\ ''value'' - (string) tag value. |
+| selectUsers | query | Return the users from the user group in the ''users'' property. |
+| selectRights | query | Return user group rights in the ''rights'' property. \\ \\ It has the following properties: \\ ''permission'' - (integer) access level to the host group; \\ ''id'' - (string) ID of the host group. \\ \\ Refer to the [[object#permission|user group page]] for a list of access levels to host groups. |
+^ |||
+| limitSelects | integer | Limits the number of records returned by subselects. |
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''usrgrpid'', ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving enabled user groups ===
+
+Retrieve all enabled user groups.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "usergroup.get",
+    "params": {
+        "output": "extend",
+        "status": 0
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "usrgrpid": "7",
+            "name": "Zabbix administrators",
+            "gui_access": "0",
+            "users_status": "0",
+            "debug_mode": "1"
+        },
+        {
+            "usrgrpid": "8",
+            "name": "Guests",
+            "gui_access": "0",
+            "users_status": "0",
+            "debug_mode": "0"
+        },
+        {
+            "usrgrpid": "11",
+            "name": "Enabled debug mode",
+            "gui_access": "0",
+            "users_status": "0",
+            "debug_mode": "1"
+        },
+        {
+            "usrgrpid": "12",
+            "name": "No access to the frontend",
+            "gui_access": "2",
+            "users_status": "0",
+            "debug_mode": "0"
+        },
+        {
+            "usrgrpid": "14",
+            "name": "Read only",
+            "gui_access": "0",
+            "users_status": "0",
+            "debug_mode": "0"
+        },
+        {
+            "usrgrpid": "18",
+            "name": "Deny",
+            "gui_access": "0",
+            "users_status": "0",
+            "debug_mode": "0"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:user:object#user|User]]
+
+==== Source ====
+
+CUserGroup::get() in //frontends/php/include/classes/api/services/CUserGroup.php//.

@@ -1,0 +1,12 @@
+===== Graph prototype =====
+
+This class is designed to work with graph prototypes. 
+
+Object references: \\
+  * [[manual:api:reference:graphprototype:object#graph_prototype|Graph prototype]]
+
+Available methods: \\
+  * ''[[manual:api:reference:graphprototype:create|graphprototype.create]]'' - creating new graph prototypes
+  * ''[[manual:api:reference:graphprototype:delete|graphprototype.delete]]'' - deleting graph prototypes
+  * ''[[manual:api:reference:graphprototype:get|graphprototype.get]]'' - retrieving graph prototypes
+  * ''[[manual:api:reference:graphprototype:update|graphprototype.update]]'' - updating graph prototypes

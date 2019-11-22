@@ -1,0 +1,41 @@
+===== > Host prototype object =====
+
+The following objects are directly related to the ''hostprototype'' API.
+
+==== Host prototype ====
+
+The host prototype object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| hostid  | string  | //(readonly)// ID of the host prototype.  |
+| **host** \\ (required) | string | Technical name of the host prototype. |
+| name | string | Visible name of the host prototype.  \\ \\ Default: ''host'' property value. |
+| status | integer | Status of the host prototype. \\ \\ Possible values are:\\ 0 - //(default)// monitored host;\\ 1 - unmonitored host. |
+| inventory_mode | integer | Host inventory population mode. \\ \\ Possible values are: \\ -1 - disabled; \\ 0 - //(default)// manual; \\ 1 - automatic. |
+| templateid | string | //(readonly)// ID of the parent template host prototype. |
+| tls_connect | integer | Connections to host. \\ \\ Possible values are: \\ 1 - //(default)// No encryption; \\ 2 - PSK; \\ 4 - certificate. |
+| tls_accept | integer | Connections from host. \\ \\ Possible bitmap values are: \\ 1 - //(default)// No encryption; \\ 2 - PSK; \\ 4 - certificate. |
+| tls_issuer | string | Certificate issuer. |
+| tls_subject | string | Certificate subject. |
+| tls_psk_identity | string | PSK identity. Required if either ''tls_connect'' or ''tls_accept'' has PSK enabled. |
+| tls_psk | string | The preshared key, at least 32 hex digits. Required if either ''tls_connect'' or ''tls_accept'' has PSK enabled. |
+
+==== Group link ====
+
+The group link object links a host prototype with a host group and has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| group_prototypeid  | string  | //(readonly)// ID of the group link.  |
+| **groupid** \\ (required) | string | ID of the host group. |
+| hostid | string | //(readonly)// ID of the host prototype |
+| templateid | string | //(readonly)// ID of the parent template group link. |
+
+==== Group prototype ====
+
+The group prototype object defines a group that will be created for a discovered host and has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| group_prototypeid  | string  | //(readonly)// ID of the group prototype.  |
+| **name** \\ (required) | string | Name of the group prototype. |
+| hostid | string | //(readonly)// ID of the host prototype |
+| templateid | string | //(readonly)// ID of the parent template group prototype. |

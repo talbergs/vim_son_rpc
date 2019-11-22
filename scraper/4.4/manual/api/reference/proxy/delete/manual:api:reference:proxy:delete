@@ -1,0 +1,53 @@
+===== proxy.delete =====
+
+==== Description ====
+
+''object proxy.delete(array **proxies**)''
+
+This method allows to delete proxies.
+
+==== Parameters ====
+
+''(array)'' IDs of proxies to delete. 
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted proxies under the ''proxyids'' property.
+
+==== Examples ====
+
+=== Delete multiple proxies ===
+
+Delete two proxies.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "proxy.delete",
+    "params": [
+        "10286",
+        "10285"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "proxyids": [
+            "10286",
+            "10285"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CProxy::delete() in //frontends/php/include/classes/api/services/CProxy.php//.

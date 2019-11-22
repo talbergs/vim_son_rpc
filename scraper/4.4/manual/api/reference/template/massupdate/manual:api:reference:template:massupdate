@@ -1,0 +1,80 @@
+===== template.massupdate =====
+
+==== Description ====
+
+''object template.massupdate(object **parameters**)''
+
+This method allows to simultaneously replace or remove related objects and update properties on multiple templates.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the templates to update and the properties that should be updated. 
+
+Additionally to the [[object#template|standard template properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **templates** \\ (required) | object/array | Templates to be updated. \\ \\ The templates must have the ''templateid'' property defined. |
+| groups | object/array | Host groups to replace the current host groups the templates belong to. \\ \\ The host groups must have the ''groupid'' property defined.  |
+| hosts | object/array | Hosts and templates to replace the ones the templates are currently linked to. \\ \\ Both hosts and templates must use the ''hostid'' property to pass an ID. |
+| macros | object/array | User macros to replace the current user macros on the given templates. |
+| templates_clear | object/array | Templates to unlink and clear from the given templates. \\ \\ The templates must have the ''templateid'' property defined. |
+| templates_link | object/array | Templates to replace the currently linked templates. \\ \\ The templates must have the ''templateid'' property defined. |
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated templates under the ''templateids'' property.
+
+==== Examples ====
+
+=== Replacing host groups ===
+
+Unlink and clear template "10091" from the given templates.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.massupdate",
+    "params": {
+        "templates": [
+            {
+                "templateid": "10085"
+            },
+            {
+                "templateid": "10086"
+            }
+        ],
+        "templates_clear": [
+            {
+                "templateid": "10091"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "templateids": [
+            "10085",
+            "10086"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|template.update]]
+  * [[massadd|template.massadd]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+
+==== Source ====
+
+CTemplate::massUpdate() in //frontends/php/include/classes/api/services/CTemplate.php//.

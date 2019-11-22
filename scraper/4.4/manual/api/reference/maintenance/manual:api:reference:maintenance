@@ -1,0 +1,13 @@
+===== Maintenance =====
+
+This class is designed to work with maintenances. 
+
+Object references: \\
+  * [[manual:api:reference:maintenance:object#maintenance|Maintenance]]
+  * [[manual:api:reference:maintenance:object#time_period|Time period]]
+
+Available methods: \\
+  * ''[[manual:api:reference:maintenance:create|maintenance.create]]'' - creating new maintenances
+  * ''[[manual:api:reference:maintenance:delete|maintenance.delete]]'' - deleting maintenances
+  * ''[[manual:api:reference:maintenance:get|maintenance.get]]'' - retrieving maintenances
+  * ''[[manual:api:reference:maintenance:update|maintenance.update]]'' - updating maintenances

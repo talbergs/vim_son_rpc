@@ -1,0 +1,114 @@
+===== graphitem.get =====
+
+==== Description ====
+
+''integer/array graphitem.get(object **parameters**)''
+
+The method allows to retrieve graph items according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| graphids | string/array | Return only graph items that belong to the given graphs. |
+| itemids | string/array | Return only graph items with the given item IDs. |
+| type | integer | Return only graph items with the given type. \\ \\ Refer to the  [[object#graph_item|graph item object page]] for a list of supported graph item types. |
+^ |||
+| selectGraphs | query | Return a ''[[:manual/api/reference/graph/object|graphs]]'' property with an array of graphs that the item belongs to. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''gitemid''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| sortorder | string/array | ::: |
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving graph items from a graph ===
+
+Retrieve all graph items used in a graph with additional information about the item and the host.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "graphitem.get",
+    "params": {
+        "output": "extend",
+        "graphids": "387"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "gitemid": "1242",
+            "graphid": "387",
+            "itemid": "22665",
+            "drawtype": "1",
+            "sortorder": "1",
+            "color": "FF5555",
+            "yaxisside": "0",
+            "calc_fnc": "2",
+            "type": "0",
+            "key_": "system.cpu.util[,steal]",
+            "hostid": "10001",
+            "flags": "0",
+            "host": "Template OS Linux"
+        },
+        {
+            "gitemid": "1243",
+            "graphid": "387",
+            "itemid": "22668",
+            "drawtype": "1",
+            "sortorder": "2",
+            "color": "55FF55",
+            "yaxisside": "0",
+            "calc_fnc": "2",
+            "type": "0",
+            "key_": "system.cpu.util[,softirq]",
+            "hostid": "10001",
+            "flags": "0",
+            "host": "Template OS Linux"
+        },
+        {
+            "gitemid": "1244",
+            "graphid": "387",
+            "itemid": "22671",
+            "drawtype": "1",
+            "sortorder": "3",
+            "color": "009999",
+            "yaxisside": "0",
+            "calc_fnc": "2",
+            "type": "0",
+            "key_": "system.cpu.util[,interrupt]",
+            "hostid": "10001",
+            "flags": "0",
+            "host": "Template OS Linux"
+        }
+    ],
+    "id": 1
+}
+</code>
+==== See also ====
+
+  * [[manual:api:reference:graph:object#graph|Graph]]
+==== Source ====
+
+CGraphItem::get() in //frontends/php/include/classes/api/services/CGraphItem.php//.

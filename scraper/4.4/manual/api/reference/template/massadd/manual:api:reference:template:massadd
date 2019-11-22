@@ -1,0 +1,122 @@
+===== template.massadd =====
+
+==== Description ====
+
+''object template.massadd(object **parameters**)''
+
+This method allows to simultaneously add multiple related objects to the given templates.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the templates to update and the objects to add to the templates.
+
+The method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| **templates** \\ (required) | object/array | Templates to be updated. \\ \\ The templates must have the ''templateid'' property defined. |
+| groups | object/array | Host groups to add the given templates to. \\ \\ The host groups must have the ''groupid'' property defined.  |
+| hosts | object/array | Hosts and templates to link the given templates to. \\ \\ The hosts must have the ''hostid'' property defined. |
+| macros | object/array | User macros to be created for the given templates. |
+| templates_link | object/array | Templates to link to the given templates. \\ \\ The templates must have the ''templateid'' property defined. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated templates under the ''templateids'' property.
+
+==== Examples ====
+
+=== Adding templates to a group ===
+
+Add two templates to the host group "2".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.massadd",
+    "params": {
+        "templates": [
+            {
+                "templateid": "10085"
+            },
+            {
+                "templateid": "10086"
+            }
+        ],
+        "groups": [
+            {
+                "groupid": "2"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "templateids": [
+            "10085",
+            "10086"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Linking a template to hosts ===
+
+Link template "10073" to two hosts.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "template.massadd",
+    "params": {
+        "templates": [
+            {
+                "templateid": "10073"
+            }
+        ],
+        "hosts": [
+            {
+                "hostid": "10106"
+            },
+            {
+                "hostid": "10104"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "templateids": [
+            "10073"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[update|template.update]]
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+
+==== Source ====
+
+CTemplate::massAdd() in //frontends/php/include/classes/api/services/CTemplate.php//.

@@ -1,0 +1,100 @@
+===== correlation.update =====
+
+==== Description ====
+
+''object correlation.update(object/array **correlations**)''
+
+This method allows to update existing correlations.
+
+==== Parameters ====
+
+''(object/array)'' Correlation properties to be updated.
+
+The ''correlationid'' property must be defined for each correlation, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#correlation|standard correlation properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| filter | object | Correlation filter object to replace the current filter. |
+| operations | array | Correlation operations to replace existing operations. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated correlations under the ''correlationids'' property.
+
+==== Examples ====
+
+=== Disable correlation ===
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "correlation.update",
+    "params": {
+        "correlationid": "1",
+        "status": "1"
+    },
+    "auth": "343baad4f88b4106b9b5961e77437688",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "correlationids": [
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Replace conditions, but keep the evaluation method ===
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "correlation.update",
+    "params": {
+        "correlationid": "1",
+        "filter": {
+            "conditions": [
+                {
+                    "type": 3,
+                    "oldtag": "error",
+                    "newtag": "ok"
+                }
+            ]
+        }
+    },
+    "auth": "343baad4f88b4106b9b5961e77437688",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "correlationids": [
+            "1"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[object#correlation_filter|Correlation filter]]
+  * [[object#correlation_operation|Correlation operation]]
+
+==== Source ====
+
+CCorrelation::update() in //frontends/php/include/classes/api/services/CCorrelation.php//.

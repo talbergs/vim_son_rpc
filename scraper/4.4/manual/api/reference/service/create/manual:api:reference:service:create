@@ -1,0 +1,62 @@
+===== service.create =====
+
+==== Description ====
+
+''object service.create(object/array **services**)''
+
+This method allows to create new services.
+
+==== Parameters ====
+
+''(object/array)'' services to create.
+
+Additionally to the [[object#service|standard service properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dependencies | array | Service dependencies. \\ \\ Each service dependency has the following parameters: \\ - ''dependsOnServiceid'' - //(string)// ID of an service the service depends on, that is, the child service. \\ - ''soft'' - //(integer)// type of service dependency; refer to the [[object#service_dependency|service dependency object page]] for more information on dependency types. |
+| parentid | string | ID of a hard-linked parent service. |
+| times | array | Service times to be created for the service. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created services under the ''serviceids'' property. The order of the returned IDs matches the order of the passed services.
+
+==== Examples ====
+
+=== Creating an service ===
+
+Create an service that will be switched to problem state, if at least one child has a problem. SLA calculation will be on and the minimum acceptable SLA is 99.99%.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "service.create",
+    "params": {
+        "name": "Server 1",
+        "algorithm": 1,
+        "showsla": 1,
+        "goodsla": 99.99,
+        "sortorder": 1
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "serviceids": [
+            "5"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CService::create() in //frontends/php/include/classes/api/services/CService.php//.

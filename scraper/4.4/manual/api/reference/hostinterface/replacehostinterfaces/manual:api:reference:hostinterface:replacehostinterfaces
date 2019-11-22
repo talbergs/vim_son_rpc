@@ -1,0 +1,67 @@
+===== hostinterface.replacehostinterfaces =====
+
+==== Description ====
+
+''object hostinterface.replacehostinterfaces(object **parameters**)''
+
+This method allows to replace all host interfaces on a given host.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the ID of the host to be updated and the new host interfaces.
+
+^ Parameter ^ Type ^ Description ^
+| **hostid** \\ (required) | string | ID of the host to be updated. |
+| **interfaces** \\ (required) | object/array | Host interfaces to replace the current host interfaces with. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the created host interfaces under the ''interfaceids'' property.
+
+==== Examples ====
+
+=== Replacing host interfaces ===
+
+Replace all host interfaces with a single agent interface.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostinterface.replacehostinterfaces",
+    "params": {
+        "hostid": "30052",
+        "interfaces": {
+            "dns": "",
+            "ip": "127.0.0.1",
+            "main": 1,
+            "port": "10050",
+            "type": 1,
+            "useip": 1
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "interfaceids": [
+            "30081"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:host:update|host.update]]
+  * [[manual:api:reference:host:massupdate|host.massupdate]]
+==== Source ====
+
+CHostInterface::replaceHostInterfaces() in //frontends/php/include/classes/api/services/CHostInterface.php//.

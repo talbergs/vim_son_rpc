@@ -1,0 +1,13 @@
+===== Screen item =====
+
+This class is designed to work with screen items. 
+
+Object references: \\
+  * [[manual:api:reference:screenitem:object#screen_item|Screen item]]
+
+Available methods: \\
+  * ''[[manual:api:reference:screenitem:create|screenitem.create]]'' - creating new screen items
+  * ''[[manual:api:reference:screenitem:delete|screenitem.delete]]'' - deleting screen items
+  * ''[[manual:api:reference:screenitem:get|screenitem.get]]'' - retrieving screen items
+  * ''[[manual:api:reference:screenitem:update|screenitem.update]]'' - updating screen items
+  * ''[[manual:api:reference:screenitem:updatebyposition|screenitem.updatebyposition]]'' - updating screen items in a specific screen cell

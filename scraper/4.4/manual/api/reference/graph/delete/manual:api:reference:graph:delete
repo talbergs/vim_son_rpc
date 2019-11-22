@@ -1,0 +1,53 @@
+===== graph.delete =====
+
+==== Description ====
+
+''object graph.delete(array **graphIds**)''
+
+This method allows to delete graphs.
+
+==== Parameters ====
+
+''(array)'' IDs of the graphs to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted graphs under the ''graphids'' property.
+
+==== Examples ====
+
+=== Deleting multiple graphs ===
+
+Delete two graphs.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "graph.delete",
+    "params": [
+        "652",
+        "653"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "graphids": [
+            "652",
+            "653"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CGraph::delete() in //frontends/php/include/classes/api/services/CGraph.php//.

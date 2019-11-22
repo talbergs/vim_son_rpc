@@ -1,0 +1,153 @@
+===== screenitem.get =====
+
+==== Description ====
+
+''integer/array screenitem.get(object **parameters**)''
+
+The method allows to retrieve screen items according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| screenitemids | string/array | Return only screen items with the given IDs. |
+| screenids | string/array | Return only screen items that belong to the given screen. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''screenitemid'' and ''screenid''. |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary page]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving screen items from screen ===
+
+Retrieve all screen items from the given screen.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screenitem.get",
+    "params": {
+        "output": "extend",
+        "screenids": "3"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "screenitemid": "20",
+            "screenid": "3",
+            "resourcetype": "0",
+            "resourceid": "433",
+            "width": "500",
+            "height": "120",
+            "x": "0",
+            "y": "0",
+            "colspan": "1",
+            "rowspan": "1",
+            "elements": "0",
+            "valign": "1",
+            "halign": "0",
+            "style": "0",
+            "url": "",
+            "dynamic": "0",
+            "sort_triggers": "0",
+            "application": "",
+            "max_columns": "3"            
+        },
+        {
+            "screenitemid": "21",
+            "screenid": "3",
+            "resourcetype": "0",
+            "resourceid": "387",
+            "width": "500",
+            "height": "100",
+            "x": "0",
+            "y": "1",
+            "colspan": "1",
+            "rowspan": "1",
+            "elements": "0",
+            "valign": "1",
+            "halign": "0",
+            "style": "0",
+            "url": "",
+            "dynamic": "0",
+            "sort_triggers": "0",
+            "application": "",
+            "max_columns": "3"
+        },
+        {
+            "screenitemid": "22",
+            "screenid": "3",
+            "resourcetype": "1",
+            "resourceid": "10013",
+            "width": "500",
+            "height": "148",
+            "x": "1",
+            "y": "0",
+            "colspan": "1",
+            "rowspan": "1",
+            "elements": "0",
+            "valign": "1",
+            "halign": "0",
+            "style": "0",
+            "url": "",
+            "dynamic": "0",
+            "sort_triggers": "0",
+            "application": "",
+            "max_columns": "3"
+        },
+        {
+            "screenitemid": "23",
+            "screenid": "3",
+            "resourcetype": "1",
+            "resourceid": "22181",
+            "width": "500",
+            "height": "184",
+            "x": "1",
+            "y": "1",
+            "colspan": "1",
+            "rowspan": "1",
+            "elements": "0",
+            "valign": "1",
+            "halign": "0",
+            "style": "0",
+            "url": "",
+            "dynamic": "0",
+            "sort_triggers": "0",
+            "application": "",
+            "max_columns": "3"
+        }
+    ],
+    "id": 1
+}
+</code>
+==== Source ====
+
+CScreenItem::get() in //frontends/php/include/classes/api/services/CScreenItem.php//.

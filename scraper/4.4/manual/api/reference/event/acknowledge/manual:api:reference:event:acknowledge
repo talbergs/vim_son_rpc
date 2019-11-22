@@ -1,0 +1,99 @@
+===== event.acknowledge =====
+
+==== Description ====
+
+''object event.acknowledge(object/array **parameters**)''
+
+This method allows to update events. Following update actions can be performed:
+  * Close event. If event is already resolved, this action will be skipped.
+  * Acknowledge event. If event is already acknowledged, this action will be skipped.
+  * Add message.
+  * Change event severity. If event already has same severity, this action will be skipped.
+
+<note important>Only trigger events can be updated. \\ Only problem events can be updated. \\ Read/Write rights for trigger are required to close the event or to change event's severity. \\ To close event, it should be allowed in trigger.</note>
+
+==== Parameters ====
+
+''(object/array)'' Parameters containing the IDs of the events and update operations that should be performed.
+
+^ Parameter ^ Type ^ Description ^
+| **eventids** \\ (required) | string/object | IDs of the events to acknowledge. |
+| **action** \\ (required) | integer | Event update action(s). This is bitmask field, any combination of values are acceptable. \\ \\ Possible values: \\ 1 - close problem; \\ 2 - acknowledge event; \\ 4 - add message; \\ 8 - change severity. |
+| message | string | Text of the message. \\ **Required**, if action contains 'add message' flag. |
+| severity | integer | New severity for events. \\ **Required**, if action contains 'change severity' flag. \\  \\ Possible values: \\ 0 - not classified; \\ 1 - information; \\ 2 - warning; \\ 3 - average; \\ 4 - high; \\ 5 - disaster. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated events under the ''eventids'' property. 
+
+==== Examples ====
+
+=== Acknowledging an event ===
+
+Acknowledge a single event and leave a message.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "event.acknowledge",
+    "params": {
+        "eventids": "20427",
+        "action": 6,
+        "message": "Problem resolved."
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "eventids": [
+            "20427"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Changing event's severity ===
+
+Change multiple event's severity and leave a message.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "event.acknowledge",
+    "params": {
+        "eventids": ["20427", "20428"],
+        "action": 12,
+        "message": "Maintenance required to fix it.",
+        "severity": 4
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "eventids": [
+            "20427",
+            "20428"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CEvent::acknowledge() in //frontends/php/include/classes/api/services/CEvent.php//.

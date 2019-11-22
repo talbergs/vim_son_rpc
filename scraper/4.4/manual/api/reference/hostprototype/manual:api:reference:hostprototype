@@ -1,0 +1,16 @@
+===== Host prototype =====
+
+This class is designed to work with host prototypes. 
+
+Object references: \\
+  * [[manual:api:reference:hostprototype:object#host_prototype|Host prototype]]
+  * [[manual:api:reference:hostprototype:object#host_prototype_inventory|Host prototype inventory]]
+  * [[manual:api:reference:hostprototype:object#group_link|Group link]]
+  * [[manual:api:reference:hostprototype:object#group_prototype|Group prototype]]
+
+Available methods: \\
+
+  * ''[[manual:api:reference:hostprototype:create|hostprototype.create]]'' - creating new host prototypes
+  * ''[[manual:api:reference:hostprototype:delete|hostprototype.delete]]'' - deleting host prototypes
+  * ''[[manual:api:reference:hostprototype:get|hostprototype.get]]'' - retrieving host prototypes
+  * ''[[manual:api:reference:hostprototype:update|hostprototype.update]]'' - updating host prototypes

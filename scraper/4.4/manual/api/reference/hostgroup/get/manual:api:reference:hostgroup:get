@@ -1,0 +1,114 @@
+===== hostgroup.get =====
+
+==== Description ====
+
+''integer/array hostgroup.get(object **parameters**)''
+
+The method allows to retrieve host groups according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output. 
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| graphids | string/array | Return only host groups that contain hosts or templates with the given graphs. |
+| groupids | string/array | Return only host groups with the given host group IDs. |
+| hostids | string/array | Return only host groups that contain the given hosts. |
+| maintenanceids | string/array | Return only host groups that are affected by the given maintenances. |
+| monitored_hosts | flag | Return only host groups that contain monitored hosts. |
+| real_hosts | flag | Return only host groups that contain hosts. |
+| templated_hosts | flag | Return only host groups that contain templates. |
+| templateids | string/array | Return only host groups that contain the given templates. |
+| triggerids | string/array | Return only host groups that contain hosts or templates with the given triggers. |
+^ |||
+| with_applications | flag | Return only host groups that contain hosts with applications. |
+| with_graphs | flag | Return only host groups that contain hosts with graphs. |
+| with_hosts_and_templates | flag | Return only host groups that contain hosts //or// templates. |
+| with_httptests | flag | Return only host groups that contain hosts with web checks. \\ \\ Overrides the ''with_monitored_httptests'' parameter. |
+| with_items | flag | Return only host groups that contain hosts or templates with items. \\ \\ Overrides the ''with_monitored_items'' and''with_simple_graph_items'' parameters. |
+| with_monitored_httptests | flag | Return only host groups that contain hosts with enabled web checks. |
+| with_monitored_items | flag | Return only host groups that contain hosts or templates with enabled items. \\ \\ Overrides the ''with_simple_graph_items'' parameter. |
+| with_monitored_triggers | flag | Return only host groups that contain hosts with enabled triggers. All of the items used in the trigger must also be enabled. |
+| with_simple_graph_items | flag | Return only host groups that contain hosts with numeric items. |
+| with_triggers | flag | Return only host groups that contain hosts with triggers. \\ \\ Overrides the ''with_monitored_triggers'' parameter. |
+^  |||
+| selectDiscoveryRule | query | Return a ''[[:manual/api/reference/drule/object|discoveryRule]]'' property with the LLD rule that created the host group. |
+| selectGroupDiscovery | query | Return a ''groupDiscovery'' property with the host group discovery object. \\ \\ The host group discovery object links a discovered host group to a host group prototype and has the following properties: \\ ''groupid'' - ''(string)'' ID of the discovered host group; \\ ''lastcheck'' - ''(timestamp)'' time when the host group was last discovered; \\ ''name'' - ''(string)'' name of the host goup prototype; \\ ''parent_group_prototypeid'' - ''(string)'' ID of the host group prototype from which the host group has been created; \\ ''ts_delete'' - ''(timestamp)'' time when a host group that is no longer discovered will be deleted. |
+| selectHosts | query | Return a ''[[:manual/api/reference/host/object|hosts]]'' property with the hosts that belong to the host group. \\ \\ Supports ''count''. |
+| selectTemplates | query | Return a ''[[:manual/api/reference/template/object|templates]]'' property with the templates that belong to the host group.\\ \\ Supports ''count''. |
+^  |||
+| limitSelects | integer | Limits the number of records returned by subselects. \\  \\ Applies to the following subselects: \\ ''selectHosts'' - results will be sorted by ''host''; \\ ''selectTemplates'' - results will be sorted by ''host''. |
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''groupid'', ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]] page.  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieving data by name ===
+
+Retrieve all data about two host groups named "Zabbix servers" and "Linux servers".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.get",
+    "params": {
+        "output": "extend",
+        "filter": {
+            "name": [
+                "Zabbix servers",
+                "Linux servers"
+            ]
+        }
+    },
+    "auth": "6f38cddc44cfbb6c1bd186f9a220b5a0",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "groupid": "2",
+            "name": "Linux servers",
+            "internal": "0"
+        },
+        {
+            "groupid": "4",
+            "name": "Zabbix servers",
+            "internal": "0"
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:host:object#host|Host]]
+  * [[manual:api:reference:template:object#template|Template]]
+
+==== Source ====
+
+CHostGroup::get() in //frontends/php/include/classes/api/services/CHostGroup.php//.

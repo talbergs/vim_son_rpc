@@ -1,0 +1,21 @@
+===== > Template object =====
+
+The following objects are directly related to the ''template'' API.
+
+==== Template ====
+
+The template object has the following properties.
+
+^ Property ^ Type ^ Description ^
+| templateid | string | //(readonly)// ID of the template. |
+| **host** \\ (required) | string | Technical name of the template. |
+| description | text | Description of the template. |
+| name | string | Visible name of the template. \\ \\ Default: ''host'' property value. |
+
+==== Template tag ====
+
+The template tag object has the following properties.
+
+^ Property              ^ Type    ^ Description         ^
+| **tag** \\ (required) | string  | Template tag name.  |
+| value                 | string  | Template tag value. |

@@ -1,0 +1,224 @@
+===== host.update =====
+
+==== Description ====
+
+''object host.update(object/array **hosts**)''
+
+This method allows to update existing hosts.
+
+==== Parameters ====
+
+''(object/array)'' Host properties to be updated. 
+
+The ''hostid'' property must be defined for each host, all other properties are optional. Only the given properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#host|standard host properties]], the method accepts the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| groups | object/array | Host groups to replace the current host groups the host belongs to.\\ \\ The host groups must have the ''groupid'' property defined. All host groups that are not listed in the request will be unlinked. |
+| interfaces | object/array | Host interfaces to replace the current host interfaces.\\ \\ All interfaces that are not listed in the request will be removed.  |
+| tags | object/array | Host tags to replace the current host tags.\\ \\ All tags that are not listed in the request will be removed. |
+| inventory | object | Host inventory properties. |
+| macros | object/array | User macros to replace the current user macros.\\ \\ All macros that are not listed in the request will be removed. |
+| templates | object/array | Templates to replace the currently linked templates. All templates that are not listed in the request will be only unlinked. \\ \\ The templates must have the ''templateid'' property defined. |
+| templates_clear | object/array | Templates to unlink and clear from the host. \\ \\ The templates must have the ''templateid'' property defined. |
+
+<note tip>As opposed to the Zabbix frontend, when ''name'' (visible host name) is the same as ''host'' (technical host name), updating ''host'' via API will not automatically update ''name''. Both properties need to be updated explicitly.</note>
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated hosts under the ''hostids'' property.
+
+==== Examples ====
+
+=== Enabling a host ===
+
+Enable host monitoring, i.e. set its status to 0.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.update",
+    "params": {
+        "hostid": "10126",
+        "status": 0
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10126"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Unlinking templates ===
+
+Unlink and clear two templates from host.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.update",
+    "params": {
+        "hostid": "10126",
+        "templates_clear": [
+            {
+                "templateid": "10124"
+            },
+            {
+                "templateid": "10125"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10126"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Updating host macros ===
+
+Replace all host macros with two new ones.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.update",
+    "params": {
+        "hostid": "10126",
+        "macros": [
+            {
+                "macro": "{$PASS}",
+                "value": "password"
+            },
+            {
+                "macro": "{$DISC}",
+                "value": "sda"
+            }
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10126"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Updating host inventory ===
+
+Change inventory mode and add location
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.update",
+    "params": {
+        "hostid": "10387",
+        "inventory_mode": 0,
+        "inventory": {
+            "location": "Latvia, Riga"
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10387"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+
+=== Updating host tags ===
+
+Replace all host tags with a new one.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "host.update",
+    "params": {
+        "hostid": "10387",
+        "tags": {
+            "tag": "OS",
+            "value": "CentOS 7"
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "hostids": [
+            "10387"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[massadd|host.massadd]]
+  * [[massupdate|host.massupdate]]
+  * [[massremove|host.massremove]]
+  * [[manual:api:reference:hostgroup:object#host_group|Host group]]
+  * [[manual:api:reference:template:object#template|Template]]
+  * [[manual:api:reference:usermacro:object#hosttemplate_level_macro|User macro]]
+  * [[manual:api:reference:hostinterface:object#host_interface|Host interface]]
+  * [[object#host_inventory|Host inventory]]
+  * [[object#host_tag|Host tag]]
+==== Source ====
+
+CHost::update() in //frontends/php/include/classes/api/services/CHost.php//.

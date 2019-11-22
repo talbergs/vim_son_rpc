@@ -1,0 +1,158 @@
+===== templatescreen.get =====
+
+==== Description ====
+
+''integer/array templatescreen.get(object **parameters**)''
+
+The method allows to retrieve template screens according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| hostids | string/array | Return only template screens that belong to the given hosts. |
+| screenids | string/array | Return only template screens with the given IDs. |
+| screenitemids | string/array | Return only template screens that contain the given screen items. |
+| templateids | string/arary | Return only template screens that belong to the given templates. |
+^ |||
+| noInheritance | flag | Do not return inherited template screens. | 
+| selectScreenItems | query | Return the screen items that are used in the template screen in the ''screenitems'' property. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''screenid'' and ''name''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve screens from template ===
+
+Retrieve all screens from template "10001" and all of the screen items.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "templatescreen.get",
+    "params":  {
+        "output": "extend",
+        "selectScreenItems": "extend",
+        "templateids": "10001"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "screenid": "3",
+            "name": "System performance",
+            "hsize": "2",
+            "vsize": "2",
+            "templateid": "10001",
+            "screenitems": [
+                {
+                    "screenitemid": "20",
+                    "screenid": "3",
+                    "resourcetype": "0",
+                    "resourceid": "433",
+                    "width": "500",
+                    "height": "120",
+                    "x": "0",
+                    "y": "0",
+                    "colspan": "1",
+                    "rowspan": "1",
+                    "elements": "0",
+                    "valign": "1",
+                    "halign": "0",
+                    "style": "0",
+                    "url": ""
+                },
+                {
+                    "screenitemid": "21",
+                    "screenid": "3",
+                    "resourcetype": "0",
+                    "resourceid": "387",
+                    "width": "500",
+                    "height": "100",
+                    "x": "0",
+                    "y": "1",
+                    "colspan": "1",
+                    "rowspan": "1",
+                    "elements": "0",
+                    "valign": "1",
+                    "halign": "0",
+                    "style": "0",
+                    "url": ""
+                },
+                {
+                    "screenitemid": "22",
+                    "screenid": "3",
+                    "resourcetype": "1",
+                    "resourceid": "10013",
+                    "width": "500",
+                    "height": "148",
+                    "x": "1",
+                    "y": "0",
+                    "colspan": "1",
+                    "rowspan": "1",
+                    "elements": "0",
+                    "valign": "1",
+                    "halign": "0",
+                    "style": "0",
+                    "url": ""
+                },
+                {
+                    "screenitemid": "23",
+                    "screenid": "3",
+                    "resourcetype": "1",
+                    "resourceid": "22181",
+                    "width": "500",
+                    "height": "184",
+                    "x": "1",
+                    "y": "1",
+                    "colspan": "1",
+                    "rowspan": "1",
+                    "elements": "0",
+                    "valign": "1",
+                    "halign": "0",
+                    "style": "0",
+                    "url": ""
+                }
+            ]
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:templatescreenitem:object#template_screen_item|Template screen item]]
+
+==== Source ====
+
+CTemplateScreen::get() in //frontends/php/include/classes/api/services/CTemplateScreen.php//.

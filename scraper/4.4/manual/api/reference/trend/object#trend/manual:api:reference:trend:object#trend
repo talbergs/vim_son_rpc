@@ -1,0 +1,30 @@
+===== > Trend object =====
+
+The following objects are directly related to the ''trend'' API.
+
+<note>Trend objects differ depending on the item's type of information. They are created by the Zabbix server and cannot be modified via the API.</note>
+
+==== Float trend ====
+
+The float trend object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| clock | timestamp | Time when that value was received. |
+| itemid | string | ID of the related item. |
+| num | integer | Number of values within this hour. | 
+| value_min | float | Hourly minimum value. |
+| value_avg | float | Hourly average value. |
+| value_max | float | Hourly maximum value. |
+
+
+==== Integer trend ====
+
+The integer trend object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| clock | timestamp | Time when that value was received. |
+| itemid | string | ID of the related item. |
+| num | integer | Number of values within this hour. | 
+| value_min | integer | Hourly minimum value. |
+| value_avg | integer | Hourly average value. |
+| value_max | integer | Hourly maximum value. |

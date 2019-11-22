@@ -1,0 +1,89 @@
+==== dcheck.get ====
+
+==== Description ====
+
+''integer/array dcheck.get(object **parameters**)''
+
+The method allows to retrieve discovery checks according to the given parameters.
+
+==== Parameters ====
+
+''(object)'' Parameters defining the desired output.
+
+The method supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| dcheckids | string/array | Return only discovery checks with the given IDs. |
+| druleids | string/array | Return only discovery checks that belong to the given discovery rules. |
+| dserviceids | string/array | Return only discovery checks that have detected the given discovered services. |
+^ |||
+| sortfield | string/array | Sort the result by the given properties. \\ \\ Possible values are: ''dcheckid'' and ''druleid''.  |
+| countOutput |boolean|These parameters being common for all ''get'' methods are described in detail in the [[manual:api:reference_commentary#common_get_method_parameters|reference commentary]].  |
+| editable |boolean|:::|
+| excludeSearch |boolean|:::|
+| filter | object |:::|
+| limit |integer|:::|
+| output |query|:::|
+| preservekeys |boolean|:::|
+| search | object |:::|
+| searchByAny |boolean|:::|
+| searchWildcardsEnabled |boolean|:::|
+| sortorder | string/array | ::: |
+| startSearch |boolean|:::|
+
+==== Return values ====
+
+''(integer/array)'' Returns either:
+  * an array of objects;
+  * the count of retrieved objects, if the ''countOutput'' parameter has been used.
+
+==== Examples ====
+
+=== Retrieve discovery checks for a discovery rule ===
+
+Retrieve all discovery checks used by discovery rule "6".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "dcheck.get",
+    "params": {
+        "output": "extend",
+        "dcheckids": "6"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "dcheckid": "6",
+            "druleid": "4",
+            "type": "3",
+            "key_": "",
+            "snmp_community": "",
+            "ports": "21",
+            "snmpv3_securityname": "",
+            "snmpv3_securitylevel": "0",
+            "snmpv3_authpassphrase": "",
+            "snmpv3_privpassphrase": "",
+            "uniq": "0",
+            "snmpv3_authprotocol": "0",
+            "snmpv3_privprotocol": "0",
+            "host_source": "1",
+            "name_source": "0"            
+        }
+    ],
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CDCheck::get() in //frontends/php/include/classes/api/services/CDCheck.php//.

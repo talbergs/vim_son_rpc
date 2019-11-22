@@ -1,0 +1,54 @@
+===== mediatype.update =====
+
+==== Description ====
+
+''object mediatype.update(object/array **mediaTypes**)''
+
+This method allows to update existing media types.
+
+==== Parameters ====
+
+''(object/array)'' [[object#media_type|Media type properties]] to be updated.
+
+The ''mediatypeid'' property must be defined for each media type, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated media types under the ''mediatypeids'' property.
+
+==== Examples ====
+
+=== Enabling a media type ===
+
+Enable a media type, that is, set its status to 0.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "mediatype.update",
+    "params": {
+        "mediatypeid": "6",
+        "status": 0
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "mediatypeids": [
+            "6"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CMediaType::update() in //frontends/php/include/classes/api/services/CMediaType.php//.

@@ -1,0 +1,12 @@
+===== > Autoregistration object =====
+
+The following objects are directly related to the ''autoregistration'' API.
+
+==== Autoregistration ====
+
+The autoregistration object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| **tls_accept** \\ (required) | integer | Type of allowed incoming connections for autoregistration. \\ \\ Possible values: \\ 1 - //(default)// allow unsecure connections; \\ 2 - allow TLS with PSK.  \\ 3 - allow both unsecure and TLS with PSK connections. |
+| tls_psk_identity | string | PSK identity string.  \\ \\ Default: empty string. |
+| tls_psk | string | PSK value string (an even number of hexadecimal characters). \\ \\ Default: empty string. |

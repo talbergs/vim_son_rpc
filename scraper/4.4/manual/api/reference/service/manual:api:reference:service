@@ -1,0 +1,20 @@
+===== Service =====
+
+This class is designed to work with services. 
+
+Object references: \\
+  * [[manual:api:reference:service:object#service|Service]]
+  * [[manual:api:reference:service:object#service_time|Service time]]
+  * [[manual:api:reference:service:object#service_dependency|Service dependency]]
+  * [[manual:api:reference:service:object#service_alarm|Service alarm]]
+
+Available methods: \\
+  * ''[[manual:api:reference:service:adddependencies|service.adddependencies]]'' - adding dependencies between IT services
+  * ''[[manual:api:reference:service:addtimes|service.addtimes]]'' - adding service times
+  * ''[[manual:api:reference:service:create|service.create]]'' - creating new IT services
+  * ''[[manual:api:reference:service:delete|service.delete]]'' - deleting IT services
+  * ''[[manual:api:reference:service:deletedependencies|service.deletedependencies]]'' - deleting dependencies between IT services
+  * ''[[manual:api:reference:service:deletetimes|service.deletetimes]]'' - deleting service times
+  * ''[[manual:api:reference:service:get|service.get]]'' - retrieving IT services
+  * ''[[manual:api:reference:service:getsla|service.getsla]]'' - retrieving availability information about IT services
+  * ''[[manual:api:reference:service:update|service.update]]'' - updating IT services

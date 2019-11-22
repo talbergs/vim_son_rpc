@@ -1,0 +1,66 @@
+===== hostgroup.massremove =====
+
+==== Description ====
+
+''object hostgroup.massremove(object **parameters**)''
+
+This method allows to remove related objects from multiple host groups.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the IDs of the host groups to update and the objects that should be removed.
+
+^ Parameter ^ Type ^ Description ^
+| **groupids** \\ (required) | string/array | IDs of the host groups to be updated. |
+| hostids | string/array | Hosts to remove from all host groups. |
+| templateids | string/array | Templates to remove from all host groups. |
+
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated host groups under the ''groupids'' property.
+
+==== Examples ====
+
+=== Removing hosts from host groups ===
+
+Remove two hosts from the given host groups.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.massremove",
+    "params": {
+        "groupids": [
+            "5",
+            "6"
+        ],
+        "hostids": [
+            "30050",
+            "30001"
+        ]
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "groupids": [
+            "5",
+            "6"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+
+==== Source ====
+
+CHostGroup::massRemove() in //frontends/php/include/classes/api/services/CHostGroup.php//.

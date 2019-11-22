@@ -1,0 +1,37 @@
+===== > Trigger object =====
+
+The following objects are directly related to the ''trigger'' API.
+
+==== Trigger ====
+
+The trigger object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| triggerid  | string  | //(readonly)// ID of the trigger.  |
+| **description** \\ (required) | string | Name of the trigger. |
+| **expression** \\ (required) | string | Reduced trigger expression. |
+| opdata   | string | Operational data. |
+| comments | string | Additional description of the trigger. |
+| error | string | //(readonly)// Error text if there have been any problems when updating the state of the trigger. |
+| flags | integer | //(readonly)// Origin of the trigger. \\ \\ Possible values are: \\ 0 - //(default)// a plain trigger; \\ 4 - a discovered trigger. |
+| lastchange | timestamp | //(readonly)// Time when the trigger last changed its state. |
+| priority | integer | Severity of the trigger. \\ \\ Possible values are: \\ 0 - //(default)// not classified; \\ 1 - information; \\ 2 - warning; \\ 3 - average; \\ 4 - high; \\ 5 - disaster. |
+| state | integer | //(readonly)// State of the trigger. \\ \\ Possible values: \\ 0 - //(default)// trigger state is up to date; \\ 1 - current trigger state is unknown. |
+| status | integer | Whether the trigger is enabled or disabled. \\ \\ Possible values are: \\ 0 - //(default)// enabled; \\ 1 - disabled. |
+| templateid | string | //(readonly)// ID of the parent template trigger. |
+| type | integer | Whether the trigger can generate multiple problem events. \\ \\ Possible values are: \\ 0 - //(default)// do not generate multiple events; \\ 1 - generate multiple events. |
+| url | string | URL associated with the trigger. |
+| value | integer | //(readonly)// Whether the trigger is in OK or problem state. \\ \\ Possible values are: \\ 0 - //(default)// OK; \\ 1 - problem. |
+| recovery_mode | integer | OK event generation mode. \\ \\ Possible values are: \\ 0 - //(default)// Expression; \\ 1 - Recovery expression; \\ 2 - None.|
+| recovery_expression | string | Reduced trigger recovery expression. |
+| correlation_mode | integer | OK event closes. \\ \\ Possible values are: \\ 0 - //(default)// All problems; \\ 1 - All problems if tag values match.|
+| correlation_tag | string | Tag for matching. |
+| manual_close | integer | Allow manual close. \\ \\ Possible values are: \\ 0 - //(default)// No; \\ 1 - Yes.|
+
+==== Trigger tag ====
+
+The trigger tag object has the following properties.
+
+^  Property             ^ Type    ^ Description        ^
+| **tag** \\ (required) | string  | Trigger tag name.  |
+| value                 | string  | Trigger tag value. |

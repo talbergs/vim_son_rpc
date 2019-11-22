@@ -1,0 +1,57 @@
+===== screenitem.delete =====
+
+==== Description ====
+
+''object screenitem.delete(array **screenItemIds**)''
+
+This method allows to delete screen items.
+
+==== Parameters ====
+
+''(array)'' IDs of the screen items to delete.
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the deleted screen items under the ''screenitemids'' property.
+
+==== Examples ====
+
+=== Deleting multiple screen items ===
+
+Delete two screen items.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "screenitem.delete",
+    "params": [
+        "65",
+        "63"
+    ],
+    "auth": "3a57200802b24cda67c4e4010b50c065",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "screenitemids": [
+            "65",
+            "63"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== See also ====
+
+  * [[manual:api:reference:screen:update|screen.update]]
+
+==== Source ====
+
+CScreenItem::delete() in //frontends/php/include/classes/api/services/CScreenItem.php//.

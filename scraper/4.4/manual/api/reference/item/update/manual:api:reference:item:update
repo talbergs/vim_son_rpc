@@ -1,0 +1,163 @@
+===== item.update =====
+
+==== Description ====
+
+''object item.update(object/array **items**)''
+
+This method allows to update existing items.
+
+<note>Web items cannot be updated via the Zabbix API.</note>
+
+==== Parameters ====
+
+''(object/array)'' Item properties to be updated.
+
+The ''itemid'' property must be defined for each item, all other properties are optional. Only the passed properties will be updated, all others will remain unchanged.
+
+Additionally to the [[object#item|standard item properties]], the method accepts the following parameters.
+
+^ Parameter     ^ Type  ^ Description                                                              ^
+| applications  | array | IDs of the applications to replace the current applications.             |
+| preprocessing | array | Item preprocessing options to replace the current preprocessing options. |
+
+==== Return values ====
+
+''(object)'' Returns an object containing the IDs of the updated items under the ''itemids'' property.
+
+==== Examples ====
+
+=== Enabling an item ===
+
+Enable an item, that is, set its status to "0".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.update",
+    "params": {
+        "itemid": "10092",
+        "status": 0
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "10092"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Update dependent item ===
+
+Update Dependent item name and Master item ID. Only dependencies on same host are allowed, therefore Master and Dependent item should have same hostid.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.update",
+    "params": {
+        "name": "Dependent item updated name",
+        "master_itemid": "25562",
+        "itemid": "189019"
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "189019"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Update HTTP agent item ===
+
+Enable item value trapping.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.update",
+    "params": {
+        "itemid": "23856",
+        "allow_traps": "1"
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "23856"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+=== Updating an item with preprocessing ===
+
+Update an item with item preprocessing rule "In range".
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "item.update",
+    "params": {
+        "itemid": "23856",
+        "preprocessing": [
+            {
+                "type": "13",
+                "params": "\n100",
+                "error_handler": "1",
+                "error_handler_params": ""
+            }
+        ]
+    },
+    "auth": "700ca65537074ec963db7efabda78259",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "itemids": [
+            "23856"
+        ]
+    },
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CItem::update() in //frontends/php/include/classes/api/services/CItem.php//.

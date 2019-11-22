@@ -1,0 +1,2 @@
+*example*
+/* vim:set ft=help: */

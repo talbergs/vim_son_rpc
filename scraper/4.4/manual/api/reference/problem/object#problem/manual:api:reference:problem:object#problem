@@ -1,0 +1,31 @@
+==== > Problem object ====
+
+<note>problems are created by the Zabbix server and cannot be modified via the API.</note>
+
+The problem object has the following properties.
+
+^  Property  ^  Type  ^  Description  ^
+| eventid  | string  | ID of the problem event.  |
+| source | integer | Type of the problem event. \\ \\ Possible values: \\ 0 - event created by a trigger; \\ 3 - internal event. |
+| object | integer | Type of object that is related to the problem event. \\ \\ Possible values for trigger events: \\ 0 - trigger. \\ \\ Possible values for internal events: \\ 0 - trigger; \\ 4 - item; \\ 5 - LLD rule. |
+| objectid | string | ID of the related object. |
+| clock | timestamp | Time when the problem event was created. |
+| ns | integer | Nanoseconds when the problem event was created. |
+| r_eventid | string | Recovery event ID. |
+| r_clock | timestamp | Time when the recovery event was created. |
+| r_ns | integer | Nanoseconds when the recovery event was created. |
+| correlationid | string | Correlation rule ID if this event was recovered by global correlation rule. |
+| userid| string | User ID if the problem was manually closed. |
+| name| string | Resolved problem name. |
+| acknowledged| integer | Acknowledge state for problem. \\ \\ Possible values: \\ 0 - not acknowledged; \\ 1 - acknowledged. |
+| severity| integer | Problem current severity. \\ \\ Possible values: \\ 0 - not classified; \\ 1 - information; \\ 2 - warning; \\ 3 - average; \\ 4 - high; \\ 5 - disaster. |
+| suppressed | integer | Whether the problem is suppressed. \\ \\ Possible values: \\ 0 - problem is in normal state; \\ 1 - problem is suppressed. |
+| opdata | string | Operational data with expanded macros. |
+
+==== Problem tag ====
+
+The problem tag object has the following properties.
+
+^ Property ^ Type   ^ Description        ^
+| tag      | string | Problem tag name.  |
+| value    | string | Problem tag value. |

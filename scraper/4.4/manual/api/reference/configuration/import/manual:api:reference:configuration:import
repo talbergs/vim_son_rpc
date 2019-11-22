@@ -1,0 +1,93 @@
+===== configuration.import =====
+
+==== Description ====
+
+''boolean configuration.import(object **parameters**)''
+
+This method allows to import configuration data from a serialized string.
+
+==== Parameters ====
+
+''(object)'' Parameters containing the data to import and rules how the data should be handled.
+
+^ Parameter ^ Type ^ Description ^
+| **format** \\ (required) | string | Format of the serialized string. \\ \\ Possible values: \\ ''json'' - JSON; \\ ''xml'' - XML. |
+| **source** \\ (required) | string | Serialized string containing the configuration data. |
+| **rules** \\ (required) | object | Rules on how new and existing objects should be imported. \\ \\ The ''rules'' parameter is described in detail in the table below. |
+
+<note tip>If no rules are given, the configuration will not be updated.</note>
+
+The ''rules'' object supports the following parameters.
+
+^ Parameter ^ Type ^ Description ^
+| applications | object | Rules on how to import applications. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new applications will be created; default: ''false''; \\ ''deleteMissing'' - ''(boolean)'' if set to ''true'', applications not present in the imported data will be deleted from the database; default: ''false''. |
+| discoveryRules | object | Rules on how to import LLD rules. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new LLD rules will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing LLD rules will be updated; default: ''false''; \\ ''deleteMissing'' - ''(boolean)'' if set to ''true'', LLD rules  not present in the imported data will be deleted from the database; default: ''false''.  |
+| graphs | object | Rules on how to import graphs. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new graphs will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing graphs will be updated; default: ''false''; \\ ''deleteMissing'' - ''(boolean)'' if set to ''true'', graphs  not present in the imported data will be deleted from the database; default: ''false''.  |
+| groups | object | Rules on how to import host groups. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new host groups will be created; default: ''false''. |
+| hosts | object | Rules on how to import hosts. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new hosts will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing hosts will be updated; default: ''false''.  |
+| httptests | object | Rules on how to import web scenarios. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new web scenarios will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing web scenarios will be updated; default: ''false''; \\ ''deleteMissing'' - ''(boolean)'' if set to ''true'', web scenarios not present in the imported data will be deleted from the database; default: ''false''. |
+| images | object | Rules on how to import images. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new images will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing images will be updated; default: ''false''.  |
+| items | object | Rules on how to import items. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new items will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing items will be updated; default: ''false''; \\ ''deleteMissing'' - ''(boolean)'' if set to ''true'', items  not present in the imported data will be deleted from the database; default: ''false''.  |
+| maps | object | Rules on how to import maps. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new maps will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing maps will be updated; default: ''false''. |
+| screens | object | Rules on how to import screens. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new screens will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing screens will be updated; default: ''false''. |
+| templateLinkage | object | Rules on how to import template links. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new links between templates and host will be created; default: ''false''. |
+| templates | object | Rules on how to import templates. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new templates will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing templates will be updated; default: ''false''. |
+| templateScreens | object | Rules on how to import template screens. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new template screens will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing template screens will be updated; default: ''false''; \\ ''deleteMissing'' - ''(boolean)'' if set to ''true'', template screens not present in the imported data will be deleted from the database; default: ''false''. |
+| triggers | object | Rules on how to import triggers. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new triggers will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing triggers will be updated; default: ''false''; \\ ''deleteMissing'' - ''(boolean)'' if set to ''true'', triggers not present in the imported data will be deleted from the database; default: ''false''. |
+| valueMaps | object | Rules on how to import value maps. \\ \\ Supported parameters: \\ ''createMissing'' - ''(boolean)'' if set to ''true'', new value maps will be created; default: ''false''; \\ ''updateExisting'' - ''(boolean)'' if set to ''true'', existing value maps will be updated; default: ''false''. |
+
+==== Return values ====
+
+''(boolean)'' Returns ''true'' if importing has been successful.
+
+==== Examples ====
+
+=== Importing hosts and items ===
+
+Import the host and items contained in the XML string. If any items in XML are missing, they will be deleted from the database, and everything else will be left unchanged.
+
+Request:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "method": "configuration.import",
+    "params": {
+        "format": "xml",
+        "rules": {
+            "applications": {
+                "createMissing": true,
+                "deleteMissing": false
+            },
+            "valueMaps": {
+                "createMissing": true,
+                "updateExisting": false
+            },
+            "hosts": {
+                "createMissing": true,
+                "updateExisting": true
+            },
+            "items": {
+                "createMissing": true,
+                "updateExisting": true,
+                "deleteMissing": true
+            }
+        },
+        "source": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><zabbix_export><version>4.0</version><date>2012-04-18T11:20:14Z</date><groups><group><name>Zabbix servers</name></group></groups><hosts><host><host>Export host</host><name>Export host</name><description/><proxy/><status>0</status><ipmi_authtype>-1</ipmi_authtype><ipmi_privilege>2</ipmi_privilege><ipmi_username/><ipmi_password/><tls_connect>1</tls_connect><tls_accept>1</tls_accept><tls_issuer/><tls_subject/><tls_psk_identity/><tls_psk/><templates/><groups><group><name>Zabbix servers</name></group></groups><interfaces><interface><default>1</default><type>1</type><useip>1</useip><ip>127.0.0.1</ip><dns/><port>10050</port><bulk>1</bulk><interface_ref>if1</interface_ref></interface></interfaces><applications><application><name>Application</name></application></applications><items><item><name>Item</name><type>0</type><snmp_community/><snmp_oid/><key>item.key</key><delay>30s</delay><history>90d</history><trends>365d</trends><status>0</status><value_type>3</value_type><allowed_hosts/><units/><snmpv3_contextname/><snmpv3_securityname/><snmpv3_securitylevel>0</snmpv3_securitylevel><snmpv3_authprotocol>0</snmpv3_authprotocol><snmpv3_authpassphrase/><snmpv3_privprotocol>0</snmpv3_privprotocol><snmpv3_privpassphrase/><params/><ipmi_sensor/><authtype>0</authtype><username/><password/><publickey/><privatekey/><port/><description/><inventory_link>0</inventory_link><applications><application><name>Application</name></application></applications><valuemap><name>Host status</name></valuemap><logtimefmt/><preprocessing/><interface_ref>if1</interface_ref><jmx_endpoint/><timeout>3s</timeout><url/><query_fields/><posts/><status_codes>200</status_codes><follow_redirects>1</follow_redirects><post_type>0</post_type><http_proxy/><headers/><retrieve_mode>0</retrieve_mode><request_method>1</request_method><output_format>0</output_format><allow_traps>0</allow_traps><ssl_cert_file/><ssl_key_file/><ssl_key_password/><verify_peer>0</verify_peer><verify_host>0</verify_host><master_item/></item></items><discovery_rules/><httptests/><macros/><inventory/></host></hosts><triggers><trigger><expression>{Export host:item.key.last()}=0</expression><name>Trigger</name><url/><status>0</status><priority>2</priority><description>Host trigger</description><type>0</type><recovery_mode>1</recovery_mode><recovery_expression>{Export host:item.key.last()}=2</recovery_expression><dependencies/><tags/><correlation_mode>1</correlation_mode><correlation_tag>Tag 01</correlation_tag><manual_close>0</manual_close></trigger></triggers><graphs><graph><name>Graph</name><width>900</width><height>200</height><yaxismin>0.0000</yaxismin><yaxismax>100.0000</yaxismax><show_work_period>1</show_work_period><show_triggers>1</show_triggers><type>0</type><show_legend>1</show_legend><show_3d>0</show_3d><percent_left>0.0000</percent_left><percent_right>0.0000</percent_right><ymin_type_1>0</ymin_type_1><ymax_type_1>0</ymax_type_1><ymin_item_1>0</ymin_item_1><ymax_item_1>0</ymax_item_1><graph_items><graph_item><sortorder>0</sortorder><drawtype>0</drawtype><color>C80000</color><yaxisside>0</yaxisside><calc_fnc>7</calc_fnc><type>0</type><item><host>Export host</host><key>item.key</key></item></graph_item></graph_items></graph></graphs><value_maps><value_map><name>Host status</name><mappings><mapping><value>0</value><newvalue>Up</newvalue></mapping><mapping><value>2</value><newvalue>Unreachable</newvalue></mapping></mappings></value_map></value_maps></zabbix_export>"
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+</code>
+
+Response:
+<code java>
+{
+    "jsonrpc": "2.0",
+    "result": true,
+    "id": 1
+}
+</code>
+
+==== Source ====
+
+CConfiguration::import() in //frontends/php/include/classes/api/services/CConfiguration.php//.

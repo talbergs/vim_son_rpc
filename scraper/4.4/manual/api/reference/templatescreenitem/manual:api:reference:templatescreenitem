@@ -1,0 +1,9 @@
+===== Template screen item =====
+
+This class is designed to work with template screen items. 
+
+Object references: \\
+  * [[manual:api:reference:templatescreenitem:object#screen_item|Template screen item]]
+
+Available methods: \\
+  * ''[[manual:api:reference:templatescreenitem:get|templatescreenitem.get]]'' - retrieve template screen items
